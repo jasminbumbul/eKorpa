@@ -1,0 +1,29 @@
+﻿@using eKorpa.EntityModels
+@{
+    ViewData["Title"] = "Prikaz";
+    var korisnici = (List<Korisnik>)ViewData["korisnici"];
+}
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Opcina stanovanja</th>
+    </tr>
+    </thead>
+
+   <tbody>
+        @foreach (var item in korisnici)
+        {
+            <tr>
+            <td>@item.Ime</td>
+            <td>@item.Prezime</td>
+            <td>@item.OpcinaStanovanja.NazivOpcine</td>
+            </tr>
+        }
+   </tbody>
+
+</table>
+
