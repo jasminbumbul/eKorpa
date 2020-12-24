@@ -14,6 +14,5 @@ namespace eKorpa.EntityModels
 
         public int KategorijaID { get; set; }
         public Kategorija Kategorija{ get; set; }
-
     }
 }
