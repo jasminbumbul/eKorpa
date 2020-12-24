@@ -60,7 +60,6 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\runtimes\win-
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.csprojAssemblyReference.cache
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.AssemblyInfoInputs.cache
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.AssemblyInfo.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.csproj.CoreCompileInputs.cache
@@ -163,3 +162,6 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\tr\Microsoft.
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Korisnik\Prikaz.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.csprojAssemblyReference.cache
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Artikal\Index.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Artikal\Dodaj.cshtml.g.cs

@@ -8841,7 +8841,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jasmin\\.nuget\\packages\\": {}
+    "C:\\Users\\Jasmin\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -8852,6 +8853,9 @@
       "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

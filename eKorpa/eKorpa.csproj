@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EF\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>
