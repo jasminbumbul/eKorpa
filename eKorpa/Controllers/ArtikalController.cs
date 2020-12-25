@@ -28,24 +28,50 @@ namespace eKorpa.Controllers
             return View(objekat);
         }
 
-        public IActionResult Dodaj()
+        public IActionResult Dodaj(int ArtikalID)
         {
-            var noviArtikal = new ArtikalDodajVM()
-            {
-                Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
-            };
-            
+            ArtikalDodajVM noviArtikal = ArtikalID == 0
+                ? new ArtikalDodajVM()
+                {
+                    Kategorije = _database.Kategorija.Select(k => new SelectListItem {Value = k.ID.ToString(), Text = k.NazivKategorije}).ToList()
+                }
+                : _database.Artikal
+                    .Where(x => x.ID == ArtikalID)
+                    .Select(x => new ArtikalDodajVM
+                    {
+                        ID = x.ID,
+                        KategorijaID = x.KategorijaID,
+                        NazivArtikla = x.Naziv,
+                        Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList() //optimizacija???
+                    }).Single();
+
             return View(noviArtikal);
         }
 
         public IActionResult Snimi(ArtikalDodajVM noviArtikal)
         {
-            Artikal artikal = new Artikal();
+            Artikal artikal;
+            if (noviArtikal.ID == 0)
+            {
+                artikal = new Artikal();
+                _database.Artikal.Add(artikal);
+            }
+            else
+            {
+                artikal = _database.Artikal.Find(noviArtikal.ID);
+            }
             artikal.Naziv = noviArtikal.NazivArtikla;
             artikal.KategorijaID = noviArtikal.KategorijaID;
-            _database.Artikal.Add(artikal);
             _database.SaveChanges();
 
+            return Redirect("/Artikal/");
+        }
+
+        public IActionResult Obrisi(int ArtikalID)
+        {
+            Artikal artikal = _database.Artikal.Find(ArtikalID);
+            _database.Remove(artikal);
+            _database.SaveChanges();
             return Redirect("/Artikal/");
         }
     }

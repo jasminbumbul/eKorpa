@@ -8,6 +8,7 @@ namespace eKorpa.ViewModels
 {
     public class ArtikalDodajVM
     {
+        public int ID { get; set; }
         public string NazivArtikla { get; set; }
         public int KategorijaID { get; set; }
         public List<SelectListItem> Kategorije { get; set; }

@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj": {}
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\DodajKategorija\\DodajKategorija.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj": {
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\DodajKategorija\\DodajKategorija.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj",
+        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\DodajKategorija\\DodajKategorija.csproj",
         "projectName": "DodajKategorija",
-        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj",
-        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\obj\\",
+        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\DodajKategorija\\DodajKategorija.csproj",
+        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\DodajKategorija\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {
-                "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj"
+              "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {
+                "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj"
               }
             }
           }
@@ -68,20 +65,17 @@
         }
       }
     },
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
+        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
         "projectName": "eKorpa",
-        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
-        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\obj\\",
+        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
+        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
