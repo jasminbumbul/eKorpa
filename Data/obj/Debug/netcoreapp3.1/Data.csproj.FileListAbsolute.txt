@@ -9,3 +9,4 @@ C:\Users\Jasmin\source\repos\eKorpa\Data\bin\Debug\netcoreapp3.1\Data.pdb
 C:\Users\Jasmin\source\repos\eKorpa\Data\obj\Debug\netcoreapp3.1\Data.dll
 C:\Users\Jasmin\source\repos\eKorpa\Data\obj\Debug\netcoreapp3.1\Data.pdb
 C:\Users\Jasmin\source\repos\eKorpa\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache
+C:\Users\Jasmin\source\repos\eKorpa\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache

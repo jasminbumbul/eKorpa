@@ -58,7 +58,7 @@ namespace eKorpa.Controllers
                     userRolesViewModel.Selected = false; 
                 } 
                 model.Add(userRolesViewModel); 
-            } 
+            }
             return View(model);
         }
         [HttpPost] 
@@ -81,8 +81,10 @@ namespace eKorpa.Controllers
             { 
                 ModelState.AddModelError("", "Cannot add selected roles to user"); 
                 return View(model); 
-            } 
-            return RedirectToAction("Index");
+            }
+            //return RedirectToAction("Index");
+            return Redirect("/Identity/Account/Manage/");
+
         }
         private async Task<List<string>> GetUserRoles(Korisnik user) 
         { 
