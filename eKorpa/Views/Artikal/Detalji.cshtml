@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@model eKorpa.ViewModels.ArtikalDetaljiVM
+
+<div class="artikal-galerija">  </div>
+
+<div class="detalji">
+    <h1>@Model.NazivArtikla</h1>
+    <h3>Cijena: xxxx kmeura</h3>
+    <h3>Detalji:<br/>
+        Veličina:<br/>
+        Materijal:<br/>
+    </h3>
+    <h3>Kategorija: @Model.Kategorija</h3>
+    <h5>Prodavac: @Model.Prodavac</h5>
+</div><br />
+<a href="/Artikal/Index">Artikli</a>
+
+
+<style>
+    .artikal-galerija {
+        position: relative;
+        max-width: 50%;
+        flex-basis: 50%;
+        padding: 0 15px 30px;
+    }
+    .detalji {
+        position: relative;
+        padding: 0 15px 30px;
+        width: 100%;
+    }
+    h1, h2, h3{
+        padding: 15px;
+    }
+</style>

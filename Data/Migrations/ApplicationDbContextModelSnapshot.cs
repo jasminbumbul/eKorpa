@@ -15,7 +15,7 @@ namespace eKorpa.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -161,6 +161,9 @@ namespace eKorpa.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdavacID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

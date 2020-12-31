@@ -12,6 +12,7 @@ namespace eKorpa.ViewModels
             public int ID { get; set; }
             public string NazivArtikla { get; set; }
             public string Kategorija { get; set; }
+            public string ProdavacId { get; set; }
         }
         public List<Row> rows { get; set; }
     }

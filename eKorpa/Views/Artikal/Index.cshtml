@@ -3,12 +3,13 @@
 @model ArtikalIndexVM
 
 
-<table class="table table-active">
+<table class="table table-active table-hover" id="tableId">
     <thead>
         <tr>
             <th>ID</th>
             <th>Naziv</th>
             <th>Kategorija</th>
+            <th>Prodavac</th>
         </tr>   
     </thead>
 
@@ -19,6 +20,7 @@
                 <td>@item.ID</td>
                 <td>@item.NazivArtikla</td>
                 <td>@item.Kategorija</td>
+                <td>@item.ProdavacId</td>
                 <td> <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a></td>
                 <td> <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a></td>
             </tr>
@@ -33,7 +35,27 @@
         color: lightcoral;
     }
 
-        body a {
-            color: lightblue;
-        }
+    body a {
+        color: lightblue;
+    }
 </style>
+
+<script>
+    function addRowHandlers() {
+        var table = document.getElementById("tableId");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = function (row) {
+                return function () {
+                    var cell = row.getElementsByTagName("td")[0];
+                    var id = cell.innerHTML;
+                    url = "/Artikal/Detalji?ArtikalID=" + id;
+                    window.open(url,'_self');
+                };
+            };
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = addRowHandlers();
+</script>

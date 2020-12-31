@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using eKorpa.ViewModels;
 using eKorpa.EntityModels;
@@ -21,13 +22,30 @@ namespace eKorpa.Controllers
                 {
                     ID = a.ID,
                     NazivArtikla = a.Naziv,
-                    Kategorija = a.Kategorija.NazivKategorije
+                    Kategorija = a.Kategorija.NazivKategorije,
+                    ProdavacId=a.ProdavacID
                 }).ToList()
             };
         
             return View(objekat);
         }
+        public IActionResult Detalji(int ArtikalID)
+        {
+            
+            ArtikalDetaljiVM noviArtikal = _database.Artikal
+                .Where(x => x.ID == ArtikalID)
+                .Select(x => new ArtikalDetaljiVM
+                {
+                    ID = x.ID,
+                    NazivArtikla = x.Naziv,
+                    Prodavac = x.ProdavacID,
+                    Kategorija=x.Kategorija.NazivKategorije,
+                    //Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
+                    }).Single();
 
+            return View(noviArtikal);
+        }
+        
         public IActionResult Dodaj(int ArtikalID)
         {
             ArtikalDodajVM noviArtikal = ArtikalID == 0
@@ -42,6 +60,7 @@ namespace eKorpa.Controllers
                         ID = x.ID,
                         KategorijaID = x.KategorijaID,
                         NazivArtikla = x.Naziv,
+                        ProdavacId = x.ProdavacID,
                         Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList() //optimizacija???
                     }).Single();
 
@@ -62,6 +81,8 @@ namespace eKorpa.Controllers
             }
             artikal.Naziv = noviArtikal.NazivArtikla;
             artikal.KategorijaID = noviArtikal.KategorijaID;
+            artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Korisnik korisnik;//naci korisnika preko userId
             _database.SaveChanges();
 
             return Redirect("/Artikal/");

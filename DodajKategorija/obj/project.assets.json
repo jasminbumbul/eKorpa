@@ -5649,23 +5649,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jasmin\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Ramki\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj",
+      "projectUniqueName": "C:\\Users\\Ramki\\Source\\Repos\\webapp\\DodajKategorija\\DodajKategorija.csproj",
       "projectName": "DodajKategorija",
-      "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\DodajKategorija.csproj",
-      "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\DodajKategorija\\obj\\",
+      "projectPath": "C:\\Users\\Ramki\\Source\\Repos\\webapp\\DodajKategorija\\DodajKategorija.csproj",
+      "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ramki\\Source\\Repos\\webapp\\DodajKategorija\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5679,8 +5675,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj"
+            "C:\\Users\\Ramki\\Source\\Repos\\webapp\\Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\Ramki\\Source\\Repos\\webapp\\Data\\Data.csproj"
             }
           }
         }
