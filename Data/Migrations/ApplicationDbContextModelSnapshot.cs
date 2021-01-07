@@ -157,6 +157,9 @@ namespace eKorpa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ImeProdavaca")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("KategorijaID")
                         .HasColumnType("int");
 

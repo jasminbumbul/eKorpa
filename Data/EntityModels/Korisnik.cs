@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace eKorpa.EntityModels
@@ -11,10 +12,8 @@ namespace eKorpa.EntityModels
         public string Ime { get; set; }
         public string Prezime { get; set; }
 
-        public Kupac Kupac { get; set; }
-        public Prodavac Prodavac { get; set; }
-
-
+        //public Kupac Kupac { get; set; }
+        //public Prodavac Prodavac { get; set; }
 
 
     }

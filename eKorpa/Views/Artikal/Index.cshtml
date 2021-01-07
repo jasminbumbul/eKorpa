@@ -1,33 +1,31 @@
 ﻿@using eKorpa.ViewModels
 
 @model ArtikalIndexVM
+<div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
 
+    @foreach (var item in Model.rows)
+    {
 
-<table class="table table-active table-hover" id="tableId">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Naziv</th>
-            <th>Kategorija</th>
-            <th>Prodavac</th>
-        </tr>   
-    </thead>
+        <div class="artikalCopy" style="border: double red 1px; width: 300px; margin:10px; cursor:pointer; text-align:center">
+            <div onclick="OtvoriDetaljeArtikla(@item.ID)">
+                <label> ID </label>
+                <span>@item.ID</span> <br />
+                <label> Naziv artikla </label>
+                <span>@item.NazivArtikla</span><br />
+                <label> Kategorija </label>
+                <span>@item.Kategorija</span><br />
+                <label> Naziv prodavača </label>
+            </div>
+            <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
+            <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
+            <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a>
+        </div>
 
-    <tbody>
-        @foreach (var item in Model.rows)
-        {
-            <tr>
-                <td>@item.ID</td>
-                <td>@item.NazivArtikla</td>
-                <td>@item.Kategorija</td>
-                <td>@item.ProdavacId</td>
-                <td> <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a></td>
-                <td> <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a></td>
-            </tr>
-        }
-    </tbody>
-</table>
-<a href="/Artikal/Dodaj" class="btn btn-secondary" >Dodaj</a>
+    }
+
+</div>
+
+<a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
 
 <style>
     body {
@@ -35,27 +33,36 @@
         color: lightcoral;
     }
 
-    body a {
-        color: lightblue;
-    }
+        body a {
+            color: lightblue;
+        }
 </style>
 
 <script>
-    function addRowHandlers() {
-        var table = document.getElementById("tableId");
-        var rows = table.getElementsByTagName("tr");
-        for (i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i];
-            var createClickHandler = function (row) {
-                return function () {
-                    var cell = row.getElementsByTagName("td")[0];
-                    var id = cell.innerHTML;
-                    url = "/Artikal/Detalji?ArtikalID=" + id;
-                    window.open(url,'_self');
-                };
-            };
-            currentRow.onclick = createClickHandler(currentRow);
-        }
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
     }
-    window.onload = addRowHandlers();
+
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
+    //function addRowHandlers() {
+    //    var table = document.getElementById("containerArtikala");
+    //    var rows = table.getElementsByTagName("artikalCopy");
+    //    for (i = 0; i < rows.length; i++) {
+    //        var currentRow = table.rows[i];
+    //        var createClickHandler = function (row) {
+    //            return function () {
+    //                //var cell = row.getElementsByTagName("td")[0];
+    //                var id = currentRow.innerHTML;
+    //                url = "/Artikal/Detalji?ArtikalID=" + id;
+    //                window.open(url, '_self');
+    //            };
+    //        };
+    //        currentRow.onclick = createClickHandler(currentRow);
+    //    }
+    //}
+    //window.onload = addRowHandlers();
 </script>

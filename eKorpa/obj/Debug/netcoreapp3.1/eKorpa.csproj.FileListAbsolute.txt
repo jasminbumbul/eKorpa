@@ -63,7 +63,6 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.AssemblyInfoInputs.cache
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.AssemblyInfo.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.csproj.CoreCompileInputs.cache
-C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.RazorAssemblyInfo.cache
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.RazorAssemblyInfo.cs
@@ -419,3 +418,12 @@ C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ro
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\UserRoles\Index.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\UserRoles\Manage.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Artikal\Detalji.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Artikal\Detalji.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\Index.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\eKorpa.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\VerifyEmail.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\EmailVerification.cshtml.g.cs

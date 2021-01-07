@@ -29,15 +29,15 @@ namespace eKorpa.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Korisnik>()
-            .HasOne<Kupac>(s => s.Kupac)
-            .WithOne(ad => ad.Korisnik)
-            .HasForeignKey<Kupac>(ad => ad.KorisnikID);
+           // modelBuilder.Entity<Korisnik>()
+           // .HasOne<Kupac>(s => s.Kupac)
+           // .WithOne(ad => ad.Korisnik)
+           // .HasForeignKey<Kupac>(ad => ad.KorisnikID);
 
-            modelBuilder.Entity<Korisnik>()
-           .HasOne<Prodavac>(s => s.Prodavac)
-           .WithOne(ad => ad.Korisnik)
-           .HasForeignKey<Prodavac>(ad => ad.KorisnikID);
+           // modelBuilder.Entity<Korisnik>()
+           //.HasOne<Prodavac>(s => s.Prodavac)
+           //.WithOne(ad => ad.Korisnik)
+           //.HasForeignKey<Prodavac>(ad => ad.KorisnikID);
 
           
 
