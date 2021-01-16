@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Data.EntityModels;
 
 namespace eKorpa.Data
 {
@@ -23,6 +24,7 @@ namespace eKorpa.Data
         public DbSet<Artikal> Artikal { get; set; }
         public DbSet<ArtikliKorisnici> ArtikalKorisnik  { get; set; }
         public DbSet<Kategorija> Kategorija  { get; set; }
+        public DbSet<Korpa> Korpa  { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
