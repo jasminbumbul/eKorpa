@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
+using eKorpa.ViewModels;
 
 namespace eKorpa.Controllers
 {
@@ -40,6 +43,7 @@ namespace eKorpa.Controllers
         {
             return View();
         }
+
         public async Task<IActionResult> VerifyEmail(string userID, string code)
         {
             var user = await _userManager.FindByIdAsync(userID);
@@ -50,12 +54,51 @@ namespace eKorpa.Controllers
 
             if (result.Succeeded)
             {
-                return Redirect("/Identity/Account/Login");
+                return View("VerifyEmail");
             }
 
             return BadRequest();
         }
 
+        public IActionResult ResetPassword(string code, string email)
+        {
+            //var user = await _userManager.FindByEmailAsync(email);
+            //if (user == null)
+            //    RedirectToAction("/Identity/Account/Login");
+            //var resetPassResult = await _userManager.ResetPasswordAsync(user, code,);
+            //if (!resetPassResult.Succeeded)
+            //{
+            //    foreach (var error in resetPassResult.Errors)
+            //    {
+            //        ModelState.TryAddModelError(error.Code, error.Description);
+            //    }
+            //    return Redirect("/Identity/Account/Login");
+            //}
+            //return RedirectToAction("ResetPasswordConfirmation");
+
+            return View("ResetPassword");
+        }
+
+
+        public async Task<IActionResult> ResetujPassword(ResetPassVM resetPassVM)
+        {
+
+            var user = await _userManager.FindByEmailAsync(resetPassVM.Email);
+            if (user == null)
+                RedirectToAction("/Identity/Account/Login");
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassVM.Code, resetPassVM.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return Redirect("/Identity/Account/Login");
+            }
+            return RedirectToAction("ResetPasswordConfirmation");
+        }
+
+        public IActionResult ResetPasswordConfirmation() { return View(); }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
