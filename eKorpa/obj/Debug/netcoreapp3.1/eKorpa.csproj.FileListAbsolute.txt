@@ -427,3 +427,11 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\NETCore.MailK
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\VerifyEmail.cshtml.g.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\EmailVerification.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\EmailVerification.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\VerifyEmail.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\Index.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Korpa\Detalji.cshtml.g.cs

@@ -1,6 +1,8 @@
 ﻿@using eKorpa.ViewModels
 
 @model ArtikalIndexVM
+
+<a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
 <div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
 
     @foreach (var item in Model.rows)
@@ -18,7 +20,8 @@
             </div>
             <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
             <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
-            <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a>
+            <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
+            <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
         </div>
 
     }

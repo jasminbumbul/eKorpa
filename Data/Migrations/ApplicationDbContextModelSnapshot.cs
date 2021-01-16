@@ -19,6 +19,30 @@ namespace eKorpa.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Data.EntityModels.Korpa", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArtikalID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("KupacID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("cijena")
+                        .HasColumnType("real");
+
+                    b.Property<int>("kolicina")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Korpa");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -284,47 +308,6 @@ namespace eKorpa.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("eKorpa.EntityModels.Kupac", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("KorisnikID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("KorisnikID")
-                        .IsUnique()
-                        .HasFilter("[KorisnikID] IS NOT NULL");
-
-                    b.ToTable("Kupac");
-                });
-
-            modelBuilder.Entity("eKorpa.EntityModels.Prodavac", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("KorisnikID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("isRadnja")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("KorisnikID")
-                        .IsUnique()
-                        .HasFilter("[KorisnikID] IS NOT NULL");
-
-                    b.ToTable("Prodavac");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -396,20 +379,6 @@ namespace eKorpa.Migrations
                     b.HasOne("eKorpa.EntityModels.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId");
-                });
-
-            modelBuilder.Entity("eKorpa.EntityModels.Kupac", b =>
-                {
-                    b.HasOne("eKorpa.EntityModels.Korisnik", "Korisnik")
-                        .WithOne("Kupac")
-                        .HasForeignKey("eKorpa.EntityModels.Kupac", "KorisnikID");
-                });
-
-            modelBuilder.Entity("eKorpa.EntityModels.Prodavac", b =>
-                {
-                    b.HasOne("eKorpa.EntityModels.Korisnik", "Korisnik")
-                        .WithOne("Prodavac")
-                        .HasForeignKey("eKorpa.EntityModels.Prodavac", "KorisnikID");
                 });
 #pragma warning restore 612, 618
         }
