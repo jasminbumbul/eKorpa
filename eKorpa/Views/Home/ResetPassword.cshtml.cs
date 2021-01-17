@@ -61,31 +61,50 @@ namespace eKorpa.Areas.Identity.Pages.Account
             }
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return Page();
+        //    //}
+
+        //    //var user = await _userManager.FindByEmailAsync(Input.Email);
+        //    //if (user == null)
+        //    //{
+        //    //    // Don't reveal that the user does not exist
+        //    //    return RedirectToPage("./ResetPasswordConfirmation");
+        //    //}
+
+        //    //var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+        //    //if (result.Succeeded)
+        //    //{
+        //    //    return RedirectToPage("./ResetPasswordConfirmation");
+        //    //}
+
+        //    //foreach (var error in result.Errors)
+        //    //{
+        //    //    ModelState.AddModelError(string.Empty, error.Description);
+        //    //}
+        //    //return Page();
+
+
+        //}
+
+        public async Task<IActionResult> ResetPassword(string code, string email)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var user = await _userManager.FindByEmailAsync(Input.Email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
+                RedirectToAction("/Identity/Account/Login");
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, code, Input.Password );
+            if (!resetPassResult.Succeeded)
             {
-                // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return Redirect("/Identity/Account/Login");
             }
-
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToPage("./ResetPasswordConfirmation");
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            return Page();
+            return RedirectToAction("ResetPasswordConfirmation");
         }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Net.Mail;
+using System.Net;
 
 namespace eKorpa.Areas.Identity.Pages.Account
 {
@@ -40,32 +42,43 @@ namespace eKorpa.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
+               
+                //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+           
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
-                }
-
-                // For more information on how to enable account confirmation and password reset please 
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
+                //var link = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Scheme);
+                //var link = Url.Action("ResetPassword", "Home", new { UserId = user.Id, code = code }, Request.Scheme, Request.Host.ToString());
+                var link = Url.Action("ResetPassword", "Home", new { code, email = user.Email }, Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                var email = Input.Email;
+                message.To.Add(new MailAddress(email.ToString()));
+                message.From = new MailAddress("ekorpa.business@gmail.com");
+                message.Subject = "Reset passworda";
+                message.Body = string.Format(body, "eKorpa", "ekorpa.business@gmail.com", link);
+
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "ekorpa.business@gmail.com",
+                        Password = "Mostar2020!"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                    return Redirect("ForgotPasswordConfirmation");
+                }
             }
 
-            return Page();
+            return Redirect("/Identity/Account/Login");
         }
     }
 }

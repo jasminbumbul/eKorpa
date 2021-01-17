@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using NETCore.MailKit.Core;
+using System.Net.Mail;
+using System.Security.Claims;
+using Microsoft.VisualBasic;
+using System.Net;
 
 namespace eKorpa.Areas.Identity.Pages.Account
 {
@@ -68,8 +72,8 @@ namespace eKorpa.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First Name")]
-            public string FirstName { get; set; }   
-            
+            public string FirstName { get; set; }
+
             [Required]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
@@ -80,7 +84,7 @@ namespace eKorpa.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
+     
         [HttpPost]
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -88,7 +92,7 @@ namespace eKorpa.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime= Input.FirstName, Prezime=Input.LastName };
+                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime = Input.FirstName, Prezime = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -96,60 +100,62 @@ namespace eKorpa.Areas.Identity.Pages.Account
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var link = Url.Action("VerifyEmail", "Home", new { userID = user.Id, code }, Request.Scheme, Request.Host.ToString());
-                    await _emailService.SendAsync(Input.Email, "Confirm your email", $"<a href=\"{link}\">Verify Email</a>",true);
+                    //await _emailService.SendAsync(Input.Email, "Confirm your email", $"<a href=\"{link}\">Verify Email</a>", true);
 
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                    //    protocol: Request.Scheme);
+                    var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                    var message = new MailMessage();
+                    var email = this.Input.Email;
+                    message.To.Add(new MailAddress(email.ToString()));
+                    message.From = new MailAddress("ekorpa.business@gmail.com");
+                    message.Subject = "Verifikacija e-maila";
+                    message.Body = string.Format(body, "eKorpa", "ekorpa.business@gmail.com", link);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-                    //_userManager.Options.SignIn.RequireConfirmedAccount = true;
+                    message.IsBodyHtml = true;
 
-
-                    //checking if the users account is confirmed
-                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    //{
-                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    //}
-                    //else
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //    return LocalRedirect(returnUrl);
-                    //}
-                    return RedirectToAction("EmailVerification");
+                    using (var smtp = new SmtpClient())
+                    {
+                        var credential = new NetworkCredential
+                        {
+                            UserName = "ekorpa.business@gmail.com",
+                            Password = "Mostar2020!"
+                        };
+                        smtp.Credentials = credential;
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        await smtp.SendMailAsync(message);
+                        return RedirectToAction("EmailVerification");
+                    }
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return Redirect("Identity/Account/Login");
             }
-            
-
-            // If we got this far, something failed, redisplay form
-            return Page();
+            //foreach (var error in result.Errors)
+            //{
+            //    ModelState.AddModelError(string.Empty, error.Description);
+            //}
+            return Redirect("/Identity/Account/Login");
         }
 
-        public async Task<IActionResult> VerifyEmail(string userID, string code)
-        {
-            var user = await _userManager.FindByIdAsync(userID);
 
-            if (user == null) return BadRequest();
-
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-
-            if (result.Succeeded)
-            {
-                return Redirect("/Identity/Account/Login");
-            }
-
-            return BadRequest();
-        }
-
-        public IActionResult EmailVerification() { return Redirect("/Home/EmailVerification"); }
+        //// If we got this far, something failed, redisplay form
+        //return Page();
     }
+
+    //public async Task<IActionResult> VerifyEmail(string userID, string code)
+    //{
+    //    var user = await _userManager.FindByIdAsync(userID);
+
+    //    if (user == null) return BadRequest();
+
+    //    var result = await _userManager.ConfirmEmailAsync(user, code);
+
+    //    if (result.Succeeded)
+    //    {
+    //        return Redirect("/Identity/Account/Login");
+    //    }
+
+    //    return BadRequest();
+    //}
+
+    //public IActionResult EmailVerification() { return Redirect("/Home/EmailVerification"); }
+
 }
