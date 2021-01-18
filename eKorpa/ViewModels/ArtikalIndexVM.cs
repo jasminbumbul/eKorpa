@@ -15,7 +15,11 @@ namespace eKorpa.ViewModels
             public string Kategorija { get; set; }
             public string ProdavacId { get; set; }
             public string ImeProdavaca { get; set; }
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
             public List<byte[]> Slika { get; set; }
+========================================================================
+            public float Cijena { get; set; }
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
         }
         public List<Row> rows { get; set; }
     }

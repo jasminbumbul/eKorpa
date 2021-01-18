@@ -8,17 +8,36 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div style="display:none">
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
                 <input asp-for="ID" />
+========================================================================
+        <input asp-for="ID" />
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
             </div>
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
             <div class="form-group">
                 <label asp-for="NazivArtikla" class="control-label"></label>
                 <input asp-for="NazivArtikla" />
                 <span asp-validation-for="NazivArtikla" class="text-danger"></span>
+========================================================================
+    <div>
+        <label>Naziv artikla:</label>
+        <input asp-for="NazivArtikla" />
+    </div>
+    <div>
+        <label>Cijena artikla:</label>
+        <input asp-for="Cijena" />
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
             </div>
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
             <div class="form-group">
                 <label asp-for="Kategorije" class="control-label"></label>
+========================================================================
+    <div>
+        <label>Kategorija:</label>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
                 <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
                 <span asp-validation-for="Kategorije" class="text-danger"></span>
             </div>
@@ -34,6 +53,11 @@
             <div class="form-group">
                 <input type="submit" value="Snimi" class="btn btn-primary" />
             </div>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
+========================================================================
+    <input type="submit" class="btn btn-warning" value="snimi artikal" name="Snimi" />
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
 
         </form>
     </div>
