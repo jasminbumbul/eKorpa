@@ -2,8 +2,6 @@
 
 @model ArtikalIndexVM
 
-@{
-}
 
 <form asp-action="Index" asp-controller="Artikal">
     <input name="querry" placeholder="npr: majica" />
@@ -26,6 +24,7 @@
                 <label> Kategorija </label>
                 <span>@item.Kategorija</span><br />
                 <label> Slika</label>
+               
                 @foreach (var slike in item.Slika)
                 {
                     @if (slike != null)
@@ -35,62 +34,59 @@
                         <img src="@imgsrc" alt="Alternate Text" /><br />
                     }
                 }
-            </div>
-            <label> Naziv prodavača </label>
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
-========================================================================
-                <span>@item.ImeProdavaca</span><br />
-                <label> Cijena artikla </label>
-                <span>@item.Cijena</span><br />
-            </div>
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
-            <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
-            <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
-            <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
-            <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
+            <label> Cijena artikla </label>
+            <span>@item.Cijena</span><br />
         </div>
-    }
+            <label> Naziv prodavača </label>
+        <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
+        <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
+        <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
+        <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
+    </div>
+}
+    </div>
 
-</div>
+    <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
 
-<a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
-
-<style>
-    body {
-        background-color: rgb(45,45,45);
-        color: lightcoral;
-    }
-
-        body a {
-            color: lightblue;
+    <style>
+        body {
+            background-color: rgb(45,45,45);
+            color: lightcoral;
         }
-</style>
 
-<script>
-    function OtvoriProfilProdavaca(prodavacID) {
-        var url = "/Profil/Index?KorisnikID=" + prodavacID;
-        window.open(url, '_self');
-    }
+            body a {
+                color: lightblue;
+            }
+            img{
+                width:200px;
+            }
+    </style>
 
-    function OtvoriDetaljeArtikla(artikalID) {
-        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
-        window.open(url, '_self');
-    }
-        //function addRowHandlers() {
-        //    var table = document.getElementById("containerArtikala");
-        //    var rows = table.getElementsByTagName("artikalCopy");
-        //    for (i = 0; i < rows.length; i++) {
-        //        var currentRow = table.rows[i];
-        //        var createClickHandler = function (row) {
-        //            return function () {
-        //                //var cell = row.getElementsByTagName("td")[0];
-        //                var id = currentRow.innerHTML;
-        //                url = "/Artikal/Detalji?ArtikalID=" + id;
-        //                window.open(url, '_self');
-        //            };
-        //        };
-        //        currentRow.onclick = createClickHandler(currentRow);
-        //    }
-        //}
-        //window.onload = addRowHandlers();
-</script>
+    <script>
+        function OtvoriProfilProdavaca(prodavacID) {
+            var url = "/Profil/Index?KorisnikID=" + prodavacID;
+            window.open(url, '_self');
+        }
+
+        function OtvoriDetaljeArtikla(artikalID) {
+            var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+            window.open(url, '_self');
+        }
+            //function addRowHandlers() {
+            //    var table = document.getElementById("containerArtikala");
+            //    var rows = table.getElementsByTagName("artikalCopy");
+            //    for (i = 0; i < rows.length; i++) {
+            //        var currentRow = table.rows[i];
+            //        var createClickHandler = function (row) {
+            //            return function () {
+            //                //var cell = row.getElementsByTagName("td")[0];
+            //                var id = currentRow.innerHTML;
+            //                url = "/Artikal/Detalji?ArtikalID=" + id;
+            //                window.open(url, '_self');
+            //            };
+            //        };
+            //        currentRow.onclick = createClickHandler(currentRow);
+            //    }
+            //}
+            //window.onload = addRowHandlers();
+    </script>

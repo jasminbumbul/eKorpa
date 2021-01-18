@@ -26,8 +26,7 @@ namespace eKorpa.Controllers
         {
             this._hostEnvironment = hostEnvironment;
         }
-
-        public IActionResult Index(string querry= null)
+        public IActionResult Index(string querry = null)
         {
             ArtikalIndexVM objekat;
             if (querry == null)
@@ -40,13 +39,9 @@ namespace eKorpa.Controllers
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
                         ImeProdavaca = a.ImeProdavaca,
-                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x=> x.SlikaFile).ToList()
-========================================================================
-                    ImeProdavaca= a.ImeProdavaca,
-                    Cijena = a.Cijena
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                        Cijena=a.Cijena
                     }).ToList()
                 };
             }
@@ -54,36 +49,19 @@ namespace eKorpa.Controllers
             {
                 objekat = new ArtikalIndexVM
                 {
-                    rows = _database.Artikal.Where(x=> x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Select(a => new ArtikalIndexVM.Row
+                    rows = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca
+                        ImeProdavaca = a.ImeProdavaca,
+                        Cijena=a.Cijena,
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList()
                     }).ToList()
                 };
             }
-
-
             return View(objekat);
-        }
-        public IActionResult Detalji(int ArtikalID)
-        {
-            
-            ArtikalDetaljiVM noviArtikal = _database.Artikal
-                .Where(x => x.ID == ArtikalID)
-                .Select(x => new ArtikalDetaljiVM
-                {
-                    ID = x.ID,
-                    NazivArtikla = x.Naziv,
-                    Prodavac = x.ProdavacID,
-                    Kategorija=x.Kategorija.NazivKategorije,
-                    Cijena = x.Cijena
-                    //Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
-                    }).Single();
-
-            return View(noviArtikal);
         }
 
         public IActionResult Dodaj(int ArtikalID)
@@ -94,20 +72,45 @@ namespace eKorpa.Controllers
                     Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
                 }
                 : _database.Artikal
-                    .Where(x => x.ID == ArtikalID)
-                    .Select(x => new ArtikalDodajVM
+                    .Where(y => y.ID == ArtikalID)
+                    .Select(y => new ArtikalDodajVM
                     {
-                        ID = x.ID,
-                        KategorijaID = x.KategorijaID,
-                        NazivArtikla = x.Naziv,
-                        ProdavacId = x.ProdavacID,
-                        ImeProdavaca= x.ImeProdavaca,
-                        Cijena = x.Cijena,
-                        Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList() //optimizacija???
+                        ID = y.ID,
+                        KategorijaID = y.KategorijaID,
+                        NazivArtikla = y.Naziv,
+                        ProdavacId = y.ProdavacID,
+                        ImeProdavaca = y.ImeProdavaca,
+                        Cijena = y.Cijena,
+                        Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),//optimizacija???
+                        Slike= _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
+                        SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList()
                     }).Single();
 
             return View(noviArtikal);
         }
+
+        public IActionResult Detalji(int ArtikalID)
+        {
+
+            ArtikalDetaljiVM noviArtikal = _database.Artikal
+                .Where(x => x.ID == ArtikalID)
+                .Select(x => new ArtikalDetaljiVM
+                {
+                    ID = x.ID,
+                    NazivArtikla = x.Naziv,
+                    Prodavac = x.ProdavacID,
+                    Kategorija = x.Kategorija.NazivKategorije,
+                    Cijena = x.Cijena,
+                    Slike = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.SlikaFile).ToList(),
+                    SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
+
+                    //Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
+                }).Single();
+
+            return View(noviArtikal);
+        }
+
+
 
         public async Task<IActionResult> Snimi(ArtikalDodajVM noviArtikal)
         {
@@ -116,6 +119,8 @@ namespace eKorpa.Controllers
             {
                 artikal = new Artikal();
                 _database.Artikal.Add(artikal);
+                artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                artikal.ImeProdavaca = _database.Users.Find(artikal.ProdavacID).Ime + " " + _database.Users.Find(artikal.ProdavacID).Prezime;
             }
             else
             {
@@ -123,51 +128,34 @@ namespace eKorpa.Controllers
             }
             artikal.Naziv = noviArtikal.NazivArtikla;
             artikal.KategorijaID = noviArtikal.KategorijaID;
-            artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            artikal.ImeProdavaca = _database.Users.Find(artikal.ProdavacID).Ime + " " + _database.Users.Find(artikal.ProdavacID).Prezime;
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
+            artikal.Cijena = noviArtikal.Cijena;
             //Korisnik korisnik;//naci korisnika preko userId
-            _database.Add(artikal);
             _database.SaveChanges();
-
             Artikal artikalID = _database.Artikal.Find(artikal.ID);
-
-
-
-
-
-            foreach (var slika in noviArtikal.Slika)
+            if (noviArtikal.Slika != null)
             {
-            string uniqueFileName = UploadedFile(noviArtikal);
-
-                if (slika != null)
-
+                foreach (var slika in noviArtikal.Slika)
                 {
-                    //Convert Image to byte and save to database
-                    if (slika.Length > 0)
+                    string uniqueFileName = UploadedFile(noviArtikal);
+                    if (slika != null)
                     {
-                        byte[] p1 = null;
-                        using (var fs1 = slika.OpenReadStream())
-                        using (var ms1 = new MemoryStream())
+                        //Convert Image to byte and save to database
+                        if (slika.Length > 0)
                         {
-                            fs1.CopyTo(ms1);
-                            p1 = ms1.ToArray();
-                            Slika newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1 };
-                            _database.Slika.Add(newImage);
+                            byte[] p1 = null;
+                            using (var fs1 = slika.OpenReadStream())
+                            using (var ms1 = new MemoryStream())
+                            {
+                                fs1.CopyTo(ms1);
+                                p1 = ms1.ToArray();
+                                Slika newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1 };
+                                _database.Slika.Add(newImage);
+                            }
                         }
                     }
                 }
             }
-========================================================================
-            artikal.Cijena = noviArtikal.Cijena;
-            Korisnik korisnik;//naci korisnika preko userId
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cijena
-
-
-
-
             _database.SaveChanges();
-
             return Redirect("/Artikal/");
         }
 
@@ -189,15 +177,20 @@ namespace eKorpa.Controllers
             }
             return uniqueFileName;
         }
-
-
-
         public IActionResult Obrisi(int ArtikalID)
         {
             Artikal artikal = _database.Artikal.Find(ArtikalID);
             _database.Remove(artikal);
             _database.SaveChanges();
             return Redirect("/Artikal/");
+        }
+
+        public IActionResult ObrisiSliku(int SlikaID,int ArtikalID)
+        {
+            var slika = _database.Slika.Find(SlikaID);
+            _database.Slika.Remove(slika);
+            _database.SaveChanges();
+            return Redirect("/Artikal/Dodaj?ArtikalID="+ArtikalID);
         }
     }
 }
