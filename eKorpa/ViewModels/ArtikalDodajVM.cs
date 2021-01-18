@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Data.EntityModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +16,7 @@ namespace eKorpa.ViewModels
         public string ProdavacId { get; set; }
         public string ImeProdavaca { get; set; }
         public int KategorijaID { get; set; }
+        public List<IFormFile> Slika { get; set; }
         public List<SelectListItem> Kategorije { get; set; }
     }
 }

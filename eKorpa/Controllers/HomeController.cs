@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using eKorpa.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using eKorpa.Data;
 
 namespace eKorpa.Controllers
 {
@@ -18,6 +20,7 @@ namespace eKorpa.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<Korisnik> _userManager;
+        ApplicationDbContext _database = new ApplicationDbContext();
 
 
         public HomeController(ILogger<HomeController> logger, UserManager<Korisnik> userManager)
@@ -28,9 +31,8 @@ namespace eKorpa.Controllers
 
         public IActionResult Index()
         {
-            //promijenjeno da bi odmah otvorilo pocetnu sa artiklima
-            //return View();
-            return Redirect("/Artikal/");
+            return View();
+            //return Redirect("/Artikal/");
 
         }
 
@@ -104,6 +106,11 @@ namespace eKorpa.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Pretraga(string querry)
+        {
+            return Redirect("/Artikal/Index?querry="+querry);
         }
     }
 }

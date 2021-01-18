@@ -43,6 +43,30 @@ namespace eKorpa.Migrations
                     b.ToTable("Korpa");
                 });
 
+            modelBuilder.Entity("Data.EntityModels.Slika", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArtikalID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naslov")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<byte[]>("SlikaFile")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Slika");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

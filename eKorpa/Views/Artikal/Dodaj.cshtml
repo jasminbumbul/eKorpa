@@ -2,19 +2,39 @@
 
 @model ArtikalDodajVM
 
-<form asp-action="Snimi" asp-controller="Artikal">
-    <div style="display:none">
-        <input asp-for="ID"/>
-    </div>
-    <div>
-        <label>Naziv artikla:</label>
-        <input asp-for="NazivArtikla"/>
-    </div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Snimi" asp-controller="Artikal" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div>
-        <label>Kategorija:</label>
-        <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
-    </div>
+            <div style="display:none">
+                <input asp-for="ID" />
+            </div>
 
-    <input type="submit" class="btn btn-warning" value="snimi artikal" name="Snimi"/>
-</form> 
+            <div class="form-group">
+                <label asp-for="NazivArtikla" class="control-label"></label>
+                <input asp-for="NazivArtikla" />
+                <span asp-validation-for="NazivArtikla" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Kategorije" class="control-label"></label>
+                <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
+                <span asp-validation-for="Kategorije" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+            <label asp-for="Slika" class="control-label"></label>
+            <input asp-for="Slika" accept="image/*" multiple/>
+            <span asp-validation-for="Slika"  class="text-danger"></span>
+        </div>
+
+          
+
+            <div class="form-group">
+                <input type="submit" value="Snimi" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>

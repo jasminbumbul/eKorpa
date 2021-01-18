@@ -130,3 +130,8 @@ C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\Data
 C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\Data.pdb
 C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\Data.dll
 C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll

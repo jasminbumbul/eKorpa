@@ -16,16 +16,17 @@ namespace eKorpa.Controllers
         ApplicationDbContext _database = new ApplicationDbContext();
         public IActionResult Detalji()
         {
+            var kupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var objekat = new KorpaDetaljiVM
             {
-                rows = _database.Korpa.Select(x => new KorpaDetaljiVM.Row
+                rows = _database.Korpa.Where(x=> x.KupacID==kupacID).Select(x => new KorpaDetaljiVM.Row
                 {
                     ID = x.ID,
                     Kupac = _database.Users.Where(z => z.Id == x.KupacID).Select(p => p.Ime).Single() + " " + _database.Users.Where(z => z.Id == x.KupacID).Select(p => p.Prezime).Single(),
                     NazivArtikla = _database.Artikal.Where(z=>z.ID == x.ArtikalID).Select(p=>p.Naziv).Single(),
                     Kategorija = _database.Artikal.Where(z => z.ID == x.ArtikalID).Select(p => p.Kategorija.NazivKategorije).Single(),
-                    kolicina = x.kolicina,
-                    cijena = x.kolicina
+                    Kolicina = x.kolicina,
+                    Cijena = x.kolicina
                 }).ToList()
             };
             

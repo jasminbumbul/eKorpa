@@ -2,12 +2,21 @@
 
 @model ArtikalIndexVM
 
-<a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
-<div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
+@{
+}
 
+<form asp-action="Index" asp-controller="Artikal">
+    <input name="querry" placeholder="npr: majica" />
+    <button type="submit" class="btn btn-dark">Pretraži</button>
+</form>
+
+<div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
+    @if (Model.rows.Count == 0)
+    {
+        <h1>Nema rezultata</h1>
+    }
     @foreach (var item in Model.rows)
     {
-
         <div class="artikalCopy" style="border: double red 1px; width: 300px; margin:10px; cursor:pointer; text-align:center">
             <div onclick="OtvoriDetaljeArtikla(@item.ID)">
                 <label> ID </label>
@@ -16,14 +25,23 @@
                 <span>@item.NazivArtikla</span><br />
                 <label> Kategorija </label>
                 <span>@item.Kategorija</span><br />
-                <label> Naziv prodavača </label>
+                <label> Slika</label>
+                @foreach (var slike in item.Slika)
+                {
+                    @if (slike != null)
+                    {
+                        var base64 = Convert.ToBase64String(slike);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <img src="@imgsrc" alt="Alternate Text" /><br />
+                    }
+                }
             </div>
+            <label> Naziv prodavača </label>
             <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
             <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
             <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
             <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
         </div>
-
     }
 
 </div>
@@ -51,21 +69,21 @@
         var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
         window.open(url, '_self');
     }
-    //function addRowHandlers() {
-    //    var table = document.getElementById("containerArtikala");
-    //    var rows = table.getElementsByTagName("artikalCopy");
-    //    for (i = 0; i < rows.length; i++) {
-    //        var currentRow = table.rows[i];
-    //        var createClickHandler = function (row) {
-    //            return function () {
-    //                //var cell = row.getElementsByTagName("td")[0];
-    //                var id = currentRow.innerHTML;
-    //                url = "/Artikal/Detalji?ArtikalID=" + id;
-    //                window.open(url, '_self');
-    //            };
-    //        };
-    //        currentRow.onclick = createClickHandler(currentRow);
-    //    }
-    //}
-    //window.onload = addRowHandlers();
+        //function addRowHandlers() {
+        //    var table = document.getElementById("containerArtikala");
+        //    var rows = table.getElementsByTagName("artikalCopy");
+        //    for (i = 0; i < rows.length; i++) {
+        //        var currentRow = table.rows[i];
+        //        var createClickHandler = function (row) {
+        //            return function () {
+        //                //var cell = row.getElementsByTagName("td")[0];
+        //                var id = currentRow.innerHTML;
+        //                url = "/Artikal/Detalji?ArtikalID=" + id;
+        //                window.open(url, '_self');
+        //            };
+        //        };
+        //        currentRow.onclick = createClickHandler(currentRow);
+        //    }
+        //}
+        //window.onload = addRowHandlers();
 </script>

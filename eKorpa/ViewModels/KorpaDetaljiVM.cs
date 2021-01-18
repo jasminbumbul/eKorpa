@@ -13,8 +13,8 @@ namespace eKorpa.ViewModels
             public string Kupac { get; set; }
             public string NazivArtikla { get; set; }
             public string Kategorija { get; set; }
-            public int kolicina { get; set; }
-            public float cijena { get; set; }
+            public int Kolicina { get; set; }
+            public float Cijena { get; set; }
         }
         public List<Row> rows { get; set; }
     }
