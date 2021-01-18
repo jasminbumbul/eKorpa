@@ -25,7 +25,7 @@ namespace eKorpa.Controllers
                     NazivArtikla = _database.Artikal.Where(z=>z.ID == x.ArtikalID).Select(p=>p.Naziv).Single(),
                     Kategorija = _database.Artikal.Where(z => z.ID == x.ArtikalID).Select(p => p.Kategorija.NazivKategorije).Single(),
                     kolicina = x.kolicina,
-                    cijena = x.kolicina
+                    cijena = x.kolicina * _database.Artikal.Where(z => z.ID == x.ArtikalID).Select(p => p.Cijena).Single(),
                 }).ToList()
             };
             
@@ -59,7 +59,7 @@ namespace eKorpa.Controllers
                 korpa.KupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 _database.Korpa.Add(korpa);
                 korpa.kolicina = 1;
-                korpa.cijena = 1;
+                korpa.cijena = korpa.kolicina * _database.Artikal.Find(ArtikalID).Cijena;
             }
             _database.SaveChanges();
             return Redirect("/Korpa/Detalji");

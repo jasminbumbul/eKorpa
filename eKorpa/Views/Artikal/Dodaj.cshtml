@@ -4,17 +4,20 @@
 
 <form asp-action="Snimi" asp-controller="Artikal">
     <div style="display:none">
-        <input asp-for="ID"/>
+        <input asp-for="ID" />
     </div>
     <div>
         <label>Naziv artikla:</label>
-        <input asp-for="NazivArtikla"/>
+        <input asp-for="NazivArtikla" />
     </div>
-
+    <div>
+        <label>Cijena artikla:</label>
+        <input asp-for="Cijena" />
+    </div>
     <div>
         <label>Kategorija:</label>
         <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
     </div>
 
-    <input type="submit" class="btn btn-warning" value="snimi artikal" name="Snimi"/>
+    <input type="submit" class="btn btn-warning" value="snimi artikal" name="Snimi" />
 </form> 

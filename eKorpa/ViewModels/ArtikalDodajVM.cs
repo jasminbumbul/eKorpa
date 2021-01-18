@@ -13,6 +13,7 @@ namespace eKorpa.ViewModels
         public string ProdavacId { get; set; }
         public string ImeProdavaca { get; set; }
         public int KategorijaID { get; set; }
+        public float Cijena { get; set; }
         public List<SelectListItem> Kategorije { get; set; }
     }
 }

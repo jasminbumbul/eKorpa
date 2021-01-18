@@ -24,7 +24,8 @@ namespace eKorpa.Controllers
                     NazivArtikla = a.Naziv,
                     Kategorija = a.Kategorija.NazivKategorije,
                     ProdavacId = a.ProdavacID,
-                    ImeProdavaca= a.ImeProdavaca
+                    ImeProdavaca= a.ImeProdavaca,
+                    Cijena = a.Cijena
                 }).ToList()
             };
 
@@ -42,6 +43,7 @@ namespace eKorpa.Controllers
                     NazivArtikla = x.Naziv,
                     Prodavac = x.ProdavacID,
                     Kategorija=x.Kategorija.NazivKategorije,
+                    Cijena = x.Cijena
                     //Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
                     }).Single();
 
@@ -64,6 +66,7 @@ namespace eKorpa.Controllers
                         NazivArtikla = x.Naziv,
                         ProdavacId = x.ProdavacID,
                         ImeProdavaca= x.ImeProdavaca,
+                        Cijena = x.Cijena,
                         Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList() //optimizacija???
                     }).Single();
 
@@ -86,6 +89,7 @@ namespace eKorpa.Controllers
             artikal.KategorijaID = noviArtikal.KategorijaID;
             artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             artikal.ImeProdavaca = _database.Users.Find(artikal.ProdavacID).Ime + " " + _database.Users.Find(artikal.ProdavacID).Prezime;
+            artikal.Cijena = noviArtikal.Cijena;
             Korisnik korisnik;//naci korisnika preko userId
             _database.SaveChanges();
 
