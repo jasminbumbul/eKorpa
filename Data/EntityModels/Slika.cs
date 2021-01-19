@@ -24,5 +24,6 @@ namespace Data.EntityModels
         public byte[] SlikaFile { get; set; }
 
         public int ArtikalID { get; set; }
+        public int Thumbnail { get; set; }
     }
 }
