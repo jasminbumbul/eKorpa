@@ -38,6 +38,7 @@
                             var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
                             <img src="@imgsrc" alt="Alternate Text" /><br />
                             <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">Obriši</a>
+                            <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">Postavi kao thumbnail</a>
                         }
                     }
 

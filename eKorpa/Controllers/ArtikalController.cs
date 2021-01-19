@@ -41,7 +41,8 @@ namespace eKorpa.Controllers
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                        Cijena=a.Cijena
+                        Cijena=a.Cijena,
+                        Thumbnail=_database.Slika.Where(x=> x.ArtikalID==a.ID).Select(x=> x.Thumbnail).ToList()
                     }).ToList()
                 };
             }
@@ -57,7 +58,8 @@ namespace eKorpa.Controllers
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
                         Cijena=a.Cijena,
-                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList()
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
                     }).ToList()
                 };
             }
@@ -191,6 +193,19 @@ namespace eKorpa.Controllers
             _database.Slika.Remove(slika);
             _database.SaveChanges();
             return Redirect("/Artikal/Dodaj?ArtikalID="+ArtikalID);
+        }
+
+        public IActionResult SetThumbnail(int SlikaID,int ArtikalID)
+        {
+            var slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID);
+            foreach (var item in slikeArtikla)
+            {
+                item.Thumbnail = 0;
+            }
+            var slika = _database.Slika.Where(x => x.ID == SlikaID).Single();
+            slika.Thumbnail = 1;
+            _database.SaveChanges();
+            return Redirect("/Artikal/Dodaj?ArtikalID=" + ArtikalID);
         }
     }
 }

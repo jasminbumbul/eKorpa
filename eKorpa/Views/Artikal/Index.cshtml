@@ -24,54 +24,67 @@
                 <label> Kategorija </label>
                 <span>@item.Kategorija</span><br />
                 <label> Slika</label>
-               
-                @foreach (var slike in item.Slika)
+
+                @if(item.Slika.Count==0)
                 {
-                    @if (slike != null)
+                    <h1>Nema slike</h1>
+                }
+
+                @for (int i = 0; i < item.Slika.Count; i++)
+                {
+                    @if (item.Slika[i] != null && item.Thumbnail[i] == 1)
                     {
-                        var base64 = Convert.ToBase64String(slike);
+                        var base64 = Convert.ToBase64String(item.Slika[i]);
                         var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
                         <img src="@imgsrc" alt="Alternate Text" /><br />
                     }
                 }
-            <label> Cijena artikla </label>
-            <span>@item.Cijena</span><br />
-        </div>
+
+                <label> Cijena artikla </label>
+                <span>@item.Cijena</span><br />
+            </div>
             <label> Naziv prodavača </label>
-        <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
-        <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
-        <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
-        <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
-    </div>
-}
-    </div>
-
+            <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+                <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
+                <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
+            }
+            <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
+        </div>
+    }
+</div>
+@if (User.IsInRole("Admin"))
+{
     <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+}
 
-    <style>
-        body {
-            background-color: rgb(45,45,45);
-            color: lightcoral;
+<style>
+    body {
+        background-color: rgb(45,45,45);
+        color: lightcoral;
+    }
+
+        body a {
+            color: lightblue;
         }
 
-            body a {
-                color: lightblue;
-            }
-            img{
-                width:200px;
-            }
-    </style>
+    img {
+        width: 200px;
+    }
+</style>
 
-    <script>
-        function OtvoriProfilProdavaca(prodavacID) {
-            var url = "/Profil/Index?KorisnikID=" + prodavacID;
-            window.open(url, '_self');
-        }
+<script>
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
+    }
 
-        function OtvoriDetaljeArtikla(artikalID) {
-            var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
-            window.open(url, '_self');
-        }
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
             //function addRowHandlers() {
             //    var table = document.getElementById("containerArtikala");
             //    var rows = table.getElementsByTagName("artikalCopy");
@@ -89,4 +102,4 @@
             //    }
             //}
             //window.onload = addRowHandlers();
-    </script>
+</script>
