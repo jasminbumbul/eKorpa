@@ -13,6 +13,15 @@
     <span>@Model.Email</span> <br />
     <label> BrojTelefona </label>
     <span>@Model.BrojTelefona</span> <br />
+    <label> Postavljeni artikli </label>
+    @if (Model.PostavljeniArtikli.Count > 0)
+    {
+        @foreach (var item in Model.PostavljeniArtikli)
+        {
+            <label>Naziv Artikla</label>
+            <span>@item.Naziv </span> <br />
+        }
+    }
 </div>
 <br />
 <a href="/Artikal/Index">Artikli</a>

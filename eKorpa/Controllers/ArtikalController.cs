@@ -105,8 +105,7 @@ namespace eKorpa.Controllers
                     Cijena = x.Cijena,
                     Slike = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.SlikaFile).ToList(),
                     SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
-
-                    //Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList()
+                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList()
                 }).Single();
 
             return View(noviArtikal);
@@ -134,6 +133,7 @@ namespace eKorpa.Controllers
             //Korisnik korisnik;//naci korisnika preko userId
             _database.SaveChanges();
             Artikal artikalID = _database.Artikal.Find(artikal.ID);
+            int brojacProlaza = 0;
             if (noviArtikal.Slika != null)
             {
                 foreach (var slika in noviArtikal.Slika)
@@ -148,9 +148,18 @@ namespace eKorpa.Controllers
                             using (var fs1 = slika.OpenReadStream())
                             using (var ms1 = new MemoryStream())
                             {
+                                Slika newImage;
                                 fs1.CopyTo(ms1);
                                 p1 = ms1.ToArray();
-                                Slika newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1 };
+                                if(brojacProlaza==0)
+                                {
+                                    newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1,Thumbnail=1 };
+                                    brojacProlaza++;
+                                }
+                                else
+                                {
+                                    newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1 };
+                                }
                                 _database.Slika.Add(newImage);
                             }
                         }

@@ -1,0 +1,78 @@
+﻿input[type=text], select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 0px 0 25px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display:block;
+}
+
+    input[type=submit]:hover {
+        background-color: #041c01;
+    }
+
+#formaDodajArtikal {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+    font-weight: 600;
+    width:100%;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.slika{
+    display:flex;
+    justify-content:space-between;
+    flex-direction:column
+}
+
+.slike{
+    display:flex;
+    justify-content:space-around;
+    margin-bottom:15px;
+    border: 1px solid grey;
+    border-radius:15px;
+}
+
+
+a{
+    /*width:200px;*/
+    /*margin: 10px 0 10px 0;*/
+}
+
+
+img{
+    height:150px;
+}
+
+.btn-danger{
+    margin-bottom:10px;
+    margin-top:10px;
+    width:50px;
+}
+
+.btn-info {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 50px;
+}
+
+.ikonice{
+    display:flex;
+    justify-content:space-around
+}
+

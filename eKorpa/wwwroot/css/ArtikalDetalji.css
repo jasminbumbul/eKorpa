@@ -1,0 +1,16 @@
+﻿body {
+}
+
+#formaDetaljiArtikla {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+    font-weight: 600;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+img{
+    width:600px;
+}

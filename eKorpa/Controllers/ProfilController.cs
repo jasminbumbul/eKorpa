@@ -21,7 +21,8 @@ namespace eKorpa.Controllers
                 Email = x.Email,
                 ID = KorisnikID,
                 Ime = x.Ime,
-                Prezime = x.Prezime
+                Prezime = x.Prezime,
+                PostavljeniArtikli=_database.Artikal.Where(x=>x.ProdavacID==KorisnikID).ToList()
             }).Single();
             return View(profil);
         }

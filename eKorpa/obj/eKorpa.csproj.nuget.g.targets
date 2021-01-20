@@ -4,6 +4,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.10\buildTransitive\Microsoft.AspnetCore.Identity.UI.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.10\buildTransitive\Microsoft.AspnetCore.Identity.UI.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.apidescription.client\5.0.2\build\Microsoft.Extensions.ApiDescription.Client.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.apidescription.client\5.0.2\build\Microsoft.Extensions.ApiDescription.Client.targets')" />
+    <Import Project="$(NuGetPackageRoot)nswag.apidescription.client\13.10.1\build\NSwag.ApiDescription.Client.targets" Condition="Exists('$(NuGetPackageRoot)nswag.apidescription.client\13.10.1\build\NSwag.ApiDescription.Client.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.8\buildTransitive\Microsoft.AspnetCore.Identity.UI.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.8\buildTransitive\Microsoft.AspnetCore.Identity.UI.targets')" />
   </ImportGroup>
 </Project>

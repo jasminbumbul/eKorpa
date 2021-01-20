@@ -37,6 +37,9 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Broj telefona")]
             public string PhoneNumber { get; set; } 
             
+            [Display(Name = "Datum rodjenja")]
+            public DateTime DatumRodjenja{ get; set; } 
+            
             [Display(Name = "Ime")]
             public string Ime { get; set; }
 
@@ -55,7 +58,8 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber,
                 Ime=user.Ime,
-                Prezime=user.Prezime
+                Prezime=user.Prezime,
+                DatumRodjenja=user.DatumRodjenja
             };
         }
 
@@ -98,6 +102,8 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
 
             user.Ime = Input.Ime;
             user.Prezime = Input.Prezime;
+            user.DatumRodjenja=Input.DatumRodjenja;
+            user.PhoneNumber=Input.PhoneNumber;
             await _userManager.UpdateAsync(user); 
 
             await _signInManager.RefreshSignInAsync(user);

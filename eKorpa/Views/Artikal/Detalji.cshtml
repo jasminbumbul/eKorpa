@@ -1,53 +1,68 @@
 ﻿
 @model eKorpa.ViewModels.ArtikalDetaljiVM
 
-<div class="artikal-galerija">  </div>
-
-<div class="detalji">
-    <h1>@Model.NazivArtikla</h1>
-    <h3>Cijena: xxxx kmeura</h3>
-    <h3>
-        Detalji:<br />
-        Veličina:<br />
-        Materijal:<br />
-    </h3>
-    <h3>Kategorija: @Model.Kategorija</h3>
-    <h5>Prodavac: @Model.Prodavac</h5>
-    <h5>Cijena: @Model.Cijena</h5>
-    <div>
-     
-        @for (int i = 0; i < Model.Slike.Count; i++)
+<div id="formaDetaljiArtikla">
+    <div class="slike">
+        @if (Model.Slike != null)
         {
-            @if (Model.Slike[i] != null)
+            @for (int i = 0; i < Model.Slike.Count; i++)
             {
-                var base64 = Convert.ToBase64String(Model.Slike[i]);
-                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                <img src="@imgsrc" alt="Alternate Text" /><br />
+                @if (Model.Slike[i] != null && Model.Thumbnail[i] == 1)
+                {
+                    var base64 = Convert.ToBase64String(Model.Slike[i]);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img class="slika" src="@imgsrc" alt="Alternate Text" />
+                }
             }
         }
-
     </div>
-</div><br />
-<a href="/Artikal/Index">Artikli</a>
-<a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
 
+    @*<h1>@Model.NazivArtikla</h1>
+        <h3>Cijena: xxxx kmeura</h3>
+        <h3>
+            Detalji:<br />
+            Veličina:<br />
+            Materijal:<br />
+        </h3>
+        <h3>Kategorija: @Model.Kategorija</h3>
+        <h5>Prodavac: @Model.Prodavac</h5>
+        <h5>Cijena: @Model.Cijena</h5>
+        <div>
 
-<style>
-    .artikal-galerija {
-        position: relative;
-        max-width: 50%;
-        flex-basis: 50%;
-        padding: 0 15px 30px;
-    }
-    .detalji {
-        position: relative;
-        padding: 0 15px 30px;
-        width: 100%;
-    }
-    h1, h2, h3{
-        padding: 15px;
-    }
-    img{
-        width:200px;
-    }
-</style>
+            @for (int i = 0; i < Model.Slike.Count; i++)
+            {
+                @if (Model.Slike[i] != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Slike[i]);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc" alt="Alternate Text" /><br />
+                }
+            }
+
+        </div>*@
+
+</div>
+@*<a href="/Artikal/Index">Artikli</a>
+    <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>*@
+
+<link href="/css/ArtikalDetalji.css" rel="stylesheet" />
+
+@*<style>
+        .artikal-galerija {
+            position: relative;
+            max-width: 50%;
+            flex-basis: 50%;
+            padding: 0 15px 30px;
+        }
+        .detalji {
+            position: relative;
+            padding: 0 15px 30px;
+            width: 100%;
+        }
+        h1, h2, h3{
+            padding: 15px;
+        }
+        img{
+            width:200px;
+        }
+    </style>*@

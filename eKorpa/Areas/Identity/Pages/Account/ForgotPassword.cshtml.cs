@@ -42,14 +42,9 @@ namespace eKorpa.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-               
-                //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-           
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                //var link = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Scheme);
-                //var link = Url.Action("ResetPassword", "Home", new { UserId = user.Id, code = code }, Request.Scheme, Request.Host.ToString());
-                var link = Url.Action("ResetPassword", "Home", new { code, email = user.Email }, Request.Scheme);
+                var link = Url.Action("ResetPassword", "Password", new { code, email = user.Email }, Request.Scheme);
 
 
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
@@ -58,7 +53,7 @@ namespace eKorpa.Areas.Identity.Pages.Account
                 message.To.Add(new MailAddress(email.ToString()));
                 message.From = new MailAddress("ekorpa.business@gmail.com");
                 message.Subject = "Reset passworda";
-                message.Body = string.Format(body, "eKorpa", "ekorpa.business@gmail.com", link);
+                message.Body = string.Format(body, "eKorpa", "ekorpa.business@gmail.com", $"<a href='{link}'>Resetujte password klikom na ovaj link<a>");
 
                 message.IsBodyHtml = true;
 
