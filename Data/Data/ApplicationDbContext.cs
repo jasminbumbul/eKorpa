@@ -26,6 +26,7 @@ namespace eKorpa.Data
         public DbSet<Kategorija> Kategorija  { get; set; }
         public DbSet<Korpa> Korpa  { get; set; }
         public DbSet<Slika> Slika { get; set; }
+        public DbSet<ListaZelja> ListaZelja { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

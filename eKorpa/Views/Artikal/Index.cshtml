@@ -7,6 +7,7 @@
     <input name="querry" placeholder="npr: majica" />
     <button type="submit" class="btn btn-dark">Pretraži</button>
 </form>
+<a href="/ListaZelja/Detalji">Lista zelja</a>
 
 <div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
     @if (Model.rows.Count == 0)
@@ -25,7 +26,7 @@
                 <span>@item.Kategorija</span><br />
                 <label> Slika</label>
 
-                @if(item.Slika.Count==0)
+                @if (item.Slika.Count == 0)
                 {
                     <h1>Nema slike</h1>
                 }
@@ -51,10 +52,18 @@
                 <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
                 <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
             }
-            <a href="/Korpa/Dodaj?ArtikalID=@item.ID">Dodaj u korpu</a>
+            @if (item.jestUListi)
+            {
+                <a id="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">Pretraži listu želja</a>
+            }
+            else
+            {
+                <a id="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" onclick="klik()">Dodaj na listu želja</a>
+            }
         </div>
     }
 </div>
+<div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
 @if (User.IsInRole("Admin"))
 {
     <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
@@ -73,6 +82,22 @@
     img {
         width: 200px;
     }
+    #yith-wcwl-popup-message {
+        background: #fff;
+        border: 1px solid #dddddd;
+        padding: 15px 0;
+        font-size: 120%;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translateX(50%);
+        width: 300px;
+        z-index: 10000;
+        margin-left: -298px;
+        display: none;
+    }
+
 </style>
 
 <script>
@@ -85,6 +110,7 @@
         var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
         window.open(url, '_self');
     }
+    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block";}
             //function addRowHandlers() {
             //    var table = document.getElementById("containerArtikala");
             //    var rows = table.getElementsByTagName("artikalCopy");
