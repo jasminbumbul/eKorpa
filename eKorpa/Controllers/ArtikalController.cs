@@ -42,7 +42,7 @@ namespace eKorpa.Controllers
                         ImeProdavaca = a.ImeProdavaca,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                         Cijena=a.Cijena,
-                        Thumbnail=_database.Slika.Where(x=> x.ArtikalID==a.ID).Select(x=> x.Thumbnail).ToList()
+                        Thumbnail=_database.Slika.Where(x=> x.ArtikalID==a.ID).Select(x=> x.Thumbnail).ToList(),
                     }).ToList()
                 };
             }
@@ -63,9 +63,16 @@ namespace eKorpa.Controllers
                     }).ToList()
                 };
             }
+            foreach (var item in objekat.rows)
+            {
+                foreach (var temp in _database.ListaZelja)
+                {
+                    if (item.ID == temp.ArtikalID)
+                        item.jestUListi = true;
+                }
+            }
             return View(objekat);
         }
-
         public IActionResult Dodaj(int ArtikalID)
         {
             ArtikalDodajVM noviArtikal = ArtikalID == 0

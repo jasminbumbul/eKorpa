@@ -42,27 +42,59 @@
         </div>*@
 
 </div>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
 @*<a href="/Artikal/Index">Artikli</a>
     <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>*@
 
 <link href="/css/ArtikalDetalji.css" rel="stylesheet" />
 
 @*<style>
+========================================================================
+</div>
+<span>Unesite koločinu: </span>
+<input type="number" value="@Model.kolicina" id="qty" />
+<a id="sendKolicina" onclick="RenderUrl()">Dodaj u korpu</a>
+<br />
+<a href="/Artikal/Index">Artikli</a>
+<a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
+
+<script>
+    function RenderUrl(){
+    var qty = document.getElementById("qty").value;
+    var url = "/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" + qty;
+    document.getElementById("sendKolicina").setAttribute('href', url);
+    }
+</script>
+
+<style>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ListaZelja
         .artikal-galerija {
             position: relative;
             max-width: 50%;
             flex-basis: 50%;
             padding: 0 15px 30px;
         }
+
         .detalji {
             position: relative;
             padding: 0 15px 30px;
             width: 100%;
         }
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
         h1, h2, h3{
+========================================================================
+    h1, h2, h3 {
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ListaZelja
             padding: 15px;
         }
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< master
         img{
             width:200px;
+========================================================================
+    img {
+        width: 200px;
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ListaZelja
         }
     </style>*@
