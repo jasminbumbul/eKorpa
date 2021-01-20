@@ -8,10 +8,20 @@
     ".NETCoreApp,Version=v3.1": {
       "DodajKategorija/1.0.0": {
         "dependencies": {
-          "Data": "1.0.0"
+          "Data": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.Facebook": "3.1.8",
+          "Microsoft.Extensions.ApiDescription.Client": "5.0.2"
         },
         "runtime": {
           "DodajKategorija.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Facebook/3.1.8": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "3.1.8.0",
+            "fileVersion": "3.100.820.42106"
+          }
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.8": {
@@ -179,6 +189,7 @@
           }
         }
       },
+      "Microsoft.Extensions.ApiDescription.Client/5.0.2": {},
       "Microsoft.Extensions.Caching.Abstractions/3.1.8": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "3.1.8"
@@ -1079,14 +1090,30 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Twilio/5.53.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "5.5.0",
+          "Newtonsoft.Json": "12.0.2",
+          "System.Collections.Specialized": "4.3.0",
+          "System.IdentityModel.Tokens.Jwt": "5.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Twilio.dll": {
+            "assemblyVersion": "5.53.0.0",
+            "fileVersion": "5.53.0.0"
+          }
+        }
+      },
       "Data/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Facebook": "3.1.8",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.8",
           "Microsoft.AspNetCore.Identity.UI": "3.1.8",
           "Microsoft.EntityFrameworkCore": "3.1.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.8",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.0",
+          "Twilio": "5.53.0"
         },
         "runtime": {
           "Data.dll": {}
@@ -1099,6 +1126,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/3.1.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ytgKz8ARJw7iHlqexXcv9HfH1VMIqosNwg233prUtPwsyjtE9hYU1EYz1+b/25h+ms3z2gunGSpFXeLOS3tikg==",
+      "path": "microsoft.aspnetcore.authentication.facebook/3.1.8",
+      "hashPath": "microsoft.aspnetcore.authentication.facebook.3.1.8.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.8": {
       "type": "package",
@@ -1197,6 +1231,13 @@
       "sha512": "sha512-rd50s20F84+Fe8dQX+S9RrcLuTlrbVfeZW6DBIRpJHeYtSL1kVvr0Dp0poewrk7n0KMcP6DEauiGr4YCTNqKwg==",
       "path": "microsoft.entityframeworkcore.sqlserver/3.1.8",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.3.1.8.nupkg.sha512"
+    },
+    "Microsoft.Extensions.ApiDescription.Client/5.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r7ePEm7hZ7s6SC2dLfBYC62nrCB+YUAqArjdrfhhJC0MdsSzoz2b1YaUZqqy40JpBDHFktSsCEiGicUTNI311Q==",
+      "path": "microsoft.extensions.apidescription.client/5.0.2",
+      "hashPath": "microsoft.extensions.apidescription.client.5.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/3.1.8": {
       "type": "package",
@@ -1834,6 +1875,13 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Twilio/5.53.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+gXiTPhLH38SCX73dDm8Nb221Jb0FUV+Lnst+Xx6uUC55CqOuhV6saCg5S+Vl8qvtzpomX1b1C5KfY4w/91c9g==",
+      "path": "twilio/5.53.0",
+      "hashPath": "twilio.5.53.0.nupkg.sha512"
     },
     "Data/1.0.0": {
       "type": "project",

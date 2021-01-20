@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Net.Mail;
+using System.Net;
 
 namespace eKorpa.Areas.Identity.Pages.Account
 {
@@ -130,29 +132,35 @@ namespace eKorpa.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        _logger.LogInformation("User created a new account with password.");
 
-                        var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
-                            pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code },
-                            protocol: Request.Scheme);
+                        var link = Url.Action("VerifyEmail", "Email", new { userID = user.Id, code }, Request.Scheme, Request.Host.ToString());
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                        var message = new MailMessage();
+                        var email = this.Input.Email;
+                        message.To.Add(new MailAddress(email.ToString()));
+                        message.From = new MailAddress("ekorpa.business@gmail.com");
+                        message.Subject = "Verifikacija e-maila";
+                        message.Body = string.Format(body, "eKorpa", "ekorpa.business@gmail.com", $"<a href='{link}'>Potvrdite email klikom na ovaj link<a>");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        message.IsBodyHtml = true;
+
+                        using (var smtp = new SmtpClient())
                         {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            var credential = new NetworkCredential
+                            {
+                                UserName = "ekorpa.business@gmail.com",
+                                Password = "Mostar2020!"
+                            };
+                            smtp.Credentials = credential;
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 587;
+                            smtp.EnableSsl = true;
+                            await smtp.SendMailAsync(message);
+                            return Redirect("/Email/EmailVerification");
                         }
-
-                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-
-                        return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

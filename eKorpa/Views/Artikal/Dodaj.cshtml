@@ -2,66 +2,59 @@
 
 @model ArtikalDodajVM
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Snimi" asp-controller="Artikal" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div style="display:none">
-                <input asp-for="ID" />
-                <input asp-for="ID" />
-            </div>
+        <a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> <br />
+<div id="formaDodajArtikal">
+    <form asp-action="Snimi" asp-controller="Artikal" enctype="multipart/form-data">
 
-            <div class="form-group">
-                <label asp-for="NazivArtikla" class="control-label"></label>
-                <input asp-for="NazivArtikla" />
-                <span asp-validation-for="NazivArtikla" class="text-danger"></span>
+        <div style="display:none">
+            <input asp-for="ID" />
+        </div>
 
-                <div>
-                    <label>Cijena artikla:</label>
-                    <input asp-for="Cijena" />
-                </div>
+        <label class="control-label">Naziv Artikla</label>
+        <input type="text" asp-for="NazivArtikla" />
+        <span asp-validation-for="NazivArtikla" class="text-danger"></span>
 
-                <div class="form-group">
+        <label>Cijena artikla</label>
+        <input asp-for="Cijena" />
 
-                    <label>Kategorija:</label>
-                    <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
-                    <span asp-validation-for="Kategorije" class="text-danger"></span>
-                </div>
-                @if (Model.Slike != null)
+        <label for="Kategorija">Kategorija</label>
+        <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
+        <span asp-validation-for="Kategorije" class="text-danger"></span>
+        <label>Slike</label>
+
+        <div class="slike">
+            @if (Model.Slike != null)
+            {
+                @for (int i = 0; i < Model.Slike.Count; i++)
                 {
-                    @for (int i = 0; i < Model.Slike.Count; i++)
+                    @if (Model.Slike[i] != null)
                     {
-                        @if (Model.Slike[i] != null)
-                        {
-                            var base64 = Convert.ToBase64String(Model.Slike[i]);
-                            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        var base64 = Convert.ToBase64String(Model.Slike[i]);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <div class="slika">
                             <img src="@imgsrc" alt="Alternate Text" /><br />
-                            <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">Obriši</a>
-                            <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">Postavi kao thumbnail</a>
-                        }
+                            <div class="ikonice">
+                                <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
                     }
-
                 }
-                <div class="form-group">
-                    <label asp-for="Slika" class="control-label"></label>
-                    <input asp-for="Slika" accept="image/*" multiple />
-                    <span asp-validation-for="Slika" class="text-danger"></span>
-                </div>
+            }
+        </div>
+        <label asp-for="Slika" class="control-label">Upload slike</label>
+        <input asp-for="Slika" accept="image/*" multiple />
+        <span asp-validation-for="Slika" class="text-danger"></span>
 
+        <input type="submit" value="Snimi" class="btn btn-primary" />
 
-
-                <div class="form-group">
-                    <input type="submit" value="Snimi" class="btn btn-primary" />
-                </div>
-
-
-</form>
-    </div>
+    </form>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<link href="/css/ArtikalDodaj.css" rel="stylesheet" />
 
-<style>
-    img{
-        width:200px;
-    }
-</style>

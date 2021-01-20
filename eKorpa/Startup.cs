@@ -20,6 +20,7 @@ namespace eKorpa
 {
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -46,6 +47,12 @@ namespace eKorpa
 
             services.AddMailKit(config => config.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>()));
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId= Configuration.GetSection("Authentication").GetSection("Facebook").GetSection("AppId").Value;
+                facebookOptions.AppSecret= Configuration.GetSection("Authentication").GetSection("Facebook").GetSection("AppSecret").Value;
+            });
+            
 
             services.AddControllersWithViews();
             services.AddRazorPages();
