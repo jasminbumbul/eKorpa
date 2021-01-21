@@ -1,31 +1,47 @@
 ﻿@using eKorpa.ViewModels
+@using System.Security.Claims
 
 @model ArtikalIndexVM
 
+@{
+    if (Model.Layout == false)
+    {
+        Layout = null;
+    }
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@if (Model.Layout == true)
+{
+    <div class="navBar">
+        @if (User.IsInRole("Kupac") || User.IsInRole("Prodavač") || User.IsInRole("Admin"))
+        {
+            <ul>
+                <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
+                <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
+            </ul>
+        }
+        <form class="pretraga" asp-action="Index" asp-controller="Artikal">
+            <input name="querry" placeholder="npr: majica" />
+            <button type="submit" class="btn btn-dark">Pretraži</button>
+        </form>
+    </div>
+}
 
-<form asp-action="Index" asp-controller="Artikal">
-    <input name="querry" placeholder="npr: majica" />
-    <button type="submit" class="btn btn-dark">Pretraži</button>
-</form>
-<a href="/ListaZelja/Detalji">Lista zelja</a>
+<div class="pomocneStavke">
 
-<div id="containerArtikala" style="display: flex; justify-content: space-evenly; flex-wrap:wrap">
+
+</div>
+
+
+<div id="containerArtikala">
     @if (Model.rows.Count == 0)
     {
         <h1>Nema rezultata</h1>
     }
     @foreach (var item in Model.rows)
     {
-        <div class="artikalCopy" style="border: double red 1px; width: 300px; margin:10px; cursor:pointer; text-align:center">
+        <div class="artikalCopy">
             <div onclick="OtvoriDetaljeArtikla(@item.ID)">
-                <label> ID </label>
-                <span>@item.ID</span> <br />
-                <label> Naziv artikla </label>
-                <span>@item.NazivArtikla</span><br />
-                <label> Kategorija </label>
-                <span>@item.Kategorija</span><br />
-                <label> Slika</label>
-
                 @if (item.Slika.Count == 0)
                 {
                     <h1>Nema slike</h1>
@@ -40,65 +56,62 @@
                         <img src="@imgsrc" alt="Alternate Text" /><br />
                     }
                 }
-
-                <label> Cijena artikla </label>
-                <span>@item.Cijena</span><br />
+                <span class="naziv">@item.NazivArtikla</span><br />
+                <span class="kategorija">@item.Kategorija</span><br />
+                <span class="cijena">@item.Cijena KM</span><br />
             </div>
-            <label> Naziv prodavača </label>
+            @if (claimsIdentity == item.ProdavacId)
+            {
+        <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
+            <i class="fa fa-wrench" aria-hidden="true"></i>
+
+        </a>
+                <a href="/Artikal/Obrisi?ArtikalID=@item.ID">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+
+                </a>
+            }
+            @if (User.IsInRole("Kupac") || User.IsInRole("Prodavač") || User.IsInRole("Admin"))
+            {
+                @if (item.jestUListi)
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:black; background:white;">
+                            <span class="tooltiptext">Pogledaj listu želja</span>
+                        </i>
+                    </a>
+                }
+                else
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" onclick="klik()">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:white; background:black;">
+                            <span class="tooltiptext">Dodaj u listu želja</span>
+                        </i>
+
+                    </a>
+                }
+            }
+            <label>Postavio : </label>
             <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
-            @if (User.IsInRole("Admin"))
-            {
-                <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
-                <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
-                <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
-            }
-            @if (item.jestUListi)
-            {
-                <a id="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">Pretraži listu želja</a>
-            }
-            else
-            {
-                <a id="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" onclick="klik()">Dodaj na listu želja</a>
-            }
+            @*@if (User.IsInRole("Admin"))
+                {
+                    <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+                    <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
+                    <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
+                }*@
         </div>
     }
 </div>
 <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
-@if (User.IsInRole("Admin"))
-{
-    <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
-}
 
-<style>
-    body {
-        background-color: rgb(45,45,45);
-        color: lightcoral;
-    }
+@*@if (User.IsInRole("Admin"))
+    {
+        <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+    }*@
 
-        body a {
-            color: lightblue;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<link href="/css/ArtikalIndex.css" rel="stylesheet" />
 
-    img {
-        width: 200px;
-    }
-    #yith-wcwl-popup-message {
-        background: #fff;
-        border: 1px solid #dddddd;
-        padding: 15px 0;
-        font-size: 120%;
-        position: fixed;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translateX(50%);
-        width: 300px;
-        z-index: 10000;
-        margin-left: -298px;
-        display: none;
-    }
-
-</style>
 
 <script>
     function OtvoriProfilProdavaca(prodavacID) {
@@ -110,22 +123,5 @@
         var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
         window.open(url, '_self');
     }
-    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block";}
-            //function addRowHandlers() {
-            //    var table = document.getElementById("containerArtikala");
-            //    var rows = table.getElementsByTagName("artikalCopy");
-            //    for (i = 0; i < rows.length; i++) {
-            //        var currentRow = table.rows[i];
-            //        var createClickHandler = function (row) {
-            //            return function () {
-            //                //var cell = row.getElementsByTagName("td")[0];
-            //                var id = currentRow.innerHTML;
-            //                url = "/Artikal/Detalji?ArtikalID=" + id;
-            //                window.open(url, '_self');
-            //            };
-            //        };
-            //        currentRow.onclick = createClickHandler(currentRow);
-            //    }
-            //}
-            //window.onload = addRowHandlers();
+    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
 </script>

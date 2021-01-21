@@ -31,23 +31,23 @@ namespace eKorpa.Controllers
         //    return TwiML(messagingResponse);
         //}
 
-        //public ActionResult SendSMS()
-        //{
-        //    var accountSid = _iConfig.GetSection("Twilio").GetSection("AccountSid").Value;
-        //    var authToken = _iConfig.GetSection("Twilio").GetSection("AuthToken").Value;
+        public ActionResult SendSMS()
+        {
+            var accountSid = _iConfig.GetSection("Twilio").GetSection("AccountSid").Value;
+            var authToken = _iConfig.GetSection("Twilio").GetSection("AuthToken").Value;
 
-        //    TwilioClient.Init(accountSid, authToken);
+            TwilioClient.Init(accountSid, authToken);
 
-        //    var to =  new PhoneNumber(_iConfig.GetSection("Twilio").GetSection("MyPhoneNumber").Value);
-        //    var from = new PhoneNumber("14243040193");
+            var to = new PhoneNumber(_iConfig.GetSection("Twilio").GetSection("MyPhoneNumber").Value);
+            var from = new PhoneNumber("14243040193");
 
-        //    var message = MessageResource.Create(
-        //        to: to,
-        //        from: from,
-        //        body: "Fuck society"
-        //        );
+            var message = MessageResource.Create(
+                to: to,
+                from: from,
+                body: "Test"
+                );
 
-        //    return Content(message.Sid);
-        //}
+            return Content(message.Sid);
+        }
     }
 }

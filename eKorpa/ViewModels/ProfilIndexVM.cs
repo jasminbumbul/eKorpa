@@ -13,6 +13,9 @@ namespace eKorpa.ViewModels
         public string Prezime { get; set; }
         public string Email{ get; set; }
         public string BrojTelefona{ get; set; }
+        public List<byte[]> Slika { get; set; }
+        public List<int[]> SlikaID { get; set; }
+        public List<int> Thumbnail { get; set; }
         public List<Artikal> PostavljeniArtikli{ get; set; }
     }
 }

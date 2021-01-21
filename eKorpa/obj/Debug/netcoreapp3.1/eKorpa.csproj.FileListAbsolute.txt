@@ -479,3 +479,4 @@ C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Em
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Email\VerifyEmail.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Password\ResetPassword.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Password\ResetPasswordConfirmation.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\ListaZelja\Detalji.cshtml.g.cs

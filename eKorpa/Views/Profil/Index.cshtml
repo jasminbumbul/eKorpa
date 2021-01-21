@@ -1,27 +1,31 @@
 ﻿@using eKorpa.ViewModels
 @model ProfilIndexVM
 
-
+<a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+<br />
 <div>
-    <label> ID </label>
-    <span>@Model.ID</span> <br />
     <label> Ime </label>
     <span>@Model.Ime</span> <br />
     <label> Prezime </label>
     <span>@Model.Prezime</span> <br />
     <label> Email </label>
     <span>@Model.Email</span> <br />
-    <label> BrojTelefona </label>
-    <span>@Model.BrojTelefona</span> <br />
-    <label> Postavljeni artikli </label>
-    @if (Model.PostavljeniArtikli.Count > 0)
-    {
-        @foreach (var item in Model.PostavljeniArtikli)
-        {
-            <label>Naziv Artikla</label>
-            <span>@item.Naziv </span> <br />
-        }
-    }
+    <div id="ajaxDiv" style="border:1px solid black">
+
+    </div>
 </div>
 <br />
-<a href="/Artikal/Index">Artikli</a>
+
+<link href="/css/ProfilIndex.css" rel="stylesheet" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    dodajSlike();
+    function dodajSlike() {
+        var url = "/Artikal/IndexW?ProfilID=@Model.ID";
+        $.get(url, function (odg) {
+            $(ajaxDiv).html(odg);
+        });
+    }
+</script>
+

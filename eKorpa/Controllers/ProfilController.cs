@@ -22,8 +22,18 @@ namespace eKorpa.Controllers
                 ID = KorisnikID,
                 Ime = x.Ime,
                 Prezime = x.Prezime,
-                PostavljeniArtikli=_database.Artikal.Where(x=>x.ProdavacID==KorisnikID).ToList()
+                PostavljeniArtikli = _database.Artikal.Where(x => x.ProdavacID == KorisnikID).ToList()
             }).Single();
+
+            
+            //int i = 0;
+            //foreach (var item in _database.Artikal.ToList())
+            //{
+            //    profil.Slika[i] = _database.Slika.Where(x => x.ArtikalID == item.ID ).Select(x=> x.SlikaFile).Single();
+            //    profil.Thumbnail[i] = _database.Slika.Where(x => x.ArtikalID == item.ID ).Select(x=> x.Thumbnail).Single();
+            //    i++;
+            //}
+
             return View(profil);
         }
     }

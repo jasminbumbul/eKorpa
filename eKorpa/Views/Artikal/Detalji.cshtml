@@ -17,29 +17,6 @@
         }
     </div>
 
-    @*<h1>@Model.NazivArtikla</h1>
-        <h3>Cijena: xxxx kmeura</h3>
-        <h3>
-            Detalji:<br />
-            Veličina:<br />
-            Materijal:<br />
-        </h3>
-        <h3>Kategorija: @Model.Kategorija</h3>
-        <h5>Prodavac: @Model.Prodavac</h5>
-        <h5>Cijena: @Model.Cijena</h5>
-        <div>
-
-            @for (int i = 0; i < Model.Slike.Count; i++)
-            {
-                @if (Model.Slike[i] != null)
-                {
-                    var base64 = Convert.ToBase64String(Model.Slike[i]);
-                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                    <img src="@imgsrc" alt="Alternate Text" /><br />
-                }
-            }
-
-        </div>*@
 
 </div>
 

@@ -71,9 +71,30 @@ namespace eKorpa.Controllers
                         item.jestUListi = true;
                 }
             }
+            objekat.Layout = true;
             return View(objekat);
         }
-        public IActionResult Dodaj(int ArtikalID)
+
+        public IActionResult IndexW(string ProfilID)
+        {
+            ArtikalIndexVM objekat = new ArtikalIndexVM
+            {
+                rows = _database.Artikal.Where(x => x.ProdavacID == ProfilID).Select(a => new ArtikalIndexVM.Row
+                {
+                    ID = a.ID,
+                    NazivArtikla = a.Naziv,
+                    Kategorija = a.Kategorija.NazivKategorije,
+                    ProdavacId = a.ProdavacID,
+                    ImeProdavaca = a.ImeProdavaca,
+                    Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                    Cijena = a.Cijena,
+                    Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                }).ToList()
+            };
+            objekat.Layout = false;
+            return View("Index", objekat);
+    }
+    public IActionResult Dodaj(int ArtikalID)
         {
             ArtikalDodajVM noviArtikal = ArtikalID == 0
                 ? new ArtikalDodajVM()
@@ -137,9 +158,8 @@ namespace eKorpa.Controllers
             artikal.Naziv = noviArtikal.NazivArtikla;
             artikal.KategorijaID = noviArtikal.KategorijaID;
             artikal.Cijena = noviArtikal.Cijena;
-            //Korisnik korisnik;//naci korisnika preko userId
             _database.SaveChanges();
-            Artikal artikalID = _database.Artikal.Find(artikal.ID);
+            Artikal artikl = _database.Artikal.Find(artikal.ID);
             int brojacProlaza = 0;
             if (noviArtikal.Slika != null)
             {
@@ -158,14 +178,24 @@ namespace eKorpa.Controllers
                                 Slika newImage;
                                 fs1.CopyTo(ms1);
                                 p1 = ms1.ToArray();
+                                foreach (var item in _database.Slika)
+                                {
+                                    if(item.ArtikalID== artikl.ID)
+                                    {
+                                        if(item.Thumbnail==1)
+                                        {
+                                            brojacProlaza++;
+                                        }
+                                    }
+                                }
                                 if(brojacProlaza==0)
                                 {
-                                    newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1,Thumbnail=1 };
+                                    newImage = new Slika() { ArtikalID = artikl.ID, SlikaFile = p1,Thumbnail=1 };
                                     brojacProlaza++;
                                 }
                                 else
                                 {
-                                    newImage = new Slika() { ArtikalID = artikalID.ID, SlikaFile = p1 };
+                                    newImage = new Slika() { ArtikalID = artikl.ID, SlikaFile = p1 };
                                 }
                                 _database.Slika.Add(newImage);
                             }
@@ -199,6 +229,11 @@ namespace eKorpa.Controllers
         {
             Artikal artikal = _database.Artikal.Find(ArtikalID);
             _database.Remove(artikal);
+            List<Slika> slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID).ToList();
+            foreach (var item in slikeArtikla)
+            {
+                _database.Remove(item);
+            }
             _database.SaveChanges();
             return Redirect("/Artikal/");
         }
