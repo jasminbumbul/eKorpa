@@ -24,84 +24,26 @@
 
         <h6>Kategorija: @Model.Kategorija</h6>
         <div class="kolicina">
-            <input type="number" value="@Model.kolicina" id="qty" class="qtyy" />
+            @*<input type="number" value="@Model.kolicina" id="qty" class="qtyy" />
             <button id="sendKolicina" onclick="RenderUrl()" class="btn btn-default">Dodaj u korpu</button>
+            <a type="" href="/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" class="btn btn-info">Dodaj u korpu</a>*@
+
+            <form class="kolicina" asp-action="Dodaj" asp-controller="Korpa">
+                <input type="text" name="ArtikalID" hidden value="@Model.ID" />
+                <input type="number" value="" name="kolicina" id="qty" class="qtyy" />
+                <button type="submit" class="btn btn-dark">Dodaj u korpu</button>
+            </form>
         </div>
-        <div class="prodavac">Prodavac: @Model.Prodavac</div>
+        @*<div class="prodavac">Prodavac: @Model.Prodavac</div>*@
+        <a href="/Profil/Index?KorisnikID=@Model.Prodavac" class="btn btn-warning">Posjeti profil prodavača</a><br />
     </div>
 
-    @*
-        <h3>Cijena: xxxx kmeura</h3>
-        <h3>
-            Detalji:<br />
-            Veličina:<br />
-            Materijal:<br />
-        </h3>
-        <h3>Kategorija: @Model.Kategorija</h3>
-        <h5>Prodavac: @Model.Prodavac</h5>
-        <div>
-
-            @for (int i = 0; i < Model.Slike.Count; i++)
-            {
-                @if (Model.Slike[i] != null)
-                {
-                    var base64 = Convert.ToBase64String(Model.Slike[i]);
-                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                    <img src="@imgsrc" alt="Alternate Text" /><br />
-                }
-            }
-
-        </div>
-    *@
 
 </div>
 <link href="/css/ArtikalDetalji.css" rel="stylesheet" />
 
 
-<script>
-    function RenderUrl(){
-        var qty = document.getElementById("qty").value;
-        var url = "/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" + qty;
-        document.getElementById("sendKolicina").setAttribute('href', url);
-    }
-</script>
+<script src="~/js/site.js"></script>
 
 @*<a href="/Artikal/Index">Artikli</a>
     <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>*@
-
-
-@*<style>
-</div>
-<span>Unesite koločinu: </span>
-<input type="number" value="@Model.kolicina" id="qty" />
-<a id="sendKolicina" onclick="RenderUrl()">Dodaj u korpu</a>
-<br />
-<a href="/Artikal/Index">Artikli</a>
-<a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
-
-
-<style>
-        .artikal-galerija {
-            position: relative;
-            max-width: 50%;
-            flex-basis: 50%;
-            padding: 0 15px 30px;
-        }
-
-        .detalji {
-            position: relative;
-            padding: 0 15px 30px;
-            width: 100%;
-        }
-
-        h1, h2, h3{
-    h1, h2, h3 {
-            padding: 15px;
-        }
-
-        img{
-            width:200px;
-    img {
-        width: 200px;
-        }
-    </style>*@
