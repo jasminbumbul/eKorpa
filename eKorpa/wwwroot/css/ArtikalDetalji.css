@@ -9,8 +9,30 @@
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+    display:flex;
+    position:relative;
 }
 
 img{
-    width:600px;
+    width:500px;
+    padding: 10px;
+}
+.slike{
+    width:50%;
+}
+.nazivArtikla {
+    text-transform: uppercase;
+}
+.cijena {
+    font-weight: bold;
+}
+.detalji{
+    width:45%;
+}
+.qtyy{
+    width:50px;
+}
+.prodavac{
+    position:absolute;
+    bottom:30px;
 }

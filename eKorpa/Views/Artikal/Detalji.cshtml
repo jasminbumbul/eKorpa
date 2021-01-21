@@ -16,14 +16,59 @@
             }
         }
     </div>
+    <div class="detalji">
+        <div class="nazivArtikla"> <h1> @Model.NazivArtikla</h1> </div>
+        <hr />
+        <h4 class="cijena"> @Model.Cijena.99 KM</h4>
 
+
+        <h6>Kategorija: @Model.Kategorija</h6>
+        <div class="kolicina">
+            <input type="number" value="@Model.kolicina" id="qty" class="qtyy" />
+            <button id="sendKolicina" onclick="RenderUrl()" class="btn btn-default">Dodaj u korpu</button>
+        </div>
+        <div class="prodavac">Prodavac: @Model.Prodavac</div>
+    </div>
+
+    @*
+        <h3>Cijena: xxxx kmeura</h3>
+        <h3>
+            Detalji:<br />
+            Veličina:<br />
+            Materijal:<br />
+        </h3>
+        <h3>Kategorija: @Model.Kategorija</h3>
+        <h5>Prodavac: @Model.Prodavac</h5>
+        <div>
+
+            @for (int i = 0; i < Model.Slike.Count; i++)
+            {
+                @if (Model.Slike[i] != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Slike[i]);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc" alt="Alternate Text" /><br />
+                }
+            }
+
+        </div>
+    *@
 
 </div>
+<link href="/css/ArtikalDetalji.css" rel="stylesheet" />
+
+
+<script>
+    function RenderUrl(){
+        var qty = document.getElementById("qty").value;
+        var url = "/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" + qty;
+        document.getElementById("sendKolicina").setAttribute('href', url);
+    }
+</script>
 
 @*<a href="/Artikal/Index">Artikli</a>
     <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>*@
 
-<link href="/css/ArtikalDetalji.css" rel="stylesheet" />
 
 @*<style>
 </div>
@@ -34,13 +79,6 @@
 <a href="/Artikal/Index">Artikli</a>
 <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>
 
-<script>
-    function RenderUrl(){
-    var qty = document.getElementById("qty").value;
-    var url = "/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" + qty;
-    document.getElementById("sendKolicina").setAttribute('href', url);
-    }
-</script>
 
 <style>
         .artikal-galerija {
