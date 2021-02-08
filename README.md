@@ -6,11 +6,14 @@
 
 This is a project in development that is a part of the [Software development 1] course on Faculty of Information Technologies in Mostar, BiH.
 This project is created using .netCore framework and c# programming language.
+
 "eKorpa" is an webApp that provides sales services for clothing. 
 Users can search for different types of brands, types of clothing , sort by price and etc.
 Also, users can create and account and sell an item online or buy an item. 
 The purchasing part can be done with a credit card or through paying cash on delivery.
+
 Employees also have accounts, but their accounts are designed for delivery approval, solving users problems and etc.
+
 Right now, about 1/3 of the app is done.
 
 Created by :
