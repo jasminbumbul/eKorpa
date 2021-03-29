@@ -15,7 +15,7 @@ namespace eKorpa.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -59,6 +59,57 @@ namespace eKorpa.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ListaZelja");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Ponuda", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAktivna")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("KategorijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Opis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PotkategorijaID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ProcenatSnizenja")
+                        .HasColumnType("real");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KategorijaID");
+
+                    b.HasIndex("PotkategorijaID");
+
+                    b.ToTable("Ponuda");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Potkategorija", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("KategorijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KategorijaID");
+
+                    b.ToTable("Potkategorija");
                 });
 
             modelBuilder.Entity("Data.EntityModels.Slika", b =>
@@ -229,6 +280,9 @@ namespace eKorpa.Migrations
                     b.Property<float>("Cijena")
                         .HasColumnType("real");
 
+                    b.Property<float>("CijenaSaPopustom")
+                        .HasColumnType("real");
+
                     b.Property<string>("ImeProdavaca")
                         .HasColumnType("nvarchar(max)");
 
@@ -238,12 +292,17 @@ namespace eKorpa.Migrations
                     b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PotkategorijaID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProdavacID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("KategorijaID");
+
+                    b.HasIndex("PotkategorijaID");
 
                     b.ToTable("Artikal");
                 });
@@ -359,6 +418,28 @@ namespace eKorpa.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Data.EntityModels.Ponuda", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Kategorija", "Kategorija")
+                        .WithMany()
+                        .HasForeignKey("KategorijaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.EntityModels.Potkategorija", "Potkategorija")
+                        .WithMany()
+                        .HasForeignKey("PotkategorijaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Potkategorija", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Kategorija", null)
+                        .WithMany("Potkategorija")
+                        .HasForeignKey("KategorijaID");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -415,6 +496,12 @@ namespace eKorpa.Migrations
                     b.HasOne("eKorpa.EntityModels.Kategorija", "Kategorija")
                         .WithMany()
                         .HasForeignKey("KategorijaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.EntityModels.Potkategorija", "Potkategorija")
+                        .WithMany()
+                        .HasForeignKey("PotkategorijaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,0 +1,40 @@
+﻿@using eKorpa.ViewModels
+@model PonudaIndexVM
+
+    <table class="table table-bordered">
+        <thead>
+            <th>ID</th>
+            <th>Opis</th>
+            <th>Kategorija</th>
+            <th>Potkategorija</th>
+            <th>Velicina popusta</th>
+            <th>Aktivna (DA/NE)</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.rows)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Opis</td>
+                    <td>@item.NazivKategorije</td>
+                    <td>@item.NazivPotkategorije</td>
+                    <td>@item.VelicinaPopusta</td>
+                    <td>
+                        @if (item.IsAktivna)
+                        {
+                            <a href="/Ponuda/DeaktivirajPonudu?PonudaID=@item.ID" class="btn btn-success">Aktivna</a>
+                        }
+                        else
+                        {
+                            <a href="/Ponuda/AktivirajPonudu?PonudaID=@item.ID" class="btn btn-danger">Neaktivna</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <a href="/Ponuda/Dodaj">Dodaj ponudu</a>
+

@@ -10,22 +10,15 @@
     }
     var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
-@if (Model.Layout == true)
+@*@if (Model.Layout == true)
 {
-    <div class="navBar">
-        @if (User.IsInRole("Kupac") || User.IsInRole("Prodavač") || User.IsInRole("Admin"))
-        {
+    <div class="navBar">    
             <ul>
                 <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
                 <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
             </ul>
-        }
-        <form class="pretraga" asp-action="Index" asp-controller="Artikal">
-            <input name="querry" placeholder="npr: majica" />
-            <button type="submit" class="btn btn-dark">Pretraži</button>
-        </form>
     </div>
-}
+}*@
 
 <div class="pomocneStavke">
 
@@ -59,6 +52,7 @@
                 <span class="naziv">@item.NazivArtikla</span><br />
                 <span class="kategorija">@item.Kategorija</span><br />
                 <span class="cijena">@item.Cijena KM</span><br />
+                <span class="cijena">@item.CijenaSaPopustom KM</span><br />
             </div>
             @if (claimsIdentity == item.ProdavacId)
             {

@@ -19,6 +19,7 @@ namespace eKorpa.ViewModels
             public List<int[]> SlikaID { get; set; }
             public List<int> Thumbnail { get; set; }
             public float Cijena { get; set; }
+            public float CijenaSaPopustom { get; set; }
             public bool jestUListi { get; set; }
         }
             public bool Layout { get; set; }

@@ -21,6 +21,12 @@
         <label for="Kategorija">Kategorija</label>
         <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
         <span asp-validation-for="Kategorije" class="text-danger"></span>
+        
+        <label for="Potkategorija">Potkategorija</label>
+        <select asp-for="PotkategorijaID" asp-items="Model.Potkategorija"></select>
+        <span asp-validation-for="Potkategorija" class="text-danger"></span>
+
+
         <label>Slike</label>
 
         <div class="slike">

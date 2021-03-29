@@ -140,3 +140,5 @@ C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\Syste
 C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\Ramki\Source\Repos\webapp\DodajKategorija\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Facebook.dll
+C:\Users\Jasmin\source\repos\eKorpa\DodajKategorija\bin\Debug\netcoreapp3.1\Twilio.dll

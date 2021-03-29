@@ -1,0 +1,10 @@
+﻿@using eKorpa.ViewModels
+@model PotkategorijaIndexVM 
+
+    <form asp-action="DodajPotkategoriju" asp-controller="Potkategorija">
+        <label>Odaberite kategoriju:</label>
+        <select asp-for="KategorijaID" asp-items="Model.Kategorija" ></select>
+        <label>Unesite naziv nove potkategorije:</label>
+        <input asp-for="Potkategorija"/>
+        <button type="submit" class="btn btn-dark">Dodaj potkategoriju</button>
+    </form>

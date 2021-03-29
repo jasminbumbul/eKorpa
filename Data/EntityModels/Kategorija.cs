@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.EntityModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace eKorpa.EntityModels
     {
         public int ID { get; set; }
         public string NazivKategorije { get; set; }
+        public List<Potkategorija> Potkategorija { get; set; }
+
     }
 }

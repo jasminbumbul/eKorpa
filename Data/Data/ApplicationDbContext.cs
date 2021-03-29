@@ -24,9 +24,11 @@ namespace eKorpa.Data
         public DbSet<Artikal> Artikal { get; set; }
         public DbSet<ArtikliKorisnici> ArtikalKorisnik  { get; set; }
         public DbSet<Kategorija> Kategorija  { get; set; }
+        public DbSet<Potkategorija> Potkategorija { get; set; }
         public DbSet<Korpa> Korpa  { get; set; }
         public DbSet<Slika> Slika { get; set; }
         public DbSet<ListaZelja> ListaZelja { get; set; }
+        public DbSet<Ponuda> Ponuda { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

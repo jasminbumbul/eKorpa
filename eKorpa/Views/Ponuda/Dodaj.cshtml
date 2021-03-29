@@ -1,0 +1,17 @@
+﻿@using eKorpa.ViewModels
+@model PonudaDodajVM
+
+    <form asp-action="SnimiPonudu" asp-controller="Ponuda">
+        <label>Opis ponude</label>
+        <input asp-for="Opis"/>
+        <br />
+        <label>Velicina popusta</label>
+        <input asp-for="Popust" />
+        <br />
+        <label>Kategorija</label>
+        <select asp-for="KategorijaID" asp-items="Model.Kategorija"></select>
+        <br />
+        <label>Potkategorija</label>
+        <select asp-for="PotkategorijaID" asp-items="Model.Potkategorija"></select>
+        <button type="submit" class="btn btn-dark" >Dodaj</button>
+    </form>
