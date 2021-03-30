@@ -19,7 +19,6 @@ namespace eKorpa.ViewModels
         public List<int> SlikaID{ get; set; }
         public List<int> Thumbnail { get; set; }
         public int kolicina { get; set; }
-        //public int KategorijaID { get; set; }
-        //public List<SelectListItem> Kategorije { get; set; }
+        public string Brend { get; set; }
     }
 }

@@ -483,3 +483,5 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\L
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Potkategorija\Index.cshtml.g.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ponuda\Dodaj.cshtml.g.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ponuda\Index.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Brend\Index.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Kategorija\Index.cshtml.g.cs

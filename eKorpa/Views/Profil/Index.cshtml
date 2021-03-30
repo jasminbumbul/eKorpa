@@ -1,4 +1,12 @@
 ﻿@using eKorpa.ViewModels
+@using Microsoft.AspNetCore.Identity
+@using eKorpa.EntityModels
+@using System.Security.Claims
+@inject SignInManager<Korisnik> SignInManager
+@inject UserManager<Korisnik> UserManager
+@{
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
 @model ProfilIndexVM
 
 <a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
@@ -10,6 +18,13 @@
     <span>@Model.Prezime</span> <br />
     <label> Email </label>
     <span>@Model.Email</span> <br />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila</a>
+        <a class="nav-link text-dark" href="/Artikal/Dodaj" title="Dodaj novi artikal"><i class="fas fa-plus-circle"></i> Dodaj novi artikal</a>
+        
+    }
+
     <div id="ajaxDiv" style="border:1px solid black">
 
     </div>
@@ -28,4 +43,5 @@
         });
     }
 </script>
+
 

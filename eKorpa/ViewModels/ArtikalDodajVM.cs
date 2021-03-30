@@ -23,5 +23,7 @@ namespace eKorpa.ViewModels
         public List<int> SlikaID { get; set; }
         public List<IFormFile> Slika { get; set; }
         public float Cijena { get; set; }
+        public int BrendID { get; set; }
+        public List<SelectListItem> Brend { get; set; }
     }
 }

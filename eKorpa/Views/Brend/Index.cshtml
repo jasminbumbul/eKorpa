@@ -1,0 +1,8 @@
+﻿@using eKorpa.ViewModels
+@model BrendIndexVM 
+
+    <form asp-action="DodajBrend" asp-controller="Brend">
+        <label>Unesite naziv novog brenda:</label>
+        <input asp-for="Naziv"/>
+        <button type="submit" class="btn btn-dark">Dodaj brend</button>
+    </form>

@@ -21,6 +21,7 @@ namespace eKorpa.ViewModels
             public float Cijena { get; set; }
             public float CijenaSaPopustom { get; set; }
             public bool jestUListi { get; set; }
+            public string Brend { get; set; }
         }
             public bool Layout { get; set; }
         public List<Row> rows { get; set; }

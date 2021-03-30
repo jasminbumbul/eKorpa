@@ -1,17 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using eKorpa.EntityModels
+@using System.Security.Claims
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
+@{
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-        </li>*@
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>*@
+
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Korisnički račun"><i class="fas fa-user-circle"></i></a>
+            </li>*@
 
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Korisnički račun"><i class="fas fa-user-circle"></i></a>
+            <a class="nav-link text-dark" href="/Profil/Index?KorisnikID=@claimsIdentity" title="Korisnički profil"><i class="fas fa-user-circle"></i></a>
         </li>
 
         <li class="nav-item">
@@ -35,8 +43,8 @@
     else
     {
         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>*@
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>*@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-user"></i></a>
         </li>

@@ -1,0 +1,8 @@
+﻿@using eKorpa.ViewModels
+@model KategorijaIndexVM 
+
+    <form asp-action="DodajKategoriju" asp-controller="Kategorija">
+        <label>Unesite naziv nove kategorije:</label>
+        <input asp-for="Kategorija"/>
+        <button type="submit" class="btn btn-dark">Dodaj kategoriju</button>
+    </form>

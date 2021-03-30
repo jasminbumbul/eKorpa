@@ -19,12 +19,18 @@
         <input asp-for="Cijena" />
 
         <label for="Kategorija">Kategorija</label>
-        <select asp-for="KategorijaID" asp-items="Model.Kategorije"></select>
+        <select id="selectKategorija"  asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()"></select>
         <span asp-validation-for="Kategorije" class="text-danger"></span>
         
         <label for="Potkategorija">Potkategorija</label>
-        <select asp-for="PotkategorijaID" asp-items="Model.Potkategorija"></select>
+        <select id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+            <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+        </select>
         <span asp-validation-for="Potkategorija" class="text-danger"></span>
+        
+        <label for="Brend">Brend</label>
+        <select  asp-for="BrendID" asp-items="Model.Brend"></select>
+        <span asp-validation-for="Brend" class="text-danger"></span>
 
 
         <label>Slike</label>
@@ -65,4 +71,21 @@
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <link href="/css/ArtikalDodaj.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
 
+    $(document).ready(function () {
+        $("#selectKategorija").change(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $.each(data, function (i, item) {
+                    $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
+
+
+                });
+            });
+        })
+    });
+
+
+</script>
