@@ -20,5 +20,7 @@ namespace eKorpa.EntityModels
         public string ImeProdavaca { get; set; }
         public float Cijena { get; set; }
         public float CijenaSaPopustom { get; set; }
+        public int BrendID { get; set; }
+        public Brend Brend { get; set; }
     }
 }

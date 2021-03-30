@@ -32,10 +32,10 @@ namespace eKorpa.Controllers
             ArtikalIndexVM objekat = null;
             switch (Kategorija)
             {
-                case "zene":
+                case "Žene":
                     objekat = new ArtikalIndexVM
                     {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Zene").Select(a => new ArtikalIndexVM.Row
+                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Select(a => new ArtikalIndexVM.Row
                         {
                             ID = a.ID,
                             NazivArtikla = a.Naziv,
@@ -45,15 +45,16 @@ namespace eKorpa.Controllers
                             Cijena = a.Cijena,
                             CijenaSaPopustom=a.CijenaSaPopustom,
                             Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
+                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                            Brend=a.Brend.Naziv
                         }).ToList()
                     };
                     break;
 
-                case "muskarci":
+                case "Muškarci":
                     objekat = new ArtikalIndexVM
                     {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muskarci").Select(a => new ArtikalIndexVM.Row
+                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Select(a => new ArtikalIndexVM.Row
                         {
                             ID = a.ID,
                             NazivArtikla = a.Naziv,
@@ -63,15 +64,16 @@ namespace eKorpa.Controllers
                             Cijena = a.Cijena,
                             CijenaSaPopustom = a.CijenaSaPopustom,
                             Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                            Brend = a.Brend.Naziv,
                             Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
                         }).ToList()
                     };
                     break;
 
-                case "djeca":
+                case "Djeca":
                     objekat = new ArtikalIndexVM
                     {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Djeca").Select(a => new ArtikalIndexVM.Row
+                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Select(a => new ArtikalIndexVM.Row
                         {
                             ID = a.ID,
                             NazivArtikla = a.Naziv,
@@ -81,7 +83,8 @@ namespace eKorpa.Controllers
                             CijenaSaPopustom=a.CijenaSaPopustom,
                             Cijena = a.Cijena,
                             Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
+                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                            Brend = a.Brend.Naziv
                         }).ToList()
                     };
                     break;
@@ -115,6 +118,7 @@ namespace eKorpa.Controllers
                             CijenaSaPopustom=a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                        Brend = a.Brend.Naziv
                     }).ToList()
                 };
             }
@@ -129,10 +133,11 @@ namespace eKorpa.Controllers
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
-                            CijenaSaPopustom=a.CijenaSaPopustom,
+                        CijenaSaPopustom=a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                        Brend = a.Brend.Naziv
                     }).ToList()
                 };
             }
@@ -163,6 +168,7 @@ namespace eKorpa.Controllers
                             CijenaSaPopustom=a.CijenaSaPopustom,
                     Cijena = a.Cijena,
                     Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                    Brend = a.Brend.Naziv
                 }).ToList()
             };
             objekat.Layout = false;
@@ -174,8 +180,7 @@ namespace eKorpa.Controllers
                 ? new ArtikalDodajVM()
                 {
                     Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                    Potkategorija = _database.Potkategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList()
-
+                    Brend=_database.Brend.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList()
                 }
                 : _database.Artikal
                     .Where(y => y.ID == ArtikalID)
@@ -188,12 +193,24 @@ namespace eKorpa.Controllers
                         ImeProdavaca = y.ImeProdavaca,
                         Cijena = y.Cijena,
                         Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                        Potkategorija = _database.Potkategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList(),
+                        Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
                         Slike = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
                         SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList()
                     }).Single();
 
             return View(noviArtikal);
+        }
+
+        public JsonResult UpdatePotkategorije(int KategorijaID)
+        {
+            List<Potkategorija> potkategorije = _database.Kategorija.Where(x => x.ID == KategorijaID).Select(x => x.Potkategorija).FirstOrDefault();
+
+            List<SelectListItem> novi = potkategorije.Select(a => new SelectListItem
+            {
+                Text = a.Naziv,
+                Value = a.ID.ToString()
+            }).ToList();
+            return Json(novi);
         }
 
         public IActionResult Detalji(int ArtikalID)
@@ -211,7 +228,8 @@ namespace eKorpa.Controllers
                     CijenaSaPopustom=x.CijenaSaPopustom,
                     Slike = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.SlikaFile).ToList(),
                     SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
-                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList()
+                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList(),
+                    Brend=x.Brend.Naziv
                 }).Single();
 
             return View(noviArtikal);
@@ -238,6 +256,7 @@ namespace eKorpa.Controllers
             artikal.PotkategorijaID = noviArtikal.PotkategorijaID;
             artikal.Cijena = noviArtikal.Cijena;
             artikal.CijenaSaPopustom = noviArtikal.Cijena;
+            artikal.BrendID = noviArtikal.BrendID;
             _database.SaveChanges();
             Artikal artikl = _database.Artikal.Find(artikal.ID);
             int brojacProlaza = 0;

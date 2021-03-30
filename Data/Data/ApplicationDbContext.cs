@@ -29,6 +29,7 @@ namespace eKorpa.Data
         public DbSet<Slika> Slika { get; set; }
         public DbSet<ListaZelja> ListaZelja { get; set; }
         public DbSet<Ponuda> Ponuda { get; set; }
+        public DbSet<Brend> Brend { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
