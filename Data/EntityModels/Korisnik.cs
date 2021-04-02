@@ -12,6 +12,7 @@ namespace eKorpa.EntityModels
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public DateTime DatumRodjenja { get; set; }
+        public string Adresa { get; set; }
 
         //public Kupac Kupac { get; set; }
         //public Prodavac Prodavac { get; set; }

@@ -45,6 +45,9 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "Prezime")]
             public string Prezime { get; set; }
+            
+            [Display(Name = "Adresa")]
+            public string Adresa { get; set; }
         }
 
         private async Task LoadAsync(Korisnik user)
@@ -59,7 +62,8 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
                 Ime=user.Ime,
                 Prezime=user.Prezime,
-                DatumRodjenja=user.DatumRodjenja
+                DatumRodjenja=user.DatumRodjenja,
+                Adresa = user.Adresa
             };
         }
 
@@ -104,6 +108,7 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
             user.Prezime = Input.Prezime;
             user.DatumRodjenja=Input.DatumRodjenja;
             user.PhoneNumber=Input.PhoneNumber;
+            user.Adresa = Input.Adresa;
             await _userManager.UpdateAsync(user); 
 
             await _signInManager.RefreshSignInAsync(user);

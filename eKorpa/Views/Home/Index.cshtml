@@ -2,8 +2,54 @@
     ViewData["Title"] = "Početna";
 }
 
+
 <div id="showcase">
 
-    
+    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdummyimage.com%2F980x300%2F444%2Faaa%2F%26text%3D%2B%2Bplaceholder%2Bimage%2B%2B&f=1&nofb=1" alt="Alternate Text" />
 
 </div>
+
+<div class="container">
+
+
+    <div id="threeCategories">
+
+        <div class="categories" onclick="OtvoriZene()">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
+            <p>Žene</p>
+        </div>
+
+        <div class="categories" onclick="OtvoriMuskarci()">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
+            <p>Muškarci</p>
+        </div>
+
+        <div class="categories" onclick="OtvoriDjeca()">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
+            <p>Djeca</p>
+        </div>
+
+    </div>
+   
+
+</div>
+
+
+
+<link href="/css/HomeIndex.css" rel="stylesheet" />
+
+<script>
+    function OtvoriZene() {
+        window.location = "/Artikal/IndexKateg?Kategorija=Žene";
+    }
+
+    function OtvoriMuskarci() {
+        window.location = "/Artikal/IndexKateg?Kategorija=Muškarci";
+    }
+
+    function OtvoriDjeca() {
+        window.location = "/Artikal/IndexKateg?Kategorija=Djeca";
+    }
+
+
+</script>

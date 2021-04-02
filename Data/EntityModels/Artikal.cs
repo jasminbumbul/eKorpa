@@ -22,5 +22,6 @@ namespace eKorpa.EntityModels
         public float CijenaSaPopustom { get; set; }
         public int BrendID { get; set; }
         public Brend Brend { get; set; }
+        public int BrojUSkladistu { get; set; }
     }
 }

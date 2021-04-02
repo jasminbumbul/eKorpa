@@ -20,5 +20,6 @@ namespace eKorpa.ViewModels
         public List<int> Thumbnail { get; set; }
         public int kolicina { get; set; }
         public string Brend { get; set; }
+        public int BrojUSkladistu { get; set; }
     }
 }

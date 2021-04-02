@@ -51,8 +51,11 @@
                 }
                 <span class="naziv">@item.NazivArtikla</span><br />
                 <span class="kategorija">@item.Kategorija</span><br />
-                <span class="cijena">@item.Cijena KM</span><br />
-                <span class="cijena">@item.CijenaSaPopustom KM</span><br />
+                <h4 class="cijena">Cijena  @item.Cijena KM</h4>
+                @if (item.Cijena != item.CijenaSaPopustom)
+                {
+                    <h4 class="cijena">Cijena sa popustom @item.CijenaSaPopustom KM</h4>
+                }
                 <span>@item.Brend </span><br />
             </div>
             @if (claimsIdentity == item.ProdavacId)
