@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Data.EntityModels;
 using System.Drawing;
 using Data.Helper;
+using Microsoft.AspNetCore.Identity;
 
 namespace eKorpa.Controllers
 {
@@ -21,7 +22,10 @@ namespace eKorpa.Controllers
     public class ArtikalController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();
+
         private readonly IWebHostEnvironment _hostEnvironment;
+
+
         public ArtikalController(IWebHostEnvironment hostEnvironment)
         {
             this._hostEnvironment = hostEnvironment;
@@ -229,7 +233,8 @@ namespace eKorpa.Controllers
                     Slike = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.SlikaFile).ToList(),
                     SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
                     Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList(),
-                    Brend=x.Brend.Naziv
+                    Brend=x.Brend.Naziv,
+                    BrojUSkladistu=x.BrojUSkladistu
                 }).Single();
 
             return View(noviArtikal);
@@ -257,6 +262,7 @@ namespace eKorpa.Controllers
             artikal.Cijena = noviArtikal.Cijena;
             artikal.CijenaSaPopustom = noviArtikal.Cijena;
             artikal.BrendID = noviArtikal.BrendID;
+            artikal.BrojUSkladistu = noviArtikal.BrojUSkladistu;
             _database.SaveChanges();
             Artikal artikl = _database.Artikal.Find(artikal.ID);
             int brojacProlaza = 0;
@@ -357,6 +363,32 @@ namespace eKorpa.Controllers
             _database.SaveChanges();
             return Redirect("/Artikal/Dodaj?ArtikalID=" + ArtikalID);
         }
-    }
 
+        public string Kupi()
+        {
+            var kupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var korisnik = _database.Users.Where(x => x.Id == kupacID).SingleOrDefault();
+
+            if(korisnik.Adresa==null || korisnik.Adresa.Count()<5)
+            {
+                //implementirati poruku neuspjeha
+                return "address404";
+            }
+
+            List<Korpa> stavkeUKorpi = _database.Korpa.Where(x => x.KupacID == kupacID).ToList();
+
+            List<Artikal> listaArtikalaUKorpi = new List<Artikal>();
+
+            //smanjivanje kolicine u skladistu
+            foreach (var item in stavkeUKorpi)
+            {
+                _database.Artikal.Where(x => x.ID == item.ArtikalID).SingleOrDefault().BrojUSkladistu -= item.kolicina;
+                _database.Korpa.Remove(item);
+                _database.SaveChanges();
+            }
+
+            return "success";
+        }
+    }
 }

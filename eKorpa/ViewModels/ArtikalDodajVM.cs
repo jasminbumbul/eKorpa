@@ -25,5 +25,6 @@ namespace eKorpa.ViewModels
         public float Cijena { get; set; }
         public int BrendID { get; set; }
         public List<SelectListItem> Brend { get; set; }
+        public int BrojUSkladistu { get; set; }
     }
 }

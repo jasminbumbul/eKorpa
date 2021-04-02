@@ -19,11 +19,15 @@
     <div class="detalji">
         <div class="nazivArtikla"> <h1> @Model.NazivArtikla</h1> </div>
         <hr />
-        <h4 class="cijena"> @Model.Cijena KM</h4>
-        <h4 class="cijena"> @Model.CijenaSaPopustom KM</h4>
+        <h4 class="cijena">Cijena  @Model.Cijena KM</h4>
+        @if (Model.Cijena!=Model.CijenaSaPopustom)
+        {
+        <h4 class="cijena">Cijena sa popustom @Model.CijenaSaPopustom KM</h4>
+        }
 
 
         <h4 > @Model.Brend</h4>
+        <h4 >Broj u skladištu : @Model.BrojUSkladistu</h4>
 
 
         <h6>Kategorija: @Model.Kategorija</h6>
@@ -34,7 +38,7 @@
 
             <form class="kolicina" asp-action="Dodaj" asp-controller="Korpa">
                 <input type="text" name="ArtikalID" hidden value="@Model.ID" />
-                <input type="number" value="" name="kolicina" id="qty" class="qtyy" />
+                <input type="number" value="0" max="@Model.BrojUSkladistu" name="kolicina" id="qty" class="qtyy" />
                 <button type="submit" class="btn btn-dark">Dodaj u korpu</button>
             </form>
         </div>

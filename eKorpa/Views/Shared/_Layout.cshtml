@@ -8,73 +8,96 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eKorpa</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul  class="navbar-nav flex-grow-1" style="display:flex;justify-content:right">
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
+
+    <div id="header">
+
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eKorpa</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1" style="display:flex;justify-content:right">
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>*@
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>*@
 
-                        <li class="nav-item">
-                          
 
-                            <form asp-action="Pretraga" asp-controller="Home" id="searchForma" >
-                                <input id="searchInput" name="querry" placeholder="npr: majica" type="search">
-                                @*<button type="submit" ><i class="fa fa-search"></i></button>*@
-                                <submit><i class="fa fa-search"></i></submit>
-                                
-                            </form>
+                                <form asp-action="Pretraga" asp-controller="Home" id="searchForma">
+                                    <input id="searchInput" name="querry" placeholder="npr: majica" type="search">
+                                    @*<button type="submit" ><i class="fa fa-search"></i></button>*@
+                                    <submit><i class="fa fa-search"></i></submit>
 
-                        </li>
+                                </form>
 
-                    </ul>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
+            </nav>
+
+
+            <div class="navBar">
+                <ul>
+                    <li> <a href="/Home">Početna</a></li>
+                    <li> <a href="/Artikal/IndexKateg?Kategorija=Žene">Žene</a></li>
+                    <li> <a href="/Artikal/IndexKateg?Kategorija=Muškarci">Muškarci</a></li>
+                    <li> <a href="/Artikal/IndexKateg?Kategorija=Djeca">Djeca</a></li>
+                    <li> <a href="/Ponuda/Index">Ponude</a></li>
+                </ul>
             </div>
-        </nav>
 
 
-        <div class="navBar">
-            <ul>
-                <li> <a href="/Home">Početna</a></li>
-                <li> <a href="/Artikal/IndexKateg?Kategorija=Žene">Žene</a></li>
-                <li> <a href="/Artikal/IndexKateg?Kategorija=Muškarci">Muškarci</a></li>
-                <li> <a href="/Artikal/IndexKateg?Kategorija=Djeca">Djeca</a></li>
-                <li> <a href="/Ponuda/Index">Ponude</a></li>
-            </ul>
-        </div>
+        </header>
+    </div>
 
-
-    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - eKorpa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    <div id="footer">
+
+
+        <footer @*class="border-top footer text-muted"*@>
+            <div class="container">
+                &copy; 2021 - eKorpa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)
+    </div>
+
 </body>
 </html>
 
 <link href="~/css/Layout.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans:400,500,700">
+
+
+<script>
+    function BlurLayout() {
+        document.getElementById("header").style.filter = "blur(8px)";
+        document.getElementById("footer").style.filter = "blur(8px)";
+    }
+
+    function DisableBlur() {
+        document.getElementById("header").style.filter = "none";
+        document.getElementById("footer").style.filter = "none";
+    }
+</script>
 

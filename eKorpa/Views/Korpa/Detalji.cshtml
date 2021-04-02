@@ -1,5 +1,7 @@
 ﻿@model eKorpa.ViewModels.KorpaDetaljiVM
 
+    <div id="main">
+
 @if (Model != null)
 {
     <div class="list-group">
@@ -34,8 +36,50 @@
         }
     </div>
 }
+    </div>
+
+<div id="wrapper">
+    <div class="dialog">
+        <p id="dialogText">Jeste li sigurni da želite dovršiti kupovinu?</p>
+        <a href="#" id="daBtn" onclick="Naruci()" class="btn btn-outline-success">DA</a>
+        <a href="#" id="neBtn" onclick="Prekid()"  class="btn btn-outline-danger">NE</a>
+    </div>
+</div>
+
+
 <a href="/Artikal/Index" class="btn btn-secondary">Artikli</a>
-<a href="/Artikal/Index" class="btn btn-secondary">Naruči i plati</a>
+<button onclick="ShowDialog()" class="btn btn-secondary">Naruči</button>
+
+<script>
+    function ShowDialog() {
+        document.getElementById("wrapper").style.display = "flex";
+        document.getElementById("main").style.filter = "blur(8px)";
+        BlurLayout();
+    }
+
+    function Naruci() {
+        var url = "/Artikal/Kupi";
+
+        $.get(url, function (odg) {
+            console.log(odg);
+            if (odg == "address404") {
+                alert("Da bi završili kupovinu, morate imati validnu adresu.");
+                Prekid();
+            }
+            else {
+                alert("Kupovina uspješno dovršena.");
+                window.location = "/Korpa/Detalji";
+            }
+        })
+    }
+
+    function Prekid() {
+        document.getElementById("wrapper").style.display = "none";
+        document.getElementById("main").style.filter = "none";
+        DisableBlur();
+    }
+</script>
+
 <style>
     body {
         background-color: rgb(45,45,45);
@@ -48,5 +92,37 @@
 
     img {
         width: 200px;
+    }
+
+
+    #wrapper {
+        display: none;
+        justify-content: center;
+    }
+
+    .dialog {
+        background-color: lightgray;
+        position: absolute;
+        display: block;
+        width: 300px;
+        height: 150px;
+        top: 35%;
+    }
+
+    #daBtn {
+        position: relative;
+        left: 70px;
+        top: 50px;
+    }
+
+    #neBtn {
+        position: relative;
+        left: 125px;
+        top: 50px;
+    }
+
+    #dialogText {
+        position: relative;
+        top: 15px;
     }
 </style>

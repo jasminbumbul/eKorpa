@@ -85,6 +85,10 @@ namespace eKorpa.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            
+            [Required]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -100,7 +104,7 @@ namespace eKorpa.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime = Input.FirstName, Prezime = Input.LastName, PhoneNumber = Input.PhoneNumber, DatumRodjenja = Input.DateOfBirth };
+                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime = Input.FirstName, Prezime = Input.LastName, PhoneNumber = Input.PhoneNumber, DatumRodjenja = Input.DateOfBirth, Adresa=Input.Address };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
