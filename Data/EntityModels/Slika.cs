@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using eKorpa.EntityModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace Data.EntityModels
         public byte[] SlikaFile { get; set; }
 
         public int ArtikalID { get; set; }
+        public Artikal Artikal{ get; set; }
         public int Thumbnail { get; set; }
     }
 }

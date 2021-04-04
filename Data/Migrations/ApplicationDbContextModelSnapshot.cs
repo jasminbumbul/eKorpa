@@ -19,6 +19,21 @@ namespace eKorpa.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Data.EntityModels.Boja", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Boja");
+                });
+
             modelBuilder.Entity("Data.EntityModels.Brend", b =>
                 {
                     b.Property<int>("ID")
@@ -45,7 +60,7 @@ namespace eKorpa.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("KupacID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("cijena")
                         .HasColumnType("real");
@@ -54,6 +69,10 @@ namespace eKorpa.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ArtikalID");
+
+                    b.HasIndex("KupacID");
 
                     b.ToTable("Korpa");
                 });
@@ -69,11 +88,30 @@ namespace eKorpa.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("KupacID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArtikalID");
+
+                    b.HasIndex("KupacID");
+
+                    b.ToTable("ListaZelja");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Materijal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("ListaZelja");
+                    b.ToTable("Materijal");
                 });
 
             modelBuilder.Entity("Data.EntityModels.Ponuda", b =>
@@ -127,6 +165,24 @@ namespace eKorpa.Migrations
                     b.ToTable("Potkategorija");
                 });
 
+            modelBuilder.Entity("Data.EntityModels.Rejting", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Ocjena")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Opis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Rejting");
+                });
+
             modelBuilder.Entity("Data.EntityModels.Slika", b =>
                 {
                     b.Property<int>("ID")
@@ -151,7 +207,67 @@ namespace eKorpa.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ArtikalID");
+
                     b.ToTable("Slika");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Velicina", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PotkategorijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VelicinaOznaka")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("PotkategorijaID");
+
+                    b.ToTable("Velicina");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.ZavrseniArtikal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArtikalID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Datum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Kolicina")
+                        .HasColumnType("int");
+
+                    b.Property<string>("KupacID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProdavacID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("RejtingID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArtikalID");
+
+                    b.HasIndex("KupacID");
+
+                    b.HasIndex("ProdavacID");
+
+                    b.HasIndex("RejtingID");
+
+                    b.ToTable("ZavrseniArtikal");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -292,6 +408,9 @@ namespace eKorpa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BojaID")
+                        .HasColumnType("int");
+
                     b.Property<int>("BrendID")
                         .HasColumnType("int");
 
@@ -310,6 +429,9 @@ namespace eKorpa.Migrations
                     b.Property<int>("KategorijaID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MaterijalID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
@@ -319,13 +441,22 @@ namespace eKorpa.Migrations
                     b.Property<string>("ProdavacID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("VelicinaID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("BojaID");
 
                     b.HasIndex("BrendID");
 
                     b.HasIndex("KategorijaID");
 
+                    b.HasIndex("MaterijalID");
+
                     b.HasIndex("PotkategorijaID");
+
+                    b.HasIndex("VelicinaID");
 
                     b.ToTable("Artikal");
                 });
@@ -444,6 +575,32 @@ namespace eKorpa.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Data.EntityModels.Korpa", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Artikal", "Artikal")
+                        .WithMany()
+                        .HasForeignKey("ArtikalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eKorpa.EntityModels.Korisnik", "Kupac")
+                        .WithMany()
+                        .HasForeignKey("KupacID");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.ListaZelja", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Artikal", "Artikal")
+                        .WithMany()
+                        .HasForeignKey("ArtikalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eKorpa.EntityModels.Korisnik", "Kupac")
+                        .WithMany()
+                        .HasForeignKey("KupacID");
+                });
+
             modelBuilder.Entity("Data.EntityModels.Ponuda", b =>
                 {
                     b.HasOne("eKorpa.EntityModels.Kategorija", "Kategorija")
@@ -464,6 +621,43 @@ namespace eKorpa.Migrations
                     b.HasOne("eKorpa.EntityModels.Kategorija", null)
                         .WithMany("Potkategorija")
                         .HasForeignKey("KategorijaID");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Slika", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Artikal", "Artikal")
+                        .WithMany()
+                        .HasForeignKey("ArtikalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.EntityModels.Velicina", b =>
+                {
+                    b.HasOne("Data.EntityModels.Potkategorija", null)
+                        .WithMany("Velicina")
+                        .HasForeignKey("PotkategorijaID");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.ZavrseniArtikal", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Artikal", "Artikal")
+                        .WithMany()
+                        .HasForeignKey("ArtikalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eKorpa.EntityModels.Korisnik", "Kupac")
+                        .WithMany()
+                        .HasForeignKey("KupacID");
+
+                    b.HasOne("eKorpa.EntityModels.Korisnik", "Prodavac")
+                        .WithMany()
+                        .HasForeignKey("ProdavacID");
+
+                    b.HasOne("Data.EntityModels.Rejting", "Rejting")
+                        .WithMany()
+                        .HasForeignKey("RejtingID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -519,6 +713,10 @@ namespace eKorpa.Migrations
 
             modelBuilder.Entity("eKorpa.EntityModels.Artikal", b =>
                 {
+                    b.HasOne("Data.EntityModels.Boja", "Boja")
+                        .WithMany()
+                        .HasForeignKey("BojaID");
+
                     b.HasOne("Data.EntityModels.Brend", "Brend")
                         .WithMany()
                         .HasForeignKey("BrendID")
@@ -531,11 +729,19 @@ namespace eKorpa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data.EntityModels.Materijal", "Materijal")
+                        .WithMany()
+                        .HasForeignKey("MaterijalID");
+
                     b.HasOne("Data.EntityModels.Potkategorija", "Potkategorija")
                         .WithMany()
                         .HasForeignKey("PotkategorijaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Data.EntityModels.Velicina", "Velicina")
+                        .WithMany()
+                        .HasForeignKey("VelicinaID");
                 });
 
             modelBuilder.Entity("eKorpa.EntityModels.ArtikliKorisnici", b =>

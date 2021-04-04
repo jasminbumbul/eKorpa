@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ep/xyxJcEzH7ICKGfY+yc62WT6EXbV/P2abiuFdCGm+5Stev1zFLDjcrFWX7LZWVz3Pa/2ouXTPXLP/FLZyK2w==",
+  "dgSpecHash": "RzSlRXDMD0hXIn7WHBTPpo4uANMLpGnLXKEyJSOumiS19Fh5g0eUdBl+YZOIZAFyCSrgdFxGNeiFNBaemkPnkg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
   "expectedPackageFiles": [
@@ -211,7 +211,8 @@
     "C:\\Users\\Jasmin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
     "C:\\Users\\Jasmin\\.nuget\\packages\\twilio\\5.53.0\\twilio.5.53.0.nupkg.sha512",
     "C:\\Users\\Jasmin\\.nuget\\packages\\twilio.aspnet.common\\5.37.2\\twilio.aspnet.common.5.37.2.nupkg.sha512",
-    "C:\\Users\\Jasmin\\.nuget\\packages\\twilio.aspnet.core\\5.37.2\\twilio.aspnet.core.5.37.2.nupkg.sha512"
+    "C:\\Users\\Jasmin\\.nuget\\packages\\twilio.aspnet.core\\5.37.2\\twilio.aspnet.core.5.37.2.nupkg.sha512",
+    "C:\\Users\\Jasmin\\.nuget\\packages\\westwind.aspnetcore.livereload\\0.3.1\\westwind.aspnetcore.livereload.0.3.1.nupkg.sha512"
   ],
   "logs": []
 }
