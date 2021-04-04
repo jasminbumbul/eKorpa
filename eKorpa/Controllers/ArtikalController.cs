@@ -47,11 +47,11 @@ namespace eKorpa.Controllers
                             ProdavacId = a.ProdavacID,
                             ImeProdavaca = a.ImeProdavaca,
                             Cijena = a.Cijena,
-                            CijenaSaPopustom=a.CijenaSaPopustom,
+                            CijenaSaPopustom = a.CijenaSaPopustom,
                             Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                             Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
-                            Brend=a.Brend.Naziv
-                        }).ToList()
+                            Brend = a.Brend.Naziv,
+                        }).ToList(),
                     };
                     break;
 
@@ -84,7 +84,7 @@ namespace eKorpa.Controllers
                             Kategorija = a.Kategorija.NazivKategorije,
                             ProdavacId = a.ProdavacID,
                             ImeProdavaca = a.ImeProdavaca,
-                            CijenaSaPopustom=a.CijenaSaPopustom,
+                            CijenaSaPopustom = a.CijenaSaPopustom,
                             Cijena = a.Cijena,
                             Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                             Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
@@ -102,7 +102,7 @@ namespace eKorpa.Controllers
                 }
             }
             objekat.Layout = true;
-            return View("Index",objekat);
+            return View("Index", objekat);
         }
         public IActionResult Index(string querry = null)
         {
@@ -119,11 +119,11 @@ namespace eKorpa.Controllers
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            CijenaSaPopustom=a.CijenaSaPopustom,
+                        CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
                         Brend = a.Brend.Naziv
-                    }).ToList()
+                    }).ToList(),
                 };
             }
             else
@@ -137,7 +137,7 @@ namespace eKorpa.Controllers
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
-                        CijenaSaPopustom=a.CijenaSaPopustom,
+                        CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                         Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
@@ -145,6 +145,10 @@ namespace eKorpa.Controllers
                     }).ToList()
                 };
             }
+
+            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
+            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+
             foreach (var item in objekat.rows)
             {
                 foreach (var temp in _database.ListaZelja)
@@ -169,7 +173,7 @@ namespace eKorpa.Controllers
                     ProdavacId = a.ProdavacID,
                     ImeProdavaca = a.ImeProdavaca,
                     Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            CijenaSaPopustom=a.CijenaSaPopustom,
+                    CijenaSaPopustom = a.CijenaSaPopustom,
                     Cijena = a.Cijena,
                     Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
                     Brend = a.Brend.Naziv
@@ -184,7 +188,7 @@ namespace eKorpa.Controllers
                 ? new ArtikalDodajVM()
                 {
                     Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                    Brend=_database.Brend.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList()
+                    Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
                 }
                 : _database.Artikal
                     .Where(y => y.ID == ArtikalID)
@@ -229,12 +233,12 @@ namespace eKorpa.Controllers
                     Prodavac = x.ProdavacID,
                     Kategorija = x.Kategorija.NazivKategorije,
                     Cijena = x.Cijena,
-                    CijenaSaPopustom=x.CijenaSaPopustom,
+                    CijenaSaPopustom = x.CijenaSaPopustom,
                     Slike = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.SlikaFile).ToList(),
                     SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
                     Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList(),
-                    Brend=x.Brend.Naziv,
-                    BrojUSkladistu=x.BrojUSkladistu
+                    Brend = x.Brend.Naziv,
+                    BrojUSkladistu = x.BrojUSkladistu
                 }).Single();
 
             return View(noviArtikal);
@@ -370,7 +374,7 @@ namespace eKorpa.Controllers
 
             var korisnik = _database.Users.Where(x => x.Id == kupacID).SingleOrDefault();
 
-            if(korisnik.Adresa==null || korisnik.Adresa.Count()<5)
+            if (korisnik.Adresa == null || korisnik.Adresa.Count() < 5)
             {
                 //implementirati poruku neuspjeha
                 return "address404";
@@ -383,10 +387,23 @@ namespace eKorpa.Controllers
             //smanjivanje kolicine u skladistu
             foreach (var item in stavkeUKorpi)
             {
-                _database.Artikal.Where(x => x.ID == item.ArtikalID).SingleOrDefault().BrojUSkladistu -= item.kolicina;
+                var artikal = _database.Artikal.Where(x => x.ID == item.ArtikalID).SingleOrDefault();
+                artikal.BrojUSkladistu -= item.kolicina;
+
                 _database.Korpa.Remove(item);
+                //oznacavanje artikla kao zavrsenog(kupljen ili prodan)
+                ZavrseniArtikal zavrseniArtikal = new ZavrseniArtikal
+                {
+                    ArtikalID = item.ArtikalID,
+                    Datum = DateTime.Now,
+                    Kolicina = item.kolicina,
+                    KupacID = kupacID,
+                    ProdavacID = artikal.ProdavacID
+                };
+                _database.ZavrseniArtikal.Add(zavrseniArtikal);
                 _database.SaveChanges();
             }
+
 
             return "success";
         }

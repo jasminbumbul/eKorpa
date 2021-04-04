@@ -23,5 +23,11 @@ namespace eKorpa.EntityModels
         public int BrendID { get; set; }
         public Brend Brend { get; set; }
         public int BrojUSkladistu { get; set; }
+        public int? BojaID { get; set; }
+        public Boja Boja { get; set; }
+        public int? MaterijalID { get; set; }
+        public Materijal Materijal { get; set; }
+        public int? VelicinaID { get; set; }
+        public Velicina Velicina { get; set; }
     }
 }

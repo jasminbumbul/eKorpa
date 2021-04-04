@@ -1,0 +1,120 @@
+﻿@using eKorpa.ViewModels
+@using System.Security.Claims
+@model ArtikalIndexVM
+    Prodani artikli :
+
+@{
+    if (Model.Layout == false)
+    {
+        Layout = null;
+    }
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@*@if (Model.Layout == true)
+        {
+    <div class="navBar">
+        <ul>
+            <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
+            <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
+        </ul>
+    </div>
+        }*@
+
+
+<div id="containerArtikala">
+    @if (Model.rows.Count == 0)
+    {
+        <h1>Nema rezultata</h1>
+    }
+    @foreach (var item in Model.rows)
+    {
+        <div class="artikalCopy">
+            <div onclick="OtvoriDetaljeArtikla(@item.ID)">
+                @if (item.Slika.Count == 0)
+                {
+                    <h1>Nema slike</h1>
+                }
+
+                @for (int i = 0; i < item.Slika.Count; i++)
+                {
+                    @if (item.Slika[i] != null && item.Thumbnail[i] == 1)
+                    {
+                        var base64 = Convert.ToBase64String(item.Slika[i]);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <img src="@imgsrc" alt="Alternate Text" /><br />
+                    }
+                }
+                <span class="naziv">@item.NazivArtikla</span><br />
+                <span class="kategorija">@item.Kategorija</span><br />
+                <h4 class="cijena">Cijena  @item.Cijena KM</h4>
+                @if (item.Cijena != item.CijenaSaPopustom)
+                {
+                    <h4 class="cijena">Cijena sa popustom @item.CijenaSaPopustom KM</h4>
+                }
+                <span>@item.Brend </span><br />
+            </div>
+            @if (claimsIdentity == item.ProdavacId)
+            {
+                <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+
+                </a>
+                <a href="/Artikal/Obrisi?ArtikalID=@item.ID">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+
+                </a>
+            }
+            @if (User.IsInRole("Kupac") || User.IsInRole("Prodavač") || User.IsInRole("Admin"))
+            {
+                @if (item.jestUListi)
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:black; background:white;">
+                            <span class="tooltiptext">Pogledaj listu želja</span>
+                        </i>
+                    </a>
+                }
+                else
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" onclick="klik()">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:white; background:black;">
+                            <span class="tooltiptext">Dodaj u listu želja</span>
+                        </i>
+
+                    </a>
+                }
+            }
+            <label>Postavio : </label>
+            <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
+            @*@if (User.IsInRole("Admin"))
+                {
+                    <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+                    <a href="/Artikal/Dodaj?ArtikalID=@item.ID">Uredi</a>
+                    <a href="/Artikal/Obrisi?ArtikalID=@item.ID">Obrisi</a><br />
+                }*@
+        </div>
+    }
+</div>
+<div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
+
+@*@if (User.IsInRole("Admin"))
+    {
+        <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
+    }*@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+@*<link href="/css/ArtikalIndex.css" rel="stylesheet" />*@
+
+
+<script>
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
+    }
+
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
+    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
+</script>

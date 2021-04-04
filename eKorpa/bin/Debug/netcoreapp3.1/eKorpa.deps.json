@@ -40,6 +40,7 @@
           "Twilio": "5.53.0",
           "Twilio.AspNet.Common": "5.37.2",
           "Twilio.AspNet.Core": "5.37.2",
+          "Westwind.AspNetCore.LiveReload": "0.3.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -2890,6 +2891,17 @@
         },
         "compile": {
           "lib/netstandard1.6/Twilio.AspNet.Core.dll": {}
+        }
+      },
+      "Westwind.AspNetCore.LiveReload/0.3.1": {
+        "runtime": {
+          "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.dll": {
+            "assemblyVersion": "0.3.1.0",
+            "fileVersion": "0.3.1.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.dll": {}
         }
       },
       "Data/1.0.0": {
@@ -5927,6 +5939,13 @@
       "sha512": "sha512-kEmsczResMWJ1lHnhZRKhWVE2eiBuXWAUF6tsQDAeXWIOREmBpUxNIU5LI47ss8miSj7oIPxpM8yz5GYjZP9QQ==",
       "path": "twilio.aspnet.core/5.37.2",
       "hashPath": "twilio.aspnet.core.5.37.2.nupkg.sha512"
+    },
+    "Westwind.AspNetCore.LiveReload/0.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eq5g/ABkNw2R/Exrvxg/BPHgMmQ/9Ou9ysCsOhEuhxntl19XM+v+93TfZ7u9x4BBNA2ZI6rUy2tCvKTFMiD8Sg==",
+      "path": "westwind.aspnetcore.livereload/0.3.1",
+      "hashPath": "westwind.aspnetcore.livereload.0.3.1.nupkg.sha512"
     },
     "Data/1.0.0": {
       "type": "project",

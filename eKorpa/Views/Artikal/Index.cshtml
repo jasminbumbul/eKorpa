@@ -11,19 +11,60 @@
     var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 @*@if (Model.Layout == true)
-{
-    <div class="navBar">    
-            <ul>
-                <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
-                <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
-            </ul>
+    {
+        <div class="navBar">
+                <ul>
+                    <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
+                    <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
+                </ul>
+        </div>
+    }*@
+
+
+
+@*---------------------filter-----------------------*@
+<div><button onclick="ShowDialog()" style="float:right;"><i class="fas fa-filter">filter</i></button></div>
+
+<div id="wrapper">
+    <div class="dialog">
+        <p id="dialogtext">Filtriranje pretrage</p>
+        <a href="#" id="daBtn" class="btn btn-outline-primary">Potvrdi</a>
+        <a href="#" id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
+
+        <label for="Kategorija">Kategorija</label>
+        <select  id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
+            <option disabled selected value="0">Odaberite kategoriju </option>
+        </select>
+        <br />
+
+        <label for="Potkategorija">Potkategorija</label>
+        <select  id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+            <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+        </select>
+        
+        <label for="MinCijena">Min cijena</label>
+        <input  id="MinCijena" asp-for="MinCijena" >
+        <br />
+        
+        <label for="MaxCijena">Max cijena</label>
+        <input  id="MaxCijena" asp-for="MaxCijena" >
+        <br />
+        
+        <label for="Boja">Boja</label>
+        <select  id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
+            <option disabled selected value="0">Odaberite boju</option>
+        </select>
+        <br />
+        
+
+      
+
     </div>
-}*@
-
-<div class="pomocneStavke">
-
-
 </div>
+
+
+
+
 
 
 <div id="containerArtikala">
@@ -60,10 +101,10 @@
             </div>
             @if (claimsIdentity == item.ProdavacId)
             {
-        <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
-            <i class="fa fa-wrench" aria-hidden="true"></i>
+                <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
 
-        </a>
+                </a>
                 <a href="/Artikal/Obrisi?ArtikalID=@item.ID">
                     <i class="fa fa-trash" aria-hidden="true"></i>
 
@@ -109,9 +150,24 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <link href="/css/ArtikalIndex.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 
 <script>
+    $(document).ready(function () {
+        $("#selectKategorija").change(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $.each(data, function (i, item) {
+                    $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
+
+
+                });
+            });
+        })
+    });
+
+
     function OtvoriProfilProdavaca(prodavacID) {
         var url = "/Profil/Index?KorisnikID=" + prodavacID;
         window.open(url, '_self');
@@ -122,4 +178,48 @@
         window.open(url, '_self');
     }
     function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
+
+    function ShowDialog() {
+        document.getElementById("wrapper").style.display = "flex";
+    }
+
+    function Prekid() {
+        document.getElementById("wrapper").style.display = "none";
+    }
+
+
+
 </script>
+
+<style>
+    #wrapper {
+        display: none;
+        justify-content: center;
+    }
+
+    .dialog {
+        background-color: lightgray;
+        position: absolute;
+        display: block;
+        width: 500px;
+        height: 500px;
+        top: 20%;
+    }
+
+    #daBtn {
+        position: relative;
+        left: 408px;
+        top: 400px;
+    }
+
+    #neBtn {
+        position: relative;
+        left: 370px;
+        top: -23px;
+    }
+
+    #dialogText {
+        position: relative;
+        top: 15px;
+    }
+</style>

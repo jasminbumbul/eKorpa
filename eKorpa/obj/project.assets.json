@@ -3371,6 +3371,18 @@
           "lib/netstandard1.6/Twilio.AspNet.Core.dll": {}
         }
       },
+      "Westwind.AspNetCore.LiveReload/0.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -11359,6 +11371,22 @@
         "twilio.aspnet.core.nuspec"
       ]
     },
+    "Westwind.AspNetCore.LiveReload/0.3.1": {
+      "sha512": "eq5g/ABkNw2R/Exrvxg/BPHgMmQ/9Ou9ysCsOhEuhxntl19XM+v+93TfZ7u9x4BBNA2ZI6rUy2tCvKTFMiD8Sg==",
+      "type": "package",
+      "path": "westwind.aspnetcore.livereload/0.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net5.0/Westwind.AspNetCore.LiveReload.dll",
+        "lib/net5.0/Westwind.AspNetCore.LiveReload.xml",
+        "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.dll",
+        "lib/netcoreapp3.1/Westwind.AspNetCore.LiveReload.xml",
+        "westwind.aspnetcore.livereload.0.3.1.nupkg.sha512",
+        "westwind.aspnetcore.livereload.nuspec"
+      ]
+    },
     "Data/1.0.0": {
       "type": "project",
       "path": "../Data/Data.csproj",
@@ -11382,7 +11410,8 @@
       "System.Configuration.ConfigurationManager >= 5.0.0",
       "Twilio >= 5.53.0",
       "Twilio.AspNet.Common >= 5.37.2",
-      "Twilio.AspNet.Core >= 5.37.2"
+      "Twilio.AspNet.Core >= 5.37.2",
+      "Westwind.AspNetCore.LiveReload >= 0.3.1"
     ]
   },
   "packageFolders": {
@@ -11497,6 +11526,10 @@
           "Twilio.AspNet.Core": {
             "target": "Package",
             "version": "[5.37.2, )"
+          },
+          "Westwind.AspNetCore.LiveReload": {
+            "target": "Package",
+            "version": "[0.3.1, )"
           }
         },
         "imports": [

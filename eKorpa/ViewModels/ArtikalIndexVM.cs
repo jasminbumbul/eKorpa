@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,6 +25,14 @@ namespace eKorpa.ViewModels
             public string Brend { get; set; }
         }
             public bool Layout { get; set; }
+        public int KategorijaID { get; set; }
+        public List<SelectListItem> Kategorije { get; set; }
+        public int PotkategorijaID { get; set; }
+        public List<SelectListItem> Potkategorija { get; set; }
+        public float MinCijena { get; set; }
+        public float MaxCijena { get; set; }
+        public int BojaID { get; set; }
+        public List<SelectListItem> Boja { get; set; }
         public List<Row> rows { get; set; }
     }
 }
