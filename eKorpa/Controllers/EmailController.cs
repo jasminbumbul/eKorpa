@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class EmailController : Controller
     {
         private readonly UserManager<Korisnik> _userManager;

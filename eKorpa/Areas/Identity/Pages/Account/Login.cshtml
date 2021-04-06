@@ -66,6 +66,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
+                                    @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>

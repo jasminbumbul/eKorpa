@@ -97,7 +97,12 @@ namespace eKorpa.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+#pragma warning disable MVC1002 // Route attributes cannot be applied to page handler methods.
         [HttpPost]
+#pragma warning restore MVC1002 // Route attributes cannot be applied to page handler methods.
+#pragma warning disable MVC1001 // Filters cannot be applied to page handler methods.
+        [ValidateAntiForgeryToken]
+#pragma warning restore MVC1001 // Filters cannot be applied to page handler methods.
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");

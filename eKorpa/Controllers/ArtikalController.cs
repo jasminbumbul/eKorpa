@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     //[Authorize(Roles = "Admin, Kupac, Prodavac")]
     public class ArtikalController : Controller
     {
@@ -30,6 +31,8 @@ namespace eKorpa.Controllers
         {
             this._hostEnvironment = hostEnvironment;
         }
+
+
 
         public IActionResult IndexKateg(string Kategorija)
         {
@@ -182,8 +185,10 @@ namespace eKorpa.Controllers
             objekat.Layout = false;
             return View("Index", objekat);
         }
+        //[ValidateAntiForgeryToken]
         public IActionResult Dodaj(int ArtikalID)
         {
+
             ArtikalDodajVM noviArtikal = ArtikalID == 0
                 ? new ArtikalDodajVM()
                 {
@@ -196,14 +201,17 @@ namespace eKorpa.Controllers
                     {
                         ID = y.ID,
                         KategorijaID = y.KategorijaID,
+                        PotkategorijaID = y.PotkategorijaID,
                         NazivArtikla = y.Naziv,
                         ProdavacId = y.ProdavacID,
                         ImeProdavaca = y.ImeProdavaca,
                         Cijena = y.Cijena,
                         Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
+                        //Potkategorija = _database.Potkategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv}).ToList(),
                         Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
                         Slike = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
-                        SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList()
+                        SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
+                        BrojUSkladistu = y.BrojUSkladistu
                     }).Single();
 
             return View(noviArtikal);

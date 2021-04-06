@@ -73,7 +73,7 @@
         <label asp-for="Slika" class="control-label">Upload slike</label>
         <input asp-for="Slika" accept="image/*" multiple />
         <span asp-validation-for="Slika" class="text-danger"></span>
-
+        @Html.AntiForgeryToken()
         <input type="submit" value="Snimi" class="btn btn-primary" />
 
     </form>
@@ -82,7 +82,6 @@
 <link href="/css/ArtikalDodaj.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-
     $(document).ready(function () {
         $("#selectKategorija").change(function () {
             $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
@@ -90,11 +89,19 @@
                 $.each(data, function (i, item) {
                     $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
 
-
                 });
             });
         })
     });
-
-
+    //update potkategorija i selectovanje prijasnje pri editu postojeceg artikla
+    $(document).ready(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $.each(data, function (i, item) {
+                    if (item.value == @Model.PotkategorijaID) {
+                        $("#selectPotkategorija").append("<option selected value='" + item.value + "'>" + item.text + "</option>");
+                    } else { $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");}
+                });
+            });
+    });
 </script>

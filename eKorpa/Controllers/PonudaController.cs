@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class PonudaController : Controller
     {
         private ApplicationDbContext _database;

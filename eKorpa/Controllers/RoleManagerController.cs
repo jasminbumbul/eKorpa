@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class RoleManagerController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

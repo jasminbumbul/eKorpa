@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class SlikaController : Controller
     {
         //private readonly ImageDbContext _context;

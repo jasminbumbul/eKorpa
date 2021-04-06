@@ -151,7 +151,6 @@ C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ar
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Artikal\Index.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Korisnik\Prikaz.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
@@ -487,3 +486,11 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\K
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\KupljeniArtikli.cshtml.g.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\ProdaniArtikli.cshtml.g.cs
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\Westwind.AspNetCore.LiveReload.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\bin\Debug\netcoreapp3.1\Westwind.AspNetCore.LiveReload.dll
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Brend\Index.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Kategorija\Index.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ponuda\Dodaj.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Ponuda\Index.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Potkategorija\Index.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\KupljeniArtikli.cshtml.g.cs
+C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\ProdaniArtikli.cshtml.g.cs

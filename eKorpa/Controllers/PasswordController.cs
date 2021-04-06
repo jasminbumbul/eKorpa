@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class PasswordController : Controller
     {
         private readonly UserManager<Korisnik> _userManager;
