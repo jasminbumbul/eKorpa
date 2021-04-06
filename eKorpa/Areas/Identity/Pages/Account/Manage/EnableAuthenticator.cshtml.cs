@@ -66,7 +66,9 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
 
             return Page();
         }
-
+#pragma warning disable MVC1001 // Filters cannot be applied to page handler methods.
+        [ValidateAntiForgeryToken]
+#pragma warning restore MVC1001 // Filters cannot be applied to page handler methods.
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

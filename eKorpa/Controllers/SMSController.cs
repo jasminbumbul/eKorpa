@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class SmsController:TwilioController
     {
         private IConfiguration _iConfig;

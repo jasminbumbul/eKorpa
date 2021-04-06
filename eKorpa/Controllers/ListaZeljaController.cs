@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ListaZeljaController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();

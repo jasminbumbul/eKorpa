@@ -11,6 +11,7 @@ using eKorpa.ViewModels;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class KorpaController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();

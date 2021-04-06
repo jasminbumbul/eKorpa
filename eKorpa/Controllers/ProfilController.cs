@@ -10,6 +10,7 @@ using eKorpa.EntityModels;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ProfilController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();

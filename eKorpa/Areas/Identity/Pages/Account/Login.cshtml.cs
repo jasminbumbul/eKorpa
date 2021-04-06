@@ -71,7 +71,9 @@ namespace eKorpa.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
-
+#pragma warning disable MVC1001 // Filters cannot be applied to page handler methods.
+        [ValidateAntiForgeryToken]
+#pragma warning restore MVC1001 // Filters cannot be applied to page handler methods.
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");

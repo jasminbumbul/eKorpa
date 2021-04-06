@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class BrendController : Controller
     {
         private ApplicationDbContext _database;

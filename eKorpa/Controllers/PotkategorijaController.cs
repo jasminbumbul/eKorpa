@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class PotkategorijaController : Controller
     {
         private ApplicationDbContext _database;

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace eKorpa.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class UserRolesController : Controller
     {
         private readonly UserManager<Korisnik> _userManager; 
