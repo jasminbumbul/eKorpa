@@ -41,6 +41,18 @@
 
         <br />
 
+        <label for="Boja">Boja</label>
+        <select required asp-for="BojaID" asp-items="Model.Boja"></select>
+        <span asp-validation-for="Boja" class="text-danger"></span>
+
+        <br />
+        
+        <label for="Materijal">Materijal</label>
+        <select required asp-for="MaterijalID" asp-items="Model.Materijal"></select>
+        <span asp-validation-for="Materijal" class="text-danger"></span>
+
+        <br />
+
 
         <label>Slike</label>
 

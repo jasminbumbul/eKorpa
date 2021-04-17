@@ -1,0 +1,15 @@
+﻿@using eKorpa.ViewModels
+@model DojamDodajVM
+
+
+<form asp-controller="Dojam" asp-action="SnimiDojam">
+    <input asp-for="RatingID" hidden />
+    <label>Dojam:</label>
+    <input asp-for="Dojam" />
+    <br />
+    <label>Ocjena:</label>
+    <input asp-for="Ocjena" min="0" max="5" />
+    <br />
+    <input asp-for="TipKorisnika" hidden />
+    <button type="submit" class="btn btn-outline-primary">Dodaj dojam</button>
+</form>

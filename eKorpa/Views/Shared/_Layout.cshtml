@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-
     <div id="header">
 
         <header>
@@ -90,6 +89,8 @@
 
 
 <script>
+
+
     function BlurLayout() {
         document.getElementById("header").style.filter = "blur(8px)";
         document.getElementById("footer").style.filter = "blur(8px)";
@@ -98,6 +99,70 @@
     function DisableBlur() {
         document.getElementById("header").style.filter = "none";
         document.getElementById("footer").style.filter = "none";
+    }
+
+    window.onload = function Provjera() {
+
+        var urlGetID = "/Profil/GetID";
+        var oznaka = document.getElementById("oznaka");
+        var oznakaPostavke = document.getElementById("postavke");
+
+        $.get(urlGetID, function (odg1) {
+            var url = "/Profil/Provjera?KorisnikID=" + odg1;
+            $.get(url, function (odg2) {
+                if (odg2 == false) {
+                    if (oznakaPostavke != null) {
+                        oznakaPostavke.style.display = "inline";
+                    }
+                    oznaka.style.display = "inline";
+                }
+                else {
+                    if (oznakaPostavke != null) {
+                        oznakaPostavke.style.display = "none"
+                    }
+                    oznaka.style.display = "none";
+                }
+            })
+        })
+
+        var oznakaKupljeni = document.getElementById("nemaDojmaKupljeni");
+
+        $.get(urlGetID, function (odg1) {
+            var url = "/Profil/ProvjeraDojamKupac?KorisnikID=" + odg1;
+            $.get(url, function (odg2) {
+                if (odg2 == false) {
+                    if (oznakaKupljeni != null) {
+                        oznakaKupljeni.style.display = "inline";
+                    }
+                    oznaka.style.display = "inline";
+                }
+                else {
+                    if (oznakaKupljeni != null) {
+                        oznakaKupljeni.style.display = "none";
+                    }
+                    oznaka.style.display = "none";
+                }
+            })
+        })
+
+        var oznakaProdani = document.getElementById("nemaDojmaProdani");
+        $.get(urlGetID, function (odg1) {
+            var url = "/Profil/ProvjeraDojamProdavac?KorisnikID=" + odg1;
+            $.get(url, function (odg2) {
+                if (odg2 == false) {
+                    if (oznakaProdani != null) {
+                        oznakaProdani.style.display = "inline";
+                    }
+                    oznaka.style.display = "inline";
+                }
+                else {
+                    if (oznakaProdani != null) {
+                        oznakaProdani.style.display = "none";
+                    }
+                    oznaka.style.display = "none";
+                }
+            })
+        })
     }
 </script>
 

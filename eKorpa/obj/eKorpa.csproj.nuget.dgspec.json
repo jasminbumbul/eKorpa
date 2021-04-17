@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {}
+    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj": {
+    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj",
-        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\obj\\",
+        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj",
+        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -106,24 +106,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {
+    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
+        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
         "projectName": "eKorpa",
-        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
-        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\obj\\",
+        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
+        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -137,8 +137,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj"
+              "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj"
               }
             }
           }
@@ -242,7 +242,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

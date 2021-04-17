@@ -19,6 +19,8 @@ using System.Net.Mail;
 using System.Security.Claims;
 using Microsoft.VisualBasic;
 using System.Net;
+using Data.EntityModels;
+using eKorpa.Data;
 
 namespace eKorpa.Areas.Identity.Pages.Account
 {
@@ -30,19 +32,22 @@ namespace eKorpa.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailService;
+        private ApplicationDbContext _database;
 
         public RegisterModel(
             UserManager<Korisnik> userManager,
             SignInManager<Korisnik> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IEmailService emailService)
+            IEmailService emailService,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _emailService = emailService;
+            _database = context;
         }
 
         [BindProperty]
@@ -85,10 +90,6 @@ namespace eKorpa.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            
-            [Required]
-            [Display(Name = "Address")]
-            public string Address { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -109,7 +110,22 @@ namespace eKorpa.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Korisnik { UserName = Input.Email, Email = Input.Email, Ime = Input.FirstName, Prezime = Input.LastName, PhoneNumber = Input.PhoneNumber, DatumRodjenja = Input.DateOfBirth, Adresa=Input.Address };
+                var user = new Korisnik 
+                { 
+                    UserName = Input.Email, 
+                    Email = Input.Email, 
+                    Ime = Input.FirstName, 
+                    Prezime = Input.LastName, 
+                    PhoneNumber = Input.PhoneNumber, 
+                    DatumRodjenja = Input.DateOfBirth,
+                };
+
+                Adresa novaAdresa = new Adresa();
+                _database.Adresa.Add(novaAdresa);
+                _database.SaveChanges();
+
+                user.AdresaID = novaAdresa.ID;
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

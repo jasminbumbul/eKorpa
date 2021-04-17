@@ -1,0 +1,58 @@
+﻿@using eKorpa.ViewModels
+@model DojamIndexVM
+@{
+    @if (Model.Layout == false)
+    {
+        Layout = null;
+    }
+}
+
+@if (Layout!=null)
+{
+    <button onclick="UcitajDojam('a')">Svi dojmovi</button>
+    <button onclick="UcitajDojam('p')">Prodavač</button>
+    <button onclick="UcitajDojam('k')">Kupac</button>
+    <p>Ime prodavača : @Model.ImeKorisnika</p>
+}
+
+<div id="ajaxDiv">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Dojam</th>
+                <th>Ocjena</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.rows != null)
+            {
+                @foreach (var item in Model.rows)
+                {
+                    <tr>
+                        <td>@item.Datum</td>
+                        <td>@item.Dojam</td>
+                        <td>@item.Ocjena</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+<script>
+    function UcitajDojam(string) {
+
+        var url = "/Profil/Dojmovi?KorisnikID=@Model.KorisnikID"+"&Tip=" + string+"&Layout=false";
+
+        $.get(url, function (odg) {
+            $("#ajaxDiv").html(odg);
+        })
+
+    }
+</script>

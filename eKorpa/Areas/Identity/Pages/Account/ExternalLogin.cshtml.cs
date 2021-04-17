@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Net.Mail;
 using System.Net;
+using Data.EntityModels;
+using eKorpa.Data;
 
 namespace eKorpa.Areas.Identity.Pages.Account
 {
@@ -26,17 +28,20 @@ namespace eKorpa.Areas.Identity.Pages.Account
         private readonly UserManager<Korisnik> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private ApplicationDbContext _database;
 
         public ExternalLoginModel(
             SignInManager<Korisnik> signInManager,
             UserManager<Korisnik> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _database = context;
         }
 
         [BindProperty]
@@ -125,6 +130,12 @@ namespace eKorpa.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new Korisnik { UserName = Input.Email, Email = Input.Email };
+
+                Adresa novaAdresa = new Adresa();
+                _database.Adresa.Add(novaAdresa);
+                _database.SaveChanges();
+
+                user.AdresaID = novaAdresa.ID;
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
