@@ -28,36 +28,59 @@
 <div id="wrapper">
     <div class="dialog">
         <p id="dialogtext">Filtriranje pretrage</p>
-        <a href="#" id="daBtn" class="btn btn-outline-primary">Potvrdi</a>
         <a href="#" id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
 
-        <label for="Kategorija">Kategorija</label>
-        <select  id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
-            <option disabled selected value="0">Odaberite kategoriju </option>
-        </select>
-        <br />
+        <form asp-action="IndexFilter" asp-controller="Artikal">
 
-        <label for="Potkategorija">Potkategorija</label>
-        <select  id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
-            <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
-        </select>
-        
-        <label for="MinCijena">Min cijena</label>
-        <input  id="MinCijena" asp-for="MinCijena" >
-        <br />
-        
-        <label for="MaxCijena">Max cijena</label>
-        <input  id="MaxCijena" asp-for="MaxCijena" >
-        <br />
-        
-        <label for="Boja">Boja</label>
-        <select  id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
-            <option disabled selected value="0">Odaberite boju</option>
-        </select>
-        <br />
-        
+            <label for="Kategorija">Kategorija</label>
+            <select id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
+                <option disabled selected value="0">Odaberite kategoriju </option>
+            </select>
+            <br />
 
-      
+            <label for="Potkategorija">Potkategorija</label>
+            <select id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+                <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+            </select>
+            <br />
+
+            <label for="MinCijena">Min cijena</label>
+            <input id="MinCijena" value="" asp-for="MinCijena">
+            <br />
+
+            <label for="MaxCijena">Max cijena</label>
+            <input id="MaxCijena" value="" asp-for="MaxCijena">
+            <br />
+
+            <label for="Brend">Brend</label>
+            <select asp-for="BrendID" asp-items="Model.Brend">
+                <option disabled selected value="0">Odaberite brend</option>
+            </select>
+            <br />
+            
+            <label for="Boja">Boja</label>
+            <select id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
+                <option disabled selected value="0">Odaberite boju</option>
+            </select>
+            <br />
+
+            <label for="Materijal">Materijal</label>
+            <select id="selectMaterijal" asp-for="MaterijalID" asp-items="Model.Materijal">
+                <option disabled selected value="0">Odaberite materijal</option>
+            </select>
+            <br />
+
+            <label for="Velicina">Velicina</label>
+            <select id="selectVelicina" asp-for="VelicinaID" asp-items="Model.Velicina">
+                <option disabled selected value="0">Odaberite potkategoriju da bi odabrali veličinu</option>
+            </select>
+            <br />
+
+            <button type="submit" id="daBtn"  class="btn btn-outline-primary">Potvrdi</button>
+
+        </form>
+
+
 
     </div>
 </div>
@@ -158,10 +181,20 @@
         $("#selectKategorija").change(function () {
             $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
                 $("#selectPotkategorija").empty();
+                $("#selectPotkategorija").append("<option value='" + 0 + "'>" + "Odaberite potkategoriju" + "</option>");
                 $.each(data, function (i, item) {
                     $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
+                });
+            });
+        })
+    });
 
-
+    $(document).ready(function () {
+        $("#selectPotkategorija").change(function () {
+            $.get("/Artikal/UpdateVelicine", { PotkategorijaID: $("#selectPotkategorija").val() }, function (data) {
+                $("#selectVelicina").empty();
+                $.each(data, function (i, item) {
+                    $("#selectVelicina").append("<option value='" + item.value + "'>" + item.text + "</option>");
                 });
             });
         })
@@ -209,7 +242,7 @@
     #daBtn {
         position: relative;
         left: 408px;
-        top: 400px;
+        top: 100px;
     }
 
     #neBtn {

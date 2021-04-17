@@ -17,6 +17,12 @@
     <Compile Remove="Migrations\20210402130735_zavrsneniArtikaliRejting.Designer.cs" />
     <Compile Remove="Migrations\20210402160650_zavrseniartikal.cs" />
     <Compile Remove="Migrations\20210402160650_zavrseniartikal.Designer.cs" />
+    <Compile Remove="Migrations\20210413141750_dodangradiadresa.cs" />
+    <Compile Remove="Migrations\20210413141750_dodangradiadresa.Designer.cs" />
+    <Compile Remove="Migrations\20210413142404_dodangradiadresa.cs" />
+    <Compile Remove="Migrations\20210413142404_dodangradiadresa.Designer.cs" />
+    <Compile Remove="Migrations\20210413143126_dodanaAdresa2.cs" />
+    <Compile Remove="Migrations\20210413143126_dodanaAdresa2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

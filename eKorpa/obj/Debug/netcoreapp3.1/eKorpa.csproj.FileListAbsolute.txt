@@ -494,3 +494,6 @@ C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Po
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Potkategorija\Index.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\KupljeniArtikli.cshtml.g.cs
 C:\Users\Ramki\Source\Repos\webapp\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\ProdaniArtikli.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Profil\Dojmovi.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Dojam\Index.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Dojam\Dodaj.cshtml.g.cs

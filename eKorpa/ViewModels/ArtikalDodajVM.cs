@@ -26,5 +26,10 @@ namespace eKorpa.ViewModels
         public int BrendID { get; set; }
         public List<SelectListItem> Brend { get; set; }
         public int BrojUSkladistu { get; set; }
+        public int BojaID { get; set; }
+        public List<SelectListItem> Boja { get; set; }
+        public int MaterijalID{ get; set; }
+        public List<SelectListItem> Materijal{ get; set; }
+
     }
 }

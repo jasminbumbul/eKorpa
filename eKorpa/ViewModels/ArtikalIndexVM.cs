@@ -23,8 +23,13 @@ namespace eKorpa.ViewModels
             public float CijenaSaPopustom { get; set; }
             public bool jestUListi { get; set; }
             public string Brend { get; set; }
+            public int RatingID { get; set; }
+            public bool KupacOstavioDojam { get; set; }
+            public bool ProdavacOstavioDojam { get; set; }
+            public string KupacID { get; set; }
         }
-            public bool Layout { get; set; }
+        public bool Layout { get; set; }
+        //filter
         public int KategorijaID { get; set; }
         public List<SelectListItem> Kategorije { get; set; }
         public int PotkategorijaID { get; set; }
@@ -33,6 +38,15 @@ namespace eKorpa.ViewModels
         public float MaxCijena { get; set; }
         public int BojaID { get; set; }
         public List<SelectListItem> Boja { get; set; }
+        public int MaterijalID{ get; set; }
+        public List<SelectListItem> Materijal{ get; set; }
+        public int VelicinaID{ get; set; }
+        public List<SelectListItem> Velicina{ get; set; }
+        public int BrendID{ get; set; }
+        public List<SelectListItem> Brend{ get; set; }
+        //
+
+
         public List<Row> rows { get; set; }
     }
 }

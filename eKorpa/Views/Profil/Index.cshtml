@@ -20,13 +20,14 @@
     <span>@Model.Email</span> <br />
     @if (SignInManager.IsSignedIn(User))
     {
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila</a>
+<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila <i id="postavke" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
         <a class="nav-link text-dark" href="/Artikal/Dodaj" title="Dodaj novi artikal"><i class="fas fa-plus-circle"></i> Dodaj novi artikal</a>
         
     }
     
-    <a class="nav-link text-dark" href="/Profil/KupljeniArtikli?KorisnikID=@Model.ID" title="Kupljeni artikli">Kupljeni artikli</a>
-    <a class="nav-link text-dark" href="/Profil/ProdaniArtikli?KorisnikID=@Model.ID" title="Prodani artikli">Prodani artikli</a>
+<a class="nav-link text-dark" href="/Profil/KupljeniArtikli?KorisnikID=@Model.ID" title="Kupljeni artikli">Kupljeni artikli  <i id="nemaDojmaKupljeni" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i>  </a>
+<a class="nav-link text-dark" href="/Profil/ProdaniArtikli?KorisnikID=@Model.ID" title="Prodani artikli">Prodani artikli     <i id="nemaDojmaProdani" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
+    <a class="nav-link text-dark" href="/Profil/Dojmovi?KorisnikID=@Model.ID" title="Dojmovi">Dojmovi</a>
 
     <div id="ajaxDiv" style="border:1px solid black">
 
@@ -45,6 +46,13 @@
             $(ajaxDiv).html(odg);
         });
     }
+
+
+
+       
+
+
+
 </script>
 
 

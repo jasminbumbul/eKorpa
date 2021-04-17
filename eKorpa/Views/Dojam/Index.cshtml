@@ -1,0 +1,26 @@
+﻿@using eKorpa.ViewModels
+@model DojamProdavacaIndexVM
+
+<div>
+    @Model.Ime
+    <br />
+    @if (string.IsNullOrEmpty(Model.Dojam))
+    {
+        <span>Prodavač nije ostavio dojam</span>
+    }
+    else
+    {
+        @Model.Dojam
+    } 
+    <br />
+    @if (Model.Ocjena == 0)
+    {
+        <span>Prodavač nije ostavio ocjenu.</span>
+    }
+    else
+    {
+        @Model.Ocjena
+    }
+    <br />
+    @Model.Datum
+</div>

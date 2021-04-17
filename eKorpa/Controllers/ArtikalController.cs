@@ -105,6 +105,10 @@ namespace eKorpa.Controllers
                 }
             }
             objekat.Layout = true;
+            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
+            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
             return View("Index", objekat);
         }
         public IActionResult Index(string querry = null)
@@ -151,7 +155,10 @@ namespace eKorpa.Controllers
 
             objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
             objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-
+            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Brend= _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            
+            
             foreach (var item in objekat.rows)
             {
                 foreach (var temp in _database.ListaZelja)
@@ -185,6 +192,110 @@ namespace eKorpa.Controllers
             objekat.Layout = false;
             return View("Index", objekat);
         }
+
+        public IActionResult IndexFilter(ArtikalIndexVM filter)
+        {
+            var artikli = _database.Artikal.ToList();
+
+            if (filter.KategorijaID != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (item.KategorijaID != filter.KategorijaID)
+                        artikli.Remove(item);
+                }
+            }
+            
+            if (filter.PotkategorijaID != 0)
+            {
+                foreach (var item in artikli)
+                {
+                    if (item.PotkategorijaID!= filter.PotkategorijaID)
+                        artikli.Remove(item);
+                }
+            }
+            
+            if (filter.BrendID != 0)
+            {
+                foreach (var item in artikli)
+                {
+                    if (item.BrendID != filter.BrendID)
+                        artikli.Remove(item);
+                }
+            }
+            
+            if (filter.BojaID != 0)
+            {
+                foreach (var item in artikli)
+                {
+                    if (item.BojaID != filter.BojaID)
+                        artikli.Remove(item);
+                }
+            }
+            
+            if (filter.MaterijalID != 0)
+            {
+                foreach (var item in artikli)
+                {
+                    if (item.MaterijalID != filter.MaterijalID)
+                        artikli.Remove(item);
+                }
+            }
+            
+            if (filter.VelicinaID != 0)
+            {
+                foreach (var item in artikli)
+                {
+                    if (item.VelicinaID != filter.VelicinaID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (filter.MaxCijena != 0 || filter.MinCijena != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (filter.MaxCijena != 0)
+                    {
+                        if (item.Cijena > filter.MaxCijena)
+                            artikli.Remove(item);
+                    }
+
+                    if (item.Cijena < filter.MinCijena)
+                        artikli.Remove(item);
+
+                }
+            }
+
+
+
+            var objekat = new ArtikalIndexVM
+            {
+                rows = artikli.Select(x => new ArtikalIndexVM.Row
+                {
+                    ID = x.ID,
+                    NazivArtikla = x.Naziv,
+                    Kategorija = _database.Kategorija.Where(y=> y.ID== x.KategorijaID).Select(y=> y.NazivKategorije).SingleOrDefault(),
+                    ProdavacId = x.ProdavacID,
+                    ImeProdavaca = x.ImeProdavaca,
+                    CijenaSaPopustom = x.CijenaSaPopustom,
+                    Cijena = x.Cijena,
+                    Slika = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == y.ID).Select(y => y.Thumbnail).ToList(),
+                    Brend = _database.Brend.Where(y => y.ID == x.BrendID).Select(y => y.Naziv).SingleOrDefault()
+
+                }).ToList()
+            };
+
+            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
+            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+
+            objekat.Layout = false;
+            return View("Index", objekat);
+        }
+
         //[ValidateAntiForgeryToken]
         public IActionResult Dodaj(int ArtikalID)
         {
@@ -193,7 +304,10 @@ namespace eKorpa.Controllers
                 ? new ArtikalDodajVM()
                 {
                     Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                    Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
+                    Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
+                    Boja=_database.Boja.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList(),
+                    Materijal=_database.Materijal.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList()
+
                 }
                 : _database.Artikal
                     .Where(y => y.ID == ArtikalID)
@@ -207,11 +321,12 @@ namespace eKorpa.Controllers
                         ImeProdavaca = y.ImeProdavaca,
                         Cijena = y.Cijena,
                         Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                        //Potkategorija = _database.Potkategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv}).ToList(),
                         Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
                         Slike = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
                         SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
-                        BrojUSkladistu = y.BrojUSkladistu
+                        BrojUSkladistu = y.BrojUSkladistu,
+                        Boja = _database.Boja.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
+                        Materijal = _database.Materijal.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
                     }).Single();
 
             return View(noviArtikal);
@@ -224,6 +339,23 @@ namespace eKorpa.Controllers
             List<SelectListItem> novi = potkategorije.Select(a => new SelectListItem
             {
                 Text = a.Naziv,
+                Value = a.ID.ToString()
+            }).ToList();
+            return Json(novi);
+        }
+        
+        public JsonResult UpdateVelicine(int PotkategorijaID)
+        {
+            List<Velicina> velicine = _database.Potkategorija.Where(x => x.ID== PotkategorijaID).Select(x => x.Velicina).FirstOrDefault();
+
+            if(velicine.Count==0)
+            {
+                velicine = _database.Potkategorija.Where(x => x.ID==51).Select(x => x.Velicina).FirstOrDefault();
+            }
+
+            List<SelectListItem> novi = velicine.Select(a => new SelectListItem
+            {
+                Text = a.VelicinaOznaka,
                 Value = a.ID.ToString()
             }).ToList();
             return Json(novi);
@@ -275,6 +407,8 @@ namespace eKorpa.Controllers
             artikal.CijenaSaPopustom = noviArtikal.Cijena;
             artikal.BrendID = noviArtikal.BrendID;
             artikal.BrojUSkladistu = noviArtikal.BrojUSkladistu;
+            artikal.BojaID = noviArtikal.BojaID;
+            artikal.MaterijalID = noviArtikal.MaterijalID;
             _database.SaveChanges();
             Artikal artikl = _database.Artikal.Find(artikal.ID);
             int brojacProlaza = 0;
@@ -382,7 +516,9 @@ namespace eKorpa.Controllers
 
             var korisnik = _database.Users.Where(x => x.Id == kupacID).SingleOrDefault();
 
-            if (korisnik.Adresa == null || korisnik.Adresa.Count() < 5)
+            var adresa = _database.Adresa.Where(x => x.ID == korisnik.AdresaID).SingleOrDefault();
+
+            if (adresa.ID==0 || adresa.MjestoStanovanja.Length<5 || adresa.PostanskiBroj<10000 || adresa.PostanskiBroj>99999)
             {
                 //implementirati poruku neuspjeha
                 return "address404";
@@ -410,7 +546,15 @@ namespace eKorpa.Controllers
                 };
                 _database.ZavrseniArtikal.Add(zavrseniArtikal);
                 _database.SaveChanges();
+                //kreiranje rejtinga
+                var noviRejting = new Rejting();
+
+                _database.Add(noviRejting);
+                _database.SaveChanges();
+                zavrseniArtikal.RejtingID = noviRejting.ID;
+                _database.SaveChanges();
             }
+
 
 
             return "success";
