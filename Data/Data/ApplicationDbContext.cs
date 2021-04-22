@@ -36,6 +36,7 @@ namespace eKorpa.Data
         public DbSet<Velicina> Velicina{ get; set; }
         public DbSet<Adresa> Adresa{ get; set; }
         public DbSet<Grad> Grad{ get; set; }
+        public DbSet<Poruka> Poruka{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

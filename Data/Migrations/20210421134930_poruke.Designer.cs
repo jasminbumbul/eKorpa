@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eKorpa.Data;
 
 namespace eKorpa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210421134930_poruke")]
+    partial class poruke
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,30 +183,6 @@ namespace eKorpa.Migrations
                     b.HasIndex("PotkategorijaID");
 
                     b.ToTable("Ponuda");
-                });
-
-            modelBuilder.Entity("Data.EntityModels.Poruka", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImePrezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Predmet")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sadrzaj")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Poruka");
                 });
 
             modelBuilder.Entity("Data.EntityModels.Potkategorija", b =>

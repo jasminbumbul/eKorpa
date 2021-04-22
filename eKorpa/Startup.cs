@@ -1,3 +1,4 @@
+using Data.Helper;
 using eKorpa.Data;
 using eKorpa.EntityModels;
 using Microsoft.AspNetCore.Builder;
@@ -12,10 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
+using ReflectionIT.Mvc.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Twilio;
 
 namespace eKorpa
 {
@@ -31,6 +34,7 @@ namespace eKorpa
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,8 +62,17 @@ namespace eKorpa
             services.AddAntiforgery(options => options.Cookie.Name = "X-CSRF-TOKEN-COOKIENAME");
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
+            var accountSid = Configuration["Twilio:AccountSID"];
+            var authToken = Configuration["Twilio:AuthToken"];
+            TwilioClient.Init(accountSid, authToken);
+
+            services.Configure<TwilioVerifySettings>(Configuration.GetSection("Twilio"));
+
+            services.AddPaging();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

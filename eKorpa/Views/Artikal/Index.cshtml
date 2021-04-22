@@ -1,5 +1,7 @@
 ﻿@using eKorpa.ViewModels
 @using System.Security.Claims
+@using PagedList;
+@using PagedList.Mvc;
 
 @model ArtikalIndexVM
 
@@ -57,7 +59,7 @@
                 <option disabled selected value="0">Odaberite brend</option>
             </select>
             <br />
-            
+
             <label for="Boja">Boja</label>
             <select id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
                 <option disabled selected value="0">Odaberite boju</option>
@@ -76,7 +78,7 @@
             </select>
             <br />
 
-            <button type="submit" id="daBtn"  class="btn btn-outline-primary">Potvrdi</button>
+            <button type="submit" id="daBtn" class="btn btn-outline-primary">Potvrdi</button>
 
         </form>
 
@@ -166,15 +168,11 @@
 </div>
 <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
 
-@*@if (User.IsInRole("Admin"))
-    {
-        <a href="/Artikal/Dodaj" class="btn btn-secondary">Dodaj</a>
-    }*@
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <link href="/css/ArtikalIndex.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
-
 
 <script>
     $(document).ready(function () {

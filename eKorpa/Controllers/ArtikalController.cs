@@ -15,6 +15,7 @@ using Data.EntityModels;
 using System.Drawing;
 using Data.Helper;
 using Microsoft.AspNetCore.Identity;
+using PagedList;
 
 namespace eKorpa.Controllers
 {
@@ -114,6 +115,7 @@ namespace eKorpa.Controllers
         public IActionResult Index(string querry = null)
         {
             ArtikalIndexVM objekat;
+
             if (querry == null)
             {
                 objekat = new ArtikalIndexVM
@@ -130,7 +132,7 @@ namespace eKorpa.Controllers
                         Cijena = a.Cijena,
                         Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
                         Brend = a.Brend.Naziv
-                    }).ToList(),
+                    }).ToList()
                 };
             }
             else

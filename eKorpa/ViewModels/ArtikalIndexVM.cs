@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,5 +49,7 @@ namespace eKorpa.ViewModels
 
 
         public List<Row> rows { get; set; }
+
+      
     }
 }

@@ -35,6 +35,7 @@
                 <label asp-for="Input.PhoneNumber"></label>
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                <a href="/Identity/Account/VerifyPhone" class="btn btn-outline-warning">Verifikuj broj telefona</a>
             </div> 
             
             <div class="form-group">
@@ -57,7 +58,7 @@
             
             <div class="form-group">
                 <label asp-for="Input.PostanskiBroj"></label>
-                <input asp-for="Input.PostanskiBroj" class="form-control" />
+                <input min="10000" max="99999" asp-for="Input.PostanskiBroj" class="form-control" />
                 <span asp-validation-for="Input.PostanskiBroj" class="text-danger"></span>
             </div>
 

@@ -23,8 +23,8 @@
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.8\buildTransitive\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.8\buildTransitive\Microsoft.AspNetCore.Identity.UI.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgNSwag_MSBuild Condition=" '$(PkgNSwag_MSBuild)' == '' ">C:\Users\Jasmin\.nuget\packages\nswag.msbuild\13.10.1</PkgNSwag_MSBuild>
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Jasmin\.nuget\packages\microsoft.codeanalysis.analyzers\2.9.4</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgNSwag_MSBuild Condition=" '$(PkgNSwag_MSBuild)' == '' ">C:\Users\Jasmin\.nuget\packages\nswag.msbuild\13.10.1</PkgNSwag_MSBuild>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Jasmin\.nuget\packages\microsoft.entityframeworkcore.tools\3.1.8</PkgMicrosoft_EntityFrameworkCore_Tools>
   </PropertyGroup>
 </Project>

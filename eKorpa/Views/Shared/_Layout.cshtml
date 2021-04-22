@@ -22,12 +22,12 @@
                         <partial name="_LoginPartial" />
                         <ul class="navbar-nav flex-grow-1" style="display:flex;justify-content:right">
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>*@
 
                             <li class="nav-item">
 
@@ -46,7 +46,6 @@
                 </div>
             </nav>
 
-
             <div class="navBar">
                 <ul>
                     <li> <a href="/Home">Početna</a></li>
@@ -55,7 +54,12 @@
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Djeca">Djeca</a></li>
                     <li> <a href="/Ponuda/Index">Ponude</a></li>
                 </ul>
+                <div class="container">
+                    <a href="/Kontakt/Index" class="kontaktBtn" >Kontakt</a>
+                </div>
+
             </div>
+
 
 
         </header>
@@ -87,6 +91,17 @@
 <link href="~/css/Layout.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans:400,500,700">
 
+<style>
+    .kontaktBtn {
+        float: right;
+        margin-top: -57px;
+    }
+
+    #footer {
+        position: absolute;
+        bottom: 0;
+    }
+</style>
 
 <script>
 

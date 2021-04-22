@@ -129,6 +129,12 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            if(Input.PhoneNumber.Length!=12 || Input.PhoneNumber.Substring(0, 5) != "+3876")
+            {
+                StatusMessage = "Broj telefona mora biti u formatu: '+3876XXXXXXX' i dužine 12 karaktera.";
+                return RedirectToPage();
+            }
+
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
