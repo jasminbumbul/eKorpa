@@ -1,26 +1,24 @@
 ﻿@using eKorpa.ViewModels
 @using System.Security.Claims
-@using PagedList;
 @using PagedList.Mvc;
+@using PagedList;
+@using eKorpa.Data;
+@using cloudscribe.Pagination.Models;
+@using Microsoft.EntityFrameworkCore;
 
 @model ArtikalIndexVM
 
 @{
-    if (Model.Layout == false)
-    {
-        Layout = null;
-    }
+    //if (Model.Layout == false)
+    //{
+    //    Layout = null;
+    //}
     var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    string type = (string)ViewData["type"];
+    var result = ViewData["result"];
+
 }
-@*@if (Model.Layout == true)
-    {
-        <div class="navBar">
-                <ul>
-                    <li> <a href="/Artikal/Dodaj">Dodaj novi artikal</a></li>
-                    <li> <a href="/Profil/Index?KorisnikID=@claimsIdentity">Pogledaj svoj profil</a></li>
-                </ul>
-        </div>
-    }*@
 
 
 
@@ -30,9 +28,9 @@
 <div id="wrapper">
     <div class="dialog">
         <p id="dialogtext">Filtriranje pretrage</p>
-        <a href="#" id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
+        <a id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
 
-        <form asp-action="IndexFilter" asp-controller="Artikal">
+        <form action="IndexFilter" method="get">
 
             <label for="Kategorija">Kategorija</label>
             <select id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
@@ -55,7 +53,7 @@
             <br />
 
             <label for="Brend">Brend</label>
-            <select asp-for="BrendID" asp-items="Model.Brend">
+            <select id="selectBrend" asp-for="BrendID" asp-items="Model.Brend">
                 <option disabled selected value="0">Odaberite brend</option>
             </select>
             <br />
@@ -93,7 +91,7 @@
 
 
 <div id="containerArtikala">
-    @if (Model.rows.Count == 0)
+    @if (Model.rows.Count() == 0)
     {
         <h1>Nema rezultata</h1>
     }
@@ -168,6 +166,20 @@
 </div>
 <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
 
+@if (type == "Index")
+{
+    <partial name="_PaginationPartial" view-data="ViewData" model="@result" />
+}
+else if (type == "IndexFilter")
+{
+    <partial name="_PaginationPartialFilter"  view-data="ViewData" model="@result" />
+}
+else
+{
+    <partial name="_PaginationPartialKateg" view-data="ViewData" model="@result" />
+}
+
+
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
@@ -199,6 +211,7 @@
     });
 
 
+
     function OtvoriProfilProdavaca(prodavacID) {
         var url = "/Profil/Index?KorisnikID=" + prodavacID;
         window.open(url, '_self');
@@ -216,6 +229,25 @@
 
     function Prekid() {
         document.getElementById("wrapper").style.display = "none";
+    }
+
+
+    function SubmitFilter() {
+
+        var selectKategorija = document.getElementById("selectKategorija").value;
+        var selectPotkategorija = document.getElementById("selectPotkategorija").value;
+        var minCijena = document.getElementById("MinCijena").value;
+        var maxCijena = document.getElementById("MaxCijena").value;
+        var selectBrend = document.getElementById("selectBrend").value;
+        var selectBoja = document.getElementById("selectBoja").value;
+        var selectMaterijal = document.getElementById("selectMaterijal").value;
+        var selectVelicina = document.getElementById("selectVelicina").value;
+
+        var url = "/IndexFilter?KategorijaID=" + selectKategorija + "&PotkategorijaID=" + selectPotkategorija + "&BrendID=" + selectBrend + "&BojaID=" + selectBoja + "&MaterijalID=" + selectMaterijal + "&VelicinaID=" + selectVelicina + "&MaxCijena=0" + maxCijena + "&MinCijena=0" + minCijena + "&pageNumber = 1" + "&pageSize = 8";
+        console.log(url);
+        $.get(url, function (odg) {
+            window.location = odg;
+        })
     }
 
 

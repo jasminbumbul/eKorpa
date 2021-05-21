@@ -34,7 +34,7 @@ using eKorpa.ViewModels;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bd344a558ca22a62ed87be0eac2cc1b2876c0df3", @"/Views/ListaZelja/Detalji.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"10415db88d44a03ea2dda807c1e2b9cac93ce2db", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"236876972ee11feba0410f29e2861cb42437caf5", @"/Views/_ViewImports.cshtml")]
     public class Views_ListaZelja_Detalji : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ListaZeljaDetaljiVM>
     {
         #pragma warning disable 1998

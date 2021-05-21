@@ -79,9 +79,25 @@
               "target": "Package",
               "version": "[5.0.2, )"
             },
+            "PagedList": {
+              "target": "Package",
+              "version": "[1.17.0, )"
+            },
+            "PagedList.Mvc": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "cloudscribe.Pagination.Models": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "cloudscribe.Web.Pagination": {
+              "target": "Package",
+              "version": "[3.1.0, )"
             },
             "twilio": {
               "target": "Package",

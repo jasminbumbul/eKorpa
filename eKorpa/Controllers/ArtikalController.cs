@@ -16,6 +16,9 @@ using System.Drawing;
 using Data.Helper;
 using Microsoft.AspNetCore.Identity;
 using PagedList;
+using PagedList.Mvc;
+using cloudscribe.Pagination.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eKorpa.Controllers
 {
@@ -27,152 +30,184 @@ namespace eKorpa.Controllers
 
         private readonly IWebHostEnvironment _hostEnvironment;
 
-
         public ArtikalController(IWebHostEnvironment hostEnvironment)
         {
             this._hostEnvironment = hostEnvironment;
         }
 
-
-
-        public IActionResult IndexKateg(string Kategorija)
+        public IActionResult IndexKateg(string Kategorija, int pageNumber = 1, int pageSize = 8)
         {
-            ArtikalIndexVM objekat = null;
+            ArtikalIndexVM objekat = new ArtikalIndexVM();
+            int excludeRecords = (pageSize * pageNumber) - pageSize;
+            int total = 0;
+
             switch (Kategorija)
             {
                 case "Žene":
-                    objekat = new ArtikalIndexVM
+                    var model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Select(a => new ArtikalIndexVM.Row
                     {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Select(a => new ArtikalIndexVM.Row
-                        {
-                            ID = a.ID,
-                            NazivArtikla = a.Naziv,
-                            Kategorija = a.Kategorija.NazivKategorije,
-                            ProdavacId = a.ProdavacID,
-                            ImeProdavaca = a.ImeProdavaca,
-                            Cijena = a.Cijena,
-                            CijenaSaPopustom = a.CijenaSaPopustom,
-                            Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
-                            Brend = a.Brend.Naziv,
-                        }).ToList(),
-                    };
+                        ID = a.ID,
+                        NazivArtikla = a.Naziv,
+                        Kategorija = a.Kategorija.NazivKategorije,
+                        ProdavacId = a.ProdavacID,
+                        ImeProdavaca = a.ImeProdavaca,
+                        CijenaSaPopustom = a.CijenaSaPopustom,
+                        Cijena = a.Cijena,
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                        Brend = a.Brend.Naziv
+                    }).Skip(excludeRecords).Take(pageSize);
+
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Count();
+                    objekat.rows = model.AsNoTracking().ToList();
+
                     break;
 
                 case "Muškarci":
-                    objekat = new ArtikalIndexVM
+
+                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Select(a => new ArtikalIndexVM.Row
                     {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Select(a => new ArtikalIndexVM.Row
-                        {
-                            ID = a.ID,
-                            NazivArtikla = a.Naziv,
-                            Kategorija = a.Kategorija.NazivKategorije,
-                            ProdavacId = a.ProdavacID,
-                            ImeProdavaca = a.ImeProdavaca,
-                            Cijena = a.Cijena,
-                            CijenaSaPopustom = a.CijenaSaPopustom,
-                            Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            Brend = a.Brend.Naziv,
-                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList()
-                        }).ToList()
-                    };
+                        ID = a.ID,
+                        NazivArtikla = a.Naziv,
+                        Kategorija = a.Kategorija.NazivKategorije,
+                        ProdavacId = a.ProdavacID,
+                        ImeProdavaca = a.ImeProdavaca,
+                        CijenaSaPopustom = a.CijenaSaPopustom,
+                        Cijena = a.Cijena,
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                        Brend = a.Brend.Naziv
+                    }).Skip(excludeRecords).Take(pageSize);
+
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Count();
+                    objekat.rows = model.AsNoTracking().ToList();
+
                     break;
 
                 case "Djeca":
-                    objekat = new ArtikalIndexVM
-                    {
-                        rows = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Select(a => new ArtikalIndexVM.Row
-                        {
-                            ID = a.ID,
-                            NazivArtikla = a.Naziv,
-                            Kategorija = a.Kategorija.NazivKategorije,
-                            ProdavacId = a.ProdavacID,
-                            ImeProdavaca = a.ImeProdavaca,
-                            CijenaSaPopustom = a.CijenaSaPopustom,
-                            Cijena = a.Cijena,
-                            Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                            Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
-                            Brend = a.Brend.Naziv
-                        }).ToList()
-                    };
-                    break;
-            }
-            foreach (var item in objekat.rows)
-            {
-                foreach (var temp in _database.ListaZelja)
-                {
-                    if (item.ID == temp.ArtikalID)
-                        item.jestUListi = true;
-                }
-            }
-            objekat.Layout = true;
-            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
-            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            return View("Index", objekat);
-        }
-        public IActionResult Index(string querry = null)
-        {
-            ArtikalIndexVM objekat;
 
-            if (querry == null)
-            {
-                objekat = new ArtikalIndexVM
-                {
-                    rows = _database.Artikal.Select(a => new ArtikalIndexVM.Row
+                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
                         ImeProdavaca = a.ImeProdavaca,
-                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                         CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                         Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
                         Brend = a.Brend.Naziv
-                    }).ToList()
-                };
+                    }).Skip(excludeRecords).Take(pageSize);
+
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Count();
+                    objekat.rows = model.AsNoTracking().ToList();
+
+                    break;
+            }
+
+            LoadEverythingElse(objekat);
+
+            int brojac = 0;
+            if ((float)(total / 8.0)-(int)(total/ 8)>0)
+            {
+                 brojac = (total/ 8) + 1;
             }
             else
             {
-                objekat = new ArtikalIndexVM
-                {
-                    rows = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Select(a => new ArtikalIndexVM.Row
-                    {
-                        ID = a.ID,
-                        NazivArtikla = a.Naziv,
-                        Kategorija = a.Kategorija.NazivKategorije,
-                        ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca,
-                        CijenaSaPopustom = a.CijenaSaPopustom,
-                        Cijena = a.Cijena,
-                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
-                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
-                        Brend = a.Brend.Naziv
-                    }).ToList()
-                };
+                 brojac = (total / 8);
             }
 
-            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
-            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Brend= _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            
-            
-            foreach (var item in objekat.rows)
+            var result = new PagedResult<ArtikalIndexVM.Row>
             {
-                foreach (var temp in _database.ListaZelja)
+                Data = objekat.rows,
+                TotalItems = brojac,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+          
+
+            ViewData["result"] = result;
+            ViewData["type"] = "IndexKateg";
+
+            return View("Index", objekat);
+        }
+
+
+        public IActionResult Index(int pageNumber = 1, int pageSize = 8, string querry = null)
+        {
+
+            ArtikalIndexVM objekat = new ArtikalIndexVM();
+            int excludeRecords = (pageSize * pageNumber) - pageSize;
+            int total = 0;
+            if (querry == null)
+            {
+                var model = _database.Artikal.Select(a => new ArtikalIndexVM.Row
                 {
-                    if (item.ID == temp.ArtikalID)
-                        item.jestUListi = true;
-                }
+                    ID = a.ID,
+                    NazivArtikla = a.Naziv,
+                    Kategorija = a.Kategorija.NazivKategorije,
+                    ProdavacId = a.ProdavacID,
+                    ImeProdavaca = a.ImeProdavaca,
+                    CijenaSaPopustom = a.CijenaSaPopustom,
+                    Cijena = a.Cijena,
+                    Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                    Brend = a.Brend.Naziv
+                }).Skip(excludeRecords).Take(pageSize);
+
+                total = _database.Artikal.Count();
+                objekat.rows = model.AsNoTracking().ToList();
+
             }
-            objekat.Layout = true;
+            else
+            {
+                var model = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Select(a => new ArtikalIndexVM.Row
+                {
+                    ID = a.ID,
+                    NazivArtikla = a.Naziv,
+                    Kategorija = a.Kategorija.NazivKategorije,
+                    ProdavacId = a.ProdavacID,
+                    ImeProdavaca = a.ImeProdavaca,
+                    CijenaSaPopustom = a.CijenaSaPopustom,
+                    Cijena = a.Cijena,
+                    Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                    Brend = a.Brend.Naziv
+                }).Skip(excludeRecords).Take(pageSize);
+
+                total = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Count();
+                objekat.rows = model.AsNoTracking().ToList();
+            }
+
+            LoadEverythingElse(objekat);
+
+
+            int brojac = 0;
+            if ((float)(total / 8.0) - (int)(total / 8) > 0)
+            {
+                brojac = (total / 8) + 1;
+            }
+            else
+            {
+                brojac = (total / 8);
+            }
+
+            var result = new PagedResult<ArtikalIndexVM.Row>
+            {
+                Data = objekat.rows,
+                TotalItems = brojac,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+            
+            ViewData["type"] = "Index";
+            ViewData["result"] = result;
+            
             return View(objekat);
         }
 
+        //prikaz profila
         public IActionResult IndexW(string ProfilID)
         {
             ArtikalIndexVM objekat = new ArtikalIndexVM
@@ -195,107 +230,139 @@ namespace eKorpa.Controllers
             return View("Index", objekat);
         }
 
-        public IActionResult IndexFilter(ArtikalIndexVM filter)
+        //public IActionResult IndexFilter(ArtikalIndexVM filter, int pageNumber = 1, int pageSize = 8)
+        public IActionResult IndexFilter(int KategorijaID = 0, int PotkategorijaID = 0, int BrendID = 0, int BojaID = 0, int MaterijalID = 0, int VelicinaID = 0, int MaxCijena = 0, int MinCijena = 0, int pageNumber = 1, int pageSize = 8)
         {
             var artikli = _database.Artikal.ToList();
+            int total = 0;
 
-            if (filter.KategorijaID != 0)
+            if (KategorijaID != 0)
             {
                 foreach (var item in artikli.ToList())
                 {
-                    if (item.KategorijaID != filter.KategorijaID)
-                        artikli.Remove(item);
-                }
-            }
-            
-            if (filter.PotkategorijaID != 0)
-            {
-                foreach (var item in artikli)
-                {
-                    if (item.PotkategorijaID!= filter.PotkategorijaID)
-                        artikli.Remove(item);
-                }
-            }
-            
-            if (filter.BrendID != 0)
-            {
-                foreach (var item in artikli)
-                {
-                    if (item.BrendID != filter.BrendID)
-                        artikli.Remove(item);
-                }
-            }
-            
-            if (filter.BojaID != 0)
-            {
-                foreach (var item in artikli)
-                {
-                    if (item.BojaID != filter.BojaID)
-                        artikli.Remove(item);
-                }
-            }
-            
-            if (filter.MaterijalID != 0)
-            {
-                foreach (var item in artikli)
-                {
-                    if (item.MaterijalID != filter.MaterijalID)
-                        artikli.Remove(item);
-                }
-            }
-            
-            if (filter.VelicinaID != 0)
-            {
-                foreach (var item in artikli)
-                {
-                    if (item.VelicinaID != filter.VelicinaID)
+                    if (item.KategorijaID != KategorijaID)
                         artikli.Remove(item);
                 }
             }
 
-            if (filter.MaxCijena != 0 || filter.MinCijena != 0)
+            if (PotkategorijaID != 0)
             {
                 foreach (var item in artikli.ToList())
                 {
-                    if (filter.MaxCijena != 0)
+                    if (item.PotkategorijaID != PotkategorijaID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (BrendID != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (item.BrendID != BrendID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (BojaID != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (item.BojaID != BojaID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (MaterijalID != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (item.MaterijalID != MaterijalID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (VelicinaID != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (item.VelicinaID != VelicinaID)
+                        artikli.Remove(item);
+                }
+            }
+
+            if (MaxCijena != 0 || MinCijena != 0)
+            {
+                foreach (var item in artikli.ToList())
+                {
+                    if (MaxCijena != 0)
                     {
-                        if (item.Cijena > filter.MaxCijena)
+                        if (item.Cijena > MaxCijena)
                             artikli.Remove(item);
                     }
 
-                    if (item.Cijena < filter.MinCijena)
+                    if (item.Cijena < MinCijena)
                         artikli.Remove(item);
 
                 }
             }
 
+            int excludeRecords = (pageSize * pageNumber) - pageSize;
 
-
-            var objekat = new ArtikalIndexVM
+            var model = artikli.Select(x => new ArtikalIndexVM.Row
             {
-                rows = artikli.Select(x => new ArtikalIndexVM.Row
-                {
-                    ID = x.ID,
-                    NazivArtikla = x.Naziv,
-                    Kategorija = _database.Kategorija.Where(y=> y.ID== x.KategorijaID).Select(y=> y.NazivKategorije).SingleOrDefault(),
-                    ProdavacId = x.ProdavacID,
-                    ImeProdavaca = x.ImeProdavaca,
-                    CijenaSaPopustom = x.CijenaSaPopustom,
-                    Cijena = x.Cijena,
-                    Slika = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.SlikaFile).ToList(),
-                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == y.ID).Select(y => y.Thumbnail).ToList(),
-                    Brend = _database.Brend.Where(y => y.ID == x.BrendID).Select(y => y.Naziv).SingleOrDefault()
+                ID = x.ID,
+                NazivArtikla = x.Naziv,
+                Kategorija = _database.Kategorija.Where(y => y.ID == x.KategorijaID).Select(y => y.NazivKategorije).SingleOrDefault(),
+                ProdavacId = x.ProdavacID,
+                ImeProdavaca = x.ImeProdavaca,
+                CijenaSaPopustom = x.CijenaSaPopustom,
+                Cijena = x.Cijena,
+                Slika = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.SlikaFile).ToList(),
+                Thumbnail = _database.Slika.Where(y => y.ArtikalID == y.ID).Select(y => y.Thumbnail).ToList(),
+                Brend = _database.Brend.Where(y => y.ID == x.BrendID).Select(y => y.Naziv).SingleOrDefault()
+            }).Skip(excludeRecords).Take(pageSize);
 
-                }).ToList()
+            var filter = new ArtikalIndexVM();
+
+            filter.KategorijaID = KategorijaID;
+            filter.PotkategorijaID = PotkategorijaID;
+            filter.BrendID = BrendID;
+            filter.BojaID = BojaID;
+            filter.MaterijalID = MaterijalID;
+            filter.VelicinaID = VelicinaID;
+            filter.MaxCijena = MaxCijena;
+            filter.MinCijena = MinCijena;
+
+
+            filter.rows = model.ToList();
+            LoadEverythingElse(filter);
+            filter.Layout = false;
+
+            total = artikli.Count();
+            int brojac = 0;
+            if ((float)(total / 8.0) - (int)(total / 8) > 0)
+            {
+                brojac = (total / 8) + 1;
+            }
+            else
+            {
+                brojac = (total / 8);
+            }
+
+            var result = new PagedResult<ArtikalIndexVM.Row>
+            {
+                Data = filter.rows,
+                TotalItems = brojac,
+                PageNumber = pageNumber,
+                PageSize = pageSize
             };
 
-            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
-            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
-            objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
 
-            objekat.Layout = false;
-            return View("Index", objekat);
+            ViewData["result"] = result;
+            ViewData["type"] = "IndexFilter";
+
+
+            return View("Index", filter);
         }
 
         //[ValidateAntiForgeryToken]
@@ -307,8 +374,8 @@ namespace eKorpa.Controllers
                 {
                     Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
                     Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
-                    Boja=_database.Boja.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList(),
-                    Materijal=_database.Materijal.Select(x=> new SelectListItem { Value=x.ID.ToString(),Text=x.Naziv}).ToList()
+                    Boja = _database.Boja.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
+                    Materijal = _database.Materijal.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
 
                 }
                 : _database.Artikal
@@ -345,14 +412,14 @@ namespace eKorpa.Controllers
             }).ToList();
             return Json(novi);
         }
-        
+
         public JsonResult UpdateVelicine(int PotkategorijaID)
         {
-            List<Velicina> velicine = _database.Potkategorija.Where(x => x.ID== PotkategorijaID).Select(x => x.Velicina).FirstOrDefault();
+            List<Velicina> velicine = _database.Potkategorija.Where(x => x.ID == PotkategorijaID).Select(x => x.Velicina).FirstOrDefault();
 
-            if(velicine.Count==0)
+            if (velicine.Count == 0)
             {
-                velicine = _database.Potkategorija.Where(x => x.ID==51).Select(x => x.Velicina).FirstOrDefault();
+                velicine = _database.Potkategorija.Where(x => x.ID == 51).Select(x => x.Velicina).FirstOrDefault();
             }
 
             List<SelectListItem> novi = velicine.Select(a => new SelectListItem
@@ -520,7 +587,7 @@ namespace eKorpa.Controllers
 
             var adresa = _database.Adresa.Where(x => x.ID == korisnik.AdresaID).SingleOrDefault();
 
-            if (adresa.ID==0 || adresa.MjestoStanovanja.Length<5 || adresa.PostanskiBroj<10000 || adresa.PostanskiBroj>99999)
+            if (adresa.ID == 0 || adresa.MjestoStanovanja.Length < 5 || adresa.PostanskiBroj < 10000 || adresa.PostanskiBroj > 99999)
             {
                 //implementirati poruku neuspjeha
                 return "address404";
@@ -561,5 +628,23 @@ namespace eKorpa.Controllers
 
             return "success";
         }
+
+        private void LoadEverythingElse(ArtikalIndexVM objekat)
+        {
+            foreach (var item in objekat.rows)
+            {
+                foreach (var temp in _database.ListaZelja)
+                {
+                    if (item.ID == temp.ArtikalID)
+                        item.jestUListi = true;
+                }
+            }
+            objekat.Layout = true;
+            objekat.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
+            objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+            objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+        }
+
     }
 }

@@ -45,7 +45,7 @@ namespace eKorpa.ViewModels
         public List<SelectListItem> Velicina{ get; set; }
         public int BrendID{ get; set; }
         public List<SelectListItem> Brend{ get; set; }
-        //
+        
 
 
         public List<Row> rows { get; set; }

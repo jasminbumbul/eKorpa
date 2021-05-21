@@ -513,3 +513,8 @@ C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\PagedList.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\ReflectionIT.Mvc.Paging.Views.dll
 C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\ReflectionIT.Mvc.Paging.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\cloudscribe.Pagination.Models.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\bin\Debug\netcoreapp3.1\cloudscribe.Web.Pagination.dll
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_PaginationPartial.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_PaginationPartialKateg.cshtml.g.cs
+C:\Users\Jasmin\source\repos\eKorpa\eKorpa\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_PaginationPartialFilter.cshtml.g.cs

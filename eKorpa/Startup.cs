@@ -53,6 +53,8 @@ namespace eKorpa
 
             services.AddMailKit(config => config.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>()));
 
+            services.AddCloudscribePagination();
+
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId= Configuration.GetSection("Authentication").GetSection("Facebook").GetSection("AppId").Value;

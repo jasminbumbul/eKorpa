@@ -42,59 +42,59 @@ namespace eKorpa.Controllers
             return View(profil);
         }
 
-        public IActionResult KupljeniArtikli(string KorisnikID)
-        {
-            var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.KupacID == KorisnikID).ToList();
+        //public IActionResult KupljeniArtikli(string KorisnikID)
+        //{
+        //    var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.KupacID == KorisnikID).ToList();
 
-            var objekat = new ArtikalIndexVM
-            {
-                rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
-                {
-                    Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
-                    Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
-                    CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
-                    ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
-                    Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
-                    NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
-                    Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
-                    Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
-                    ProdavacId = x.ProdavacID,
-                    RatingID = (int)x.RejtingID,
-                    KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
-                    ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
-                    KupacID = x.KupacID
-                }).ToList()
-            };
+        //    var objekat = new ArtikalIndexVM
+        //    {
+        //        rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
+        //        {
+        //            Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
+        //            Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
+        //            CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
+        //            ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
+        //            Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
+        //            NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
+        //            Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
+        //            Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
+        //            ProdavacId = x.ProdavacID,
+        //            RatingID = (int)x.RejtingID,
+        //            KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
+        //            ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
+        //            KupacID = x.KupacID
+        //        }).ToList()
+        //    };
 
-            return View(objekat);
-        }
+        //    return View(objekat);
+        //}
 
-        public IActionResult ProdaniArtikli(string KorisnikID)
-        {
-            var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.ProdavacID == KorisnikID).ToList();
+        //public IActionResult ProdaniArtikli(string KorisnikID)
+        //{
+        //    var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.ProdavacID == KorisnikID).ToList();
 
-            var objekat = new ArtikalIndexVM
-            {
-                rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
-                {
-                    Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
-                    Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
-                    CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
-                    ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
-                    Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
-                    NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
-                    Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
-                    Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
-                    ProdavacId = x.ProdavacID,
-                    RatingID = (int)x.RejtingID,
-                    KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
-                    ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
-                    KupacID = x.KupacID
-                }).ToList()
-            };
+        //    var objekat = new ArtikalIndexVM
+        //    {
+        //        rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
+        //        {
+        //            Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
+        //            Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
+        //            CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
+        //            ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
+        //            Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
+        //            NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
+        //            Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
+        //            Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
+        //            ProdavacId = x.ProdavacID,
+        //            RatingID = (int)x.RejtingID,
+        //            KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
+        //            ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
+        //            KupacID = x.KupacID
+        //        }).ToList()
+        //    };
 
-            return View(objekat);
-        }
+        //    return View(objekat);
+        //}
 
         public IActionResult Dojmovi(string KorisnikID, string Tip = "a", bool Layout = true)
         {
@@ -168,6 +168,9 @@ namespace eKorpa.Controllers
             //provjera validnosti imena, prezimena, datuma rodjenja, opcine, mjesta/ulice, postanskoj broja, te nedovršenih dojmova
 
             var korisnik = _database.Users.Find(KorisnikID);
+            if(korisnik==null){
+                return true;
+            }
             var adresa = _database.Adresa.Find(korisnik.AdresaID);
 
             if (string.IsNullOrEmpty(korisnik.Ime)
@@ -191,6 +194,10 @@ namespace eKorpa.Controllers
         public bool ProvjeraDojamKupac(string KorisnikID=null)
         {
             var korisnik = _database.Users.Find(KorisnikID);
+            if (korisnik==null)
+            {
+                return true;
+            }
             var kupljeniArtikliRejtingID = _database.ZavrseniArtikal.Where(x => x.KupacID == korisnik.Id).Select(x=> x.RejtingID).ToList();
 
             var listaRejtinga = new List<Rejting>();
@@ -213,6 +220,10 @@ namespace eKorpa.Controllers
         public bool ProvjeraDojamProdavac(string KorisnikID=null)
         {
             var korisnik = _database.Users.Find(KorisnikID);
+            if (korisnik == null)
+            {
+                return true;
+            }
             var ProdaniArtikliRejtingID = _database.ZavrseniArtikal.Where(x => x.ProdavacID == korisnik.Id).Select(x=> x.RejtingID).ToList();
 
             var listaRejtinga = new List<Rejting>();

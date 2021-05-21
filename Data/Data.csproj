@@ -30,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="cloudscribe.Pagination.Models" Version="1.1.0" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
@@ -44,6 +46,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     <PackageReference Include="twilio" Version="5.53.0" />
   </ItemGroup>
