@@ -1,37 +1,133 @@
-﻿@{
+﻿@using eKorpa.ViewModels
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@model HomeIndexVM
+
+@{
     ViewData["Title"] = "Početna";
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 }
 
 
-<div id="showcase">
 
-    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdummyimage.com%2F980x300%2F444%2Faaa%2F%26text%3D%2B%2Bplaceholder%2Bimage%2B%2B&f=1&nofb=1" alt="Alternate Text" />
+<div id="showcase">
+    <div id="showcaseText">
+        <p>Muška kolekcija</p>
+        <h1>Odaberite najbolje za muškarce</h1>
+        <button onclick="OtvoriMuskarci()" id="zapocniBtn">Započni odmah</button>
+    </div>
+
+</div>
+
+
+
+<div id="threeCategories">
+
+    <div class="categories" onclick="OtvoriZene()" id="showcaseZene">
+        <div class="showcaseText2">
+            <p class="naslovShowcase2">Ženska kolekcija</p>
+            <a onclick="OtvoriMuskarci()" class="showcaseLink">--- započni odmah</a>
+        </div>
+    </div>
+
+    <div class="categories" onclick="OtvoriDjeca()" id="showcaseDjeca">
+        <div class="showcaseText2">
+            <p class="naslovShowcase2">Dječija kolekcija</p>
+            <a onclick="OtvoriDjeca()" class="showcaseLink">--- započni odmah</a>
+        </div>
+    </div>
+
+    <div class="categories" onclick="OtvoriOstalo()" id="showcaseOstalo">
+        <div class="showcaseText2">
+            <p class="naslovShowcase2">Ostala kolekcija</p>
+            <a onclick="OtvoriOstalo()" class="showcaseLink">--- započni odmah</a>
+        </div>
+    </div>
+
 
 </div>
 
 <div class="container">
+    <p id="naslovNewProduct">Najnoviji produkti</p>
+    <div id="newestProducts">
+        @foreach (var item in Model.rows)
+        {
+            <div class="newProduct" >
+                @if (item.Slika == null)
+                {
+                    <img onclick="OtvoriDetaljeArtikla(@item.ID)" class="slikaArtikla" src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
+                }
+                else
+                {
+                    var base64 = Convert.ToBase64String(item.Slika);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img onclick="OtvoriDetaljeArtikla(@item.ID)" class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
+                }
+                <div class="textAreaNewest">
+                    <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="naziv">@item.NazivArtikla</span> <br />
+                    @if (item.Cijena != item.CijenaSaPopustom)
+                    {
+                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
+                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.CijenaSaPopustom KM  </span>
+                    }
+                    else
+                    {
+                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.Cijena KM  </span>
+                    }
+                    <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId">by @item.ImeProdavaca</a>
+                    @if (item.jestUListi)
+                    {
+                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
+                            <i class="fa fa-heart" aria-hidden="true" style="color:lightskyblue;">
+                                <span class="tooltiptext">Pogledaj listu želja</span>
+                            </i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" >
+                            <i class="fa fa-heart" aria-hidden="true" style="color:gray;">
+                                <span class="tooltiptext">Dodaj u listu želja</span>
+                            </i>
 
-
-    <div id="threeCategories">
-
-        <div class="categories" onclick="OtvoriZene()">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
-            <p>Žene</p>
-        </div>
-
-        <div class="categories" onclick="OtvoriMuskarci()">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
-            <p>Muškarci</p>
-        </div>
-
-        <div class="categories" onclick="OtvoriDjeca()">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.4PQa6uaHcLHierPxk1xZbgHaHa%26pid%3DApi&f=1" alt="Alternate Text" />
-            <p>Djeca</p>
-        </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
 
     </div>
-   
+</div>
 
+<div id="instagramPage" onclick="OtvoriInstagram()">
+    <img class="test" src="/images/instagramshowcase.png" alt="Alternate Text" />
+</div>
+
+<div class="container">
+    <footer>
+        <div class="footerSection">
+            <p class="footerNaslov">eKorpa</p>
+            <p>Lorem ipsum pellentesque habitant morbi tristique senectus</p>
+            <p>Lorem ipsum pellentesque habitant morbi tristique senectus</p>
+            <p>Bosna i Hercegovina, Mostar 88000</p>
+            <p>Kontaktirajte nas : (+387)61 234 567</p>
+        </div>
+        <div class="footerSection">
+            <p class="footerNaslov">Meni servisa</p>
+            <a href="/Dostava">Dostava</a><br />
+            <a href="/TermsConditions">Terms & Conditions</a><br />
+            <a href="/PovratNovca">Narudžbe i povrat novca</a><br />
+            <a href="/FAQ">FAQ</a><br />
+        </div>
+        <div class="footerSection">
+            <p class="footerNaslov">Vaš račun</p>
+            <a href="/Profil/KupljeniArtikli?KorisnikID=@claimsIdentity">Kupljeni artikli</a><br />
+            <a href="/ListaZelja/Detalji">Lista želja</a><br />
+            <a href="/Home/About">O nama</a><br />
+            <a href="/Home/Privacy">Privacy policy</a>
+        </div>
+    </footer>
 </div>
 
 
@@ -39,6 +135,10 @@
 <link href="/css/HomeIndex.css" rel="stylesheet" />
 
 <script>
+    function OtvoriInstagram() {
+        window.location = "https://www.instagram.com/";
+    }
+
     function OtvoriZene() {
         window.location = "/Artikal/IndexKateg?Kategorija=Žene";
     }
@@ -51,5 +151,17 @@
         window.location = "/Artikal/IndexKateg?Kategorija=Djeca";
     }
 
+    function OtvoriOstalo() {
+        window.location = "/Artikal/IndexKateg?Kategorija=Ostalo";
+    }
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
+    }
+
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
 
 </script>

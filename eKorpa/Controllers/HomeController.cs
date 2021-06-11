@@ -32,7 +32,34 @@ namespace eKorpa.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HomeIndexVM objekat = new HomeIndexVM()
+            {
+                rows = _database.Artikal.OrderBy(x => x.DatumObjave).Select(a => new HomeIndexVM.Row
+                {
+                    ID = a.ID,
+                    NazivArtikla = a.Naziv,
+                    Kategorija = a.Kategorija.NazivKategorije,
+                    ProdavacId = a.ProdavacID,
+                    ImeProdavaca = a.ImeProdavaca,
+                    CijenaSaPopustom = a.CijenaSaPopustom,
+                    Cijena = a.Cijena,
+                    Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).SingleOrDefault(),
+                    Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).SingleOrDefault(),
+                    Brend = a.Brend.Naziv,
+                    DatumObjave = a.DatumObjave.ToString("dd.MM.yyyy"),
+                }).Take(4).ToList()
+            };
+
+            foreach (var item in objekat.rows)
+            {
+                foreach (var temp in _database.ListaZelja)
+                {
+                    if (item.ID == temp.ArtikalID)
+                        item.jestUListi = true;
+                }
+            }
+
+            return View(objekat);
         }
 
         public IActionResult Privacy()
@@ -42,7 +69,7 @@ namespace eKorpa.Controllers
 
         public IActionResult Pretraga(string querry)
         {
-            return Redirect("/Artikal/Index?querry="+querry);
+            return Redirect("/Artikal/Index?querry=" + querry);
         }
     }
 }

@@ -30,6 +30,9 @@ namespace eKorpa.ViewModels
         public List<SelectListItem> Boja { get; set; }
         public int MaterijalID{ get; set; }
         public List<SelectListItem> Materijal{ get; set; }
+        public int VelicinaID { get; set; }
+        public List<SelectListItem> Velicina{ get; set; }
+        public DateTime DatumObjave { get; set; }
 
     }
 }

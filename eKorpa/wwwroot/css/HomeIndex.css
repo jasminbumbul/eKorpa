@@ -1,40 +1,200 @@
-﻿
+﻿body {
+    font-weight: lighter;
+}
 
-#showcase{
-    position:relative;
-    top:-33px;
+#showcase {
+    position: relative;
+    top: -33px;
+    background-image:url("/images/showcaseimg.png");
+    height:800px;
+    background-size:cover;
+
 }
 
 #showcase img{
     width:100%;
 }
 
-#threeCategories{
-    display:flex;
-    justify-content:space-around;
+#threeCategories {
+    display: flex;
+    justify-content: space-around;
+    font-weight: lighter;
 }
 
 .categories {
     box-shadow: 5px 10px 4px #888888;
+    height:350px
 }
 
-.categories img{
-    position:relative;
-    width:300px;
-    height:100%;
-}
 
-.categories img:hover {
-    width: 310px;
+.categories:hover {
     transition: 0.3s ease-in-out;
     cursor:pointer;
 }
 
-.categories p {
-    text-align: center;
+#newestProducts {
+    margin-top:50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.newProduct {
+    box-shadow: 5px 10px 4px #888888;
+    width: 250px;
+    height: 350px;
+}
+
+
+p {
     position: relative;
-    top: -50px;
+    top: 300px;
+}
+
+h1 {
+    position: relative;
+    top: 295px;
+}
+
+#zapocniBtn {
+    position: relative;
+    top: 300px;
+    border: none;
+    background: black;
     color: white;
-    font-weight: bolder;
-    font-size:30px;
+    padding: 14px 30px 14px 30px;
+}
+
+#showcaseZene {
+    background: url("/images/women showcase.png");
+    height: 373px;
+    width: 30%;
+    background-size: auto;
+    background-repeat: round;
+    background-color: rgb(220,218,223);
+}
+
+#showcaseDjeca {
+    background: url("/images/djecacishowcase.png");
+    height: 373px;
+    width: 30%;
+    background-size: auto;
+    background-repeat: round;
+    background-color: rgb(231,231,231);
+}
+
+#showcaseOstalo {
+    background: url("/images/ostaloshowcase.png");
+    height: 373px;
+    width: 30%;
+    background-size: auto;
+    background-repeat: round;
+    background-color: rgb(240,240,240);
+}
+
+#showcaseText {
+    position: relative;
+    left: 21%;
+
+}
+
+.naslovShowcase2 {
+    position: relative;
+    top: 250px;
+    font-size: 20px;
+}
+
+.showcaseLink {
+    position: relative;
+    top: 238px;
+    font-size: 15px;
+    color: grey !important;
+}
+
+.showcaseText2 {
+    position: relative;
+    left: 10%;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.fa-heart:hover .tooltiptext {
+    visibility: visible;
+}
+
+.slikaArtikla {
+    width: 245px;
+    height: 295px;
+}
+
+#naslovNewProduct {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position:relative;
+    top:0px;
+}
+
+.textAreaNewest{
+    margin-left:10px;
+}
+
+.cijena{
+    color:gray;
+}
+
+#profilProdavaca {
+    text-decoration:none;
+    color:gray;
+}
+
+ .cijena, fa-heart, #profilProdavaca {
+    font-size: 13px;
+}
+
+#newestProducts .fa-heart {
+    position: relative;
+    right: 10px;
+    float: right;
+}
+
+#instagramPage {
+    margin-top:80px;
+}
+
+#instagramPage img {
+    width:100%;
+}
+
+footer {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+}
+
+    footer p {
+        position: relative;
+        top: 0px;
+        font-size:13px;
+        color:darkgrey  ;
+    }
+
+    footer a {
+        font-size: 13px;
+        color: darkgrey !important;
+    }
+
+.footerNaslov {
+    font-size: 20px;
+    color: grey;
 }
