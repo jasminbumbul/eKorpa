@@ -11,9 +11,11 @@
     <div id="header">
 
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" id="navHeader">
                 <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eKorpa</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img id="logo" src="~/images/logo.png" />
+                    </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -52,6 +54,7 @@
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Žene">Žene</a></li>
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Muškarci">Muškarci</a></li>
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Djeca">Djeca</a></li>
+                    <li> <a href="/Artikal/IndexKateg?Kategorija=Ostalo">Ostalo</a></li>
                     <li> <a href="/Ponuda/Index">Ponude</a></li>
                 </ul>
                 <div class="container">
@@ -65,20 +68,20 @@
         </header>
     </div>
 
-    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    <div class="container">
     </div>
 
     <div id="footer">
 
 
-        <footer @*class="border-top footer text-muted"*@>
+        @*<footer
             <div class="container">
                 &copy; 2021 - eKorpa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
-        </footer>
+        </footer>*@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -94,12 +97,17 @@
 <style>
     .kontaktBtn {
         float: right;
-        margin-top: -57px;
+        margin-top: -38px;
+        text-decoration: none;
+        color: white;
     }
 
     #footer {
-        position: absolute;
-        bottom: 0;
+        width: 100%;
+        color: black;
+        /*text-align: center;*/
+        position: relative;
+        bottom: 0px;
     }
 </style>
 

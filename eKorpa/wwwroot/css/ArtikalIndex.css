@@ -10,7 +10,6 @@ body a{
 img {
     width: 255px;
     height:170px;
-    margin-top:10px;
 }
 
 /*img:hover{
@@ -45,12 +44,14 @@ img {
 }
 
 .artikalCopy {
-    border: double grey 1px; 
-    width: 300px; 
-    margin:10px; 
-    cursor:pointer; 
-    text-align:center;
-    box-shadow:grey 10px 10px 15px;
+    border: double grey 1px;
+    width: 250px;
+    height: 350px;
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: grey 10px 10px 15px;
+    font-weight: lighter;
 }
 
 .tooltiptext {
@@ -113,8 +114,9 @@ img {
     transition:ease 0.5s;
 }
 
-.naziv{
-    font-size:30px;
+.naziv {
+    font-size: 16px;
+    float: left;
 }
 
 .kategorija{
@@ -122,9 +124,68 @@ img {
 }
 
 .cijena{
-    font-size:40px;
+    font-size:20px;
 }
 
 .fa-wrench, .fa-trash{
     color:black;
+}
+
+#wrapper {
+    display: none;
+    justify-content: center;
+    position: absolute;
+    margin: auto;
+    top: 140px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #f7aca8;
+    border-radius: 3px;
+    height: 780px;
+}
+
+.dialog {
+    position: absolute;
+    display: block;
+    width: 500px;
+    height: 820px;
+    top: 20%;
+}
+
+#daBtn {
+    float: right;
+}
+
+#neBtn {
+    float: right;
+    top: -21px;
+    position: relative;
+}
+
+#dialogText {
+    position: relative;
+    top: 15px;
+}
+
+input {
+    width: 400px;
+}
+
+select {
+    width: 100%;
+    height: 35px;
+}
+
+#naslovNewProduct {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position: relative;
+    top: 0px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
 }

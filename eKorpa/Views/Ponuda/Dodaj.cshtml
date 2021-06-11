@@ -1,17 +1,82 @@
 ﻿@using eKorpa.ViewModels
 @model PonudaDodajVM
 
-    <form asp-action="SnimiPonudu" asp-controller="Ponuda">
-        <label>Opis ponude</label>
-        <input asp-for="Opis"/>
-        <br />
-        <label>Velicina popusta</label>
-        <input asp-for="Popust" />
-        <br />
-        <label>Kategorija</label>
-        <select asp-for="KategorijaID" asp-items="Model.Kategorija"></select>
-        <br />
-        <label>Potkategorija</label>
-        <select asp-for="PotkategorijaID" asp-items="Model.Potkategorija"></select>
-        <button type="submit" class="btn btn-dark" >Dodaj</button>
+<div id="ponudaDodajForma" class="col-md-4">
+    <form asp-controller="Ponuda" asp-action="SnimiPonudu">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <h4>Dodavanje nove ponude</h4>
+        <hr />
+        <div class="form-group">
+            <label>Opis ponude</label>
+            <input asp-for="Opis" class="form-control" />
+            <span asp-validation-for="Opis" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Veličina popusta (u procentima)</label>
+            <input asp-for="Popust" class="form-control" />
+            <span asp-validation-for="Popust" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Odaberite kategoriju</label>
+            <br />
+            <select id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorija">
+                <option disabled selected value="0">Odaberite kategoriju </option>
+            </select>
+            <span asp-validation-for="KategorijaID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Odaberite potkategoriju</label>
+            <br />
+            <select id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+                <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+            </select>
+            <span asp-validation-for="PotkategorijaID" class="text-danger"></span>
+        </div>
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-dark">Dodaj</button>
     </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#selectKategorija").change(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $.each(data, function (i, item) {
+                    $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
+
+                });
+            });
+        })
+    });
+    //update potkategorija i selectovanje prijasnje pri editu postojeceg artikla
+    $(document).ready(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $.each(data, function (i, item) {
+                    if (item.value == @Model.PotkategorijaID) {
+                        $("#selectPotkategorija").append("<option selected value='" + item.value + "'>" + item.text + "</option>");
+                    } else { $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");}
+                });
+            });
+    });
+</script>
+
+<style>
+    #ponudaDodajForma {
+        margin-left: auto;
+        margin-right: auto;
+        width: 500px;
+    }
+
+    input {
+        width: 400px;
+    }
+
+    select {
+        width: 100%;
+        height: 35px;
+    }
+</style>

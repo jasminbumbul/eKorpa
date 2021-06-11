@@ -1,3 +1,85 @@
-﻿label{
+﻿body{
+    font-weight:lighter;
+}
+
+label{
     font-weight:800;
+}
+
+#profilePic {
+    width: 300px;
+    height: auto;
+    border: 1px solid black;
+    margin-left: 50px;
+    margin-top: 20px;
+    float:left;
+}
+
+
+p{
+    margin:0;
+    padding:5px;
+}
+
+#nazad {
+    margin-left: 50px;
+}
+
+#informationSection {
+    float: left;
+    margin-left:30px;
+    margin-top:20px;
+    font-size:22px;
+}
+
+.nav-link{
+    padding:0;
+}
+
+#ajaxDiv {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.slikaArtikla {
+    width: 245px;
+    height: 295px;
+}
+
+#naslovNewProduct {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position: relative;
+    top: 0px;
+}
+
+.textAreaNewest {
+    margin-left: 10px;
+}
+
+.cijena {
+    color: gray;
+}
+
+#profilProdavaca {
+    text-decoration: none;
+    color: gray;
+}
+
+.cijena, .fa-heart, #profilProdavaca {
+    font-size: 13px;
+}
+
+.cijena, #profilProdavaca {
+    font-size: 13px;
+    float: left;
+    margin-right: 5px;
+}
+
+#newestProducts .fa-heart {
+    position: relative;
+    right: 10px;
+    float: right;
 }

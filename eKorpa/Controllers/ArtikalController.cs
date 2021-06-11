@@ -19,6 +19,7 @@ using PagedList;
 using PagedList.Mvc;
 using cloudscribe.Pagination.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace eKorpa.Controllers
 {
@@ -102,6 +103,29 @@ namespace eKorpa.Controllers
 
                     total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Count();
                     objekat.rows = model.AsNoTracking().ToList();
+
+                    break;
+
+                case "Ostalo":
+
+                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo").Select(a => new ArtikalIndexVM.Row
+                    {
+                        ID = a.ID,
+                        NazivArtikla = a.Naziv,
+                        Kategorija = a.Kategorija.NazivKategorije,
+                        ProdavacId = a.ProdavacID,
+                        ImeProdavaca = a.ImeProdavaca,
+                        CijenaSaPopustom = a.CijenaSaPopustom,
+                        Cijena = a.Cijena,
+                        Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.Thumbnail).ToList(),
+                        Brend = a.Brend.Naziv
+                    }).Skip(excludeRecords).Take(pageSize);
+
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo").Count();
+                    objekat.rows = model.AsNoTracking().ToList();
+
+
 
                     break;
             }
@@ -203,7 +227,8 @@ namespace eKorpa.Controllers
             
             ViewData["type"] = "Index";
             ViewData["result"] = result;
-            
+
+
             return View(objekat);
         }
 
@@ -227,6 +252,16 @@ namespace eKorpa.Controllers
                 }).ToList()
             };
             objekat.Layout = false;
+
+            foreach (var item in objekat.rows)
+            {
+                foreach (var temp in _database.ListaZelja)
+                {
+                    if (item.ID == temp.ArtikalID)
+                        item.jestUListi = true;
+                }
+            }
+
             return View("Index", objekat);
         }
 
@@ -368,18 +403,15 @@ namespace eKorpa.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Dodaj(int ArtikalID)
         {
+            ArtikalDodajVM noviArtikal;
 
-            ArtikalDodajVM noviArtikal = ArtikalID == 0
-                ? new ArtikalDodajVM()
-                {
-                    Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                    Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
-                    Boja = _database.Boja.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
-                    Materijal = _database.Materijal.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
-
-                }
-                : _database.Artikal
-                    .Where(y => y.ID == ArtikalID)
+            if (ArtikalID==0)
+            {
+                noviArtikal = new ArtikalDodajVM();
+            }
+            else
+            {
+                noviArtikal= _database.Artikal.Where(y => y.ID == ArtikalID)
                     .Select(y => new ArtikalDodajVM
                     {
                         ID = y.ID,
@@ -389,14 +421,18 @@ namespace eKorpa.Controllers
                         ProdavacId = y.ProdavacID,
                         ImeProdavaca = y.ImeProdavaca,
                         Cijena = y.Cijena,
-                        Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList(),
-                        Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
                         Slike = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
                         SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
                         BrojUSkladistu = y.BrojUSkladistu,
-                        Boja = _database.Boja.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList(),
-                        Materijal = _database.Materijal.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList()
-                    }).Single();
+                        VelicinaID= (int)y.VelicinaID
+                    }).SingleOrDefault();
+            }
+
+            noviArtikal.Kategorije = _database.Kategorija.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.NazivKategorije }).ToList();
+            noviArtikal.Brend = _database.Brend.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList();
+            noviArtikal.Boja = _database.Boja.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList();
+            noviArtikal.Materijal = _database.Materijal.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Naziv }).ToList();
+            //noviArtikal.Velicina = _database.Velicina.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.VelicinaOznaka }).ToList();
 
             return View(noviArtikal);
         }
@@ -455,7 +491,7 @@ namespace eKorpa.Controllers
 
 
 
-        public async Task<IActionResult> Snimi(ArtikalDodajVM noviArtikal)
+        public IActionResult Snimi(ArtikalDodajVM noviArtikal)
         {
             Artikal artikal;
             if (noviArtikal.ID == 0)
@@ -464,6 +500,7 @@ namespace eKorpa.Controllers
                 _database.Artikal.Add(artikal);
                 artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 artikal.ImeProdavaca = _database.Users.Find(artikal.ProdavacID).Ime + " " + _database.Users.Find(artikal.ProdavacID).Prezime;
+                artikal.DatumObjave = DateTime.Now;
             }
             else
             {
@@ -478,6 +515,7 @@ namespace eKorpa.Controllers
             artikal.BrojUSkladistu = noviArtikal.BrojUSkladistu;
             artikal.BojaID = noviArtikal.BojaID;
             artikal.MaterijalID = noviArtikal.MaterijalID;
+            artikal.VelicinaID = noviArtikal.VelicinaID;
             _database.SaveChanges();
             Artikal artikl = _database.Artikal.Find(artikal.ID);
             int brojacProlaza = 0;
@@ -523,6 +561,7 @@ namespace eKorpa.Controllers
                     }
                 }
             }
+          
             _database.SaveChanges();
             return Redirect("/Artikal/");
         }
@@ -644,6 +683,16 @@ namespace eKorpa.Controllers
             objekat.Boja = _database.Boja.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
             objekat.Materijal = _database.Materijal.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
             objekat.Brend = _database.Brend.Select(k => new SelectListItem { Value = k.ID.ToString(), Text = k.Naziv }).ToList();
+
+            foreach (var item in objekat.rows)
+            {
+                foreach (var temp in _database.ListaZelja)
+                {
+                    if (item.ID == temp.ArtikalID)
+                        item.jestUListi = true;
+                }
+            }
+
         }
 
     }

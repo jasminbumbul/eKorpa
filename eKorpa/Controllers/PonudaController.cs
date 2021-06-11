@@ -48,11 +48,6 @@ namespace eKorpa.Controllers
                     Text=x.NazivKategorije
                 }).ToList(),
 
-                Potkategorija = _database.Potkategorija.Select(x => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
-                {
-                    Value = x.ID.ToString(),
-                    Text = x.Naziv
-                }).ToList()
             };
 
             return View(objekat);

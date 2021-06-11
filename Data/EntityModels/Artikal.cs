@@ -29,5 +29,6 @@ namespace eKorpa.EntityModels
         public Materijal Materijal { get; set; }
         public int? VelicinaID { get; set; }
         public Velicina Velicina { get; set; }
+        public DateTime DatumObjave { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿body {
-    background-color: #e2e2e2;
     color: black;
     font-family: 'Roboto', 'Global Sans Serif';
     margin: 0;
@@ -8,8 +7,10 @@
     width: 100%;
 }
 
-img {
-    width: 200px;
+
+#logo {
+    width: 140px;
+    height: 40px;
 }
 
 .kontaktBtn {
@@ -65,11 +66,10 @@ img {
     transform: translate(-50%,-50%);
     transition: all 1s;
     width: 50px;
-    height: 50px;
-    background: white;
+    height: 30px;
     box-sizing: border-box;
     border-radius: 25px;
-    border: 4px solid white;
+    border: 1px solid black;
     padding: 5px;
 }
 
@@ -78,7 +78,7 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    height: 42.5px;
+    height: 26.5px;
     line-height: 30px;
     outline: 0;
     border: 0;
@@ -86,7 +86,6 @@ img {
     font-size: 1em;
     border-radius: 20px;
     padding: 0 20px;
-    background: lightgrey;
 }
 
 .fa-search {
@@ -95,7 +94,7 @@ img {
     width: 42.5px;
     height: 42.5px;
     position: absolute;
-    top: 0;
+    top: -8px;
     right: 0;
     border-radius: 50%;
     color: #07051a;
@@ -106,7 +105,7 @@ img {
 
 
 .fa:hover, .fas:hover {
-    color: lightgrey;
+    color: #f29191;
 }
 
 #searchForma:hover {
@@ -119,6 +118,9 @@ img {
     }
 
     #searchForma:hover .fa {
-        background: #07051a;
+        background: black;
         color: white;
     }
+
+#navHeader {
+}

@@ -3,92 +3,112 @@
 @model ArtikalDodajVM
 
 
-        <a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> <br />
-<div id="formaDodajArtikal">
-    <form asp-action="Snimi" asp-controller="Artikal" enctype="multipart/form-data">
+<div class="container">
 
-        <div style="display:none">
-            <input asp-for="ID" />
-        </div>
+    <a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    <br />
+    <div id="formaDodajArtikal">
+        <form asp-action="Snimi" asp-controller="Artikal" enctype="multipart/form-data">
 
-        <label class="control-label">Naziv Artikla</label>
-        <input required type="text" asp-for="NazivArtikla" />
-        <span asp-validation-for="NazivArtikla" class="text-danger"></span>
+            <div style="display:none">
+                <input asp-for="ID" />
+            </div>
 
-        <label>Cijena artikla</label>
-        <input min="0.01" required asp-for="Cijena" />
-        <span asp-validation-for="Cijena" class="text-danger"></span>
+            <label class="control-label">Naziv Artikla</label>
+            <input required type="text" asp-for="NazivArtikla" />
+            <span asp-validation-for="NazivArtikla" class="text-danger"></span>
 
-        <label for="Kategorija">Kategorija</label>
-        <select required id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
-            <option disabled selected value="0">Odaberite kategoriju </option>
-        </select>
-        <span asp-validation-for="Kategorije" class="text-danger"></span>
+            <label>Cijena artikla</label>
+            <input min="0.01" required asp-for="Cijena" />
+            <span asp-validation-for="Cijena" class="text-danger"></span>
 
-        <label for="Potkategorija">Potkategorija</label>
-        <select required id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
-            <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
-        </select>
-        <span asp-validation-for="Potkategorija" class="text-danger"></span>
+            <label for="Kategorija">Kategorija</label>
+            <select required id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
+                <option disabled selected value="0">Odaberite kategoriju </option>
+            </select>
+            <span asp-validation-for="Kategorije" class="text-danger"></span>
 
-        <label for="Brend">Brend</label>
-        <select required asp-for="BrendID" asp-items="Model.Brend"></select>
-        <span asp-validation-for="Brend" class="text-danger"></span>
+            <label for="Potkategorija">Potkategorija</label>
+            <select required id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+                <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+            </select>
+            <span asp-validation-for="Potkategorija" class="text-danger"></span>
 
-        <label for="BrojUSkladistu">Broj u skladistu</label>
-        <input required min="1" asp-for="BrojUSkladistu">
-        <span asp-validation-for="BrojUSkladistu" class="text-danger"></span>
+            <label for="Brend">Brend</label>
+            <select required asp-for="BrendID" asp-items="Model.Brend"></select>
+            <span asp-validation-for="Brend" class="text-danger"></span>
 
-        <br />
+            <label for="BrojUSkladistu">Broj u skladistu</label>
+            <input required min="1" asp-for="BrojUSkladistu">
+            <span asp-validation-for="BrojUSkladistu" class="text-danger"></span>
 
-        <label for="Boja">Boja</label>
-        <select required asp-for="BojaID" asp-items="Model.Boja"></select>
-        <span asp-validation-for="Boja" class="text-danger"></span>
+            <br />
 
-        <br />
-        
-        <label for="Materijal">Materijal</label>
-        <select required asp-for="MaterijalID" asp-items="Model.Materijal"></select>
-        <span asp-validation-for="Materijal" class="text-danger"></span>
+            <label for="Boja">Boja</label>
+            <select required asp-for="BojaID" asp-items="Model.Boja"></select>
+            <span asp-validation-for="Boja" class="text-danger"></span>
 
-        <br />
+            <br />
 
+            <label for="Materijal">Materijal</label>
+            <select required asp-for="MaterijalID" asp-items="Model.Materijal"></select>
+            <span asp-validation-for="Materijal" class="text-danger"></span>
 
-        <label>Slike</label>
+            <br />
 
-        <div class="slike">
-            @if (Model.Slike != null)
+            <label>Veličina</label>
+            <select id="selectVelicina" required asp-for="VelicinaID" asp-items="Model.Velicina">
+                <option disabled selected value="0">Odaberite potkategoriju za prikaz veličina</option>
+            </select>
+            <span asp-validation-for="Velicina" class="text-danger"></span>
+
+            <br />
+
+            @if (Model.ID != 0)
             {
-                @for (int i = 0; i < Model.Slike.Count; i++)
-                {
-                    @if (Model.Slike[i] != null)
-                    {
-                        var base64 = Convert.ToBase64String(Model.Slike[i]);
-                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                        <div class="slika">
-                            <img src="@imgsrc" alt="Alternate Text" /><br />
-                            <div class="ikonice">
-                                <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
-                                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                                    <span class="tooltiptext">Postavi kao thumbnail</span>
-                                </a>
-                                <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <span class="tooltiptext">Obriši sliku</span>
-                                </a>
-                            </div>
-                        </div>
-                    }
-                }
-            }
-        </div>
-        <label asp-for="Slika" class="control-label">Upload slike</label>
-        <input asp-for="Slika" accept="image/*" multiple />
-        <span asp-validation-for="Slika" class="text-danger"></span>
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Snimi" class="btn btn-primary" />
+                <label>Slike</label>
 
-    </form>
+                <div class="slike">
+                    @if (Model.Slike != null)
+                    {
+                        @for (int i = 0; i < Model.Slike.Count; i++)
+                        {
+                            @if (Model.Slike[i] != null)
+                            {
+                                var base64 = Convert.ToBase64String(Model.Slike[i]);
+                                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                                <div class="slika">
+                                    <img src="@imgsrc" alt="Alternate Text" /><br />
+                                    <div class="ikonice">
+                                        <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                                            <span class="tooltiptext">Postavi kao thumbnail</span>
+                                        </a>
+                                        <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            <span class="tooltiptext">Obriši sliku</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+                <label asp-for="Slika" class="control-label">Upload slike</label>
+                <input asp-for="Slika" accept="image/*" multiple />
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            }
+            else
+            {
+                <label asp-for="Slika" class="control-label">Upload slike</label>
+                <input required asp-for="Slika" accept="image/*" multiple />
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            }
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Snimi" class="btn btn-primary" />
+
+        </form>
+    </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <link href="/css/ArtikalDodaj.css" rel="stylesheet" />
@@ -100,8 +120,8 @@
                 $("#selectPotkategorija").empty();
                 $.each(data, function (i, item) {
                     $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
-
                 });
+                update();
             });
         })
     });
@@ -114,6 +134,39 @@
                         $("#selectPotkategorija").append("<option selected value='" + item.value + "'>" + item.text + "</option>");
                     } else { $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");}
                 });
+                updateVelicina();
             });
     });
+
+
+    //update velicine u odnosu na odabranu potkategoriju
+    $(document).ready(function () {
+        $("#selectPotkategorija").change(function () {
+            update();
+        })
+    });
+
+    function update () {
+        $.get("/Artikal/UpdateVelicine", { PotkategorijaID: $("#selectPotkategorija").val() }, function (data) {
+            $("#selectVelicina").empty();
+            $.each(data, function (i, item) {
+                $("#selectVelicina").append("<option value='" + item.value + "'>" + item.text + "</option>");
+            });
+        });
+    }
+
+    //update velicine i selectovanje prijasnje pri editu postojeceg artikla
+       function updateVelicina () {
+           $.get("/Artikal/UpdateVelicine", { PotkategorijaID: $("#selectPotkategorija").val() }, function (data) {
+                $("#selectVelicina").empty();
+                $.each(data, function (i, item) {
+                    if (item.value == @Model.VelicinaID) {
+                        $("#selectVelicina").append("<option selected value='" + item.value + "'>" + item.text + "</option>");
+                    } else { $("#selectVelicina").append("<option value='" + item.value + "'>" + item.text + "</option>");}
+                });
+            });
+    }
+
+
+
 </script>
