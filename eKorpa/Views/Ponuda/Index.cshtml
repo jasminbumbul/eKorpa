@@ -1,14 +1,16 @@
 ﻿@using eKorpa.ViewModels
 @model PonudaIndexVM
 
+<div class="container">
+
     <table class="table table-bordered">
         <thead>
-            <th>ID</th>
-            <th>Opis</th>
-            <th>Kategorija</th>
-            <th>Potkategorija</th>
-            <th>Velicina popusta</th>
-            <th>Aktivna (DA/NE)</th>
+        <th>ID</th>
+        <th>Opis</th>
+        <th>Kategorija</th>
+        <th>Potkategorija</th>
+        <th>Velicina popusta</th>
+        <th>Aktivna (DA/NE)</th>
         </thead>
 
         <tbody>
@@ -35,6 +37,9 @@
         </tbody>
 
     </table>
-
-    <a href="/Ponuda/Dodaj">Dodaj ponudu</a>
+    @if (User.IsInRole("Admin"))
+    { 
+      <a href="/Ponuda/Dodaj">Dodaj ponudu</a>
+    }
+    </div>
 

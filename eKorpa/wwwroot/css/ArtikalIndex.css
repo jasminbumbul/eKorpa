@@ -1,7 +1,7 @@
 ﻿body {
     /*background-color: rgb(45,45,45);*/
     color: black;
-
+    font-weight:lighter;
 }
 
 body a{
@@ -9,7 +9,7 @@ body a{
 
 img {
     width: 255px;
-    height:170px;
+    height: 295px;
 }
 
 /*img:hover{
@@ -45,13 +45,13 @@ img {
 
 .artikalCopy {
     border: double grey 1px;
-    width: 250px;
-    height: 350px;
     margin: 10px;
     cursor: pointer;
     text-align: center;
-    box-shadow: grey 10px 10px 15px;
     font-weight: lighter;
+
+    box-shadow: 5px 10px 4px #888888;
+
 }
 
 .tooltiptext {
@@ -123,10 +123,6 @@ img {
     font-size:20px;
 }
 
-.cijena{
-    font-size:20px;
-}
-
 .fa-wrench, .fa-trash{
     color:black;
 }
@@ -140,7 +136,7 @@ img {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #f7aca8;
+    background-color: lightgray;
     border-radius: 3px;
     height: 780px;
 }
@@ -188,4 +184,69 @@ select {
     margin-right: auto;
     width: 100%;
 }
+
+
+.textAreaNewest {
+    margin-left: 10px;
+}
+
+.cijena {
+    color: gray;
+    font-size: 20px;
+    float:left;
+}
+
+#profilProdavaca {
+    text-decoration: none;
+    color: gray;
+    float: left;
+    padding-left: 10px;
+}
+
+.cijena, fa-heart, #profilProdavaca {
+    font-size: 13px;
+}
+
+section{
+    float:right;
+}
+
+.fa-filter{
+    border:none;
+}
+
+#naslovNewProduct {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position: relative;
+    top: 0px;
+    font-weight:lighter;
+}
+
+.dojamProdavaca {
+    font-size: 15px;
+    color:grey;
+    margin-bottom:0px !important;
+    text-align:center
+}
+
+.dojamProdavacaLink {
+    font-size: 15px;
+    text-decoration: none !important;
+    text-align: center;
+    color: grey;
+}
+
+.dojamKupca {
+    font-size: 15px;
+    color: grey;
+    text-align: center
+}
+
+.dojamKupcaLink {
+    font-size: 15px;
+    text-decoration: none !important;
+    color: grey;
+    text-align: center
 }

@@ -24,7 +24,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
-    //[Authorize(Roles = "Admin, Kupac, Prodavac")]
     public class ArtikalController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();
@@ -650,7 +649,8 @@ namespace eKorpa.Controllers
                     Datum = DateTime.Now,
                     Kolicina = item.kolicina,
                     KupacID = kupacID,
-                    ProdavacID = artikal.ProdavacID
+                    ProdavacID = artikal.ProdavacID,
+                    SlikaID = _database.Slika.Where(x => x.ArtikalID == artikal.ID && x.Thumbnail == 1).Select(x => x.ID).SingleOrDefault()
                 };
                 _database.ZavrseniArtikal.Add(zavrseniArtikal);
                 _database.SaveChanges();

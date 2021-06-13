@@ -8,22 +8,22 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
             <label >Vaše ime i prezime (obavezno)</label>
-            <input asp-for="ImePrezime" class="form-control" />
+            <input required asp-for="ImePrezime" class="form-control" />
             <span asp-validation-for="ImePrezime" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label>Email (obavezno)</label>
-            <input asp-for="Email" class="form-control" />
+            <input required asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Predmet"></label>
-            <input asp-for="Predmet" class="form-control" />
+            <input required asp-for="Predmet" class="form-control" />
             <span asp-validation-for="Predmet" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Poruka"></label>
-            <textarea asp-for="Poruka"  class="form-control" ></textarea>
+            <textarea required asp-for="Poruka"  class="form-control" ></textarea>
             <span asp-validation-for="Poruka" class="text-danger"></span>
         </div>
         @Html.AntiForgeryToken()

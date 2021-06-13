@@ -18,5 +18,8 @@ namespace Data.EntityModels
         public int Kolicina { get; set; }
         public int? RejtingID { get; set; }
         public Rejting Rejting { get; set; }
+        public int? SlikaID { get; set; }
+        public Slika Slika { get; set; }
+
     }
 }
