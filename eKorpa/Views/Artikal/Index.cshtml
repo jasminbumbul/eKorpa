@@ -21,242 +21,242 @@
 }
 
 
-    @*---------------------filter-----------------------*@
-@if (Model.Layout)
-{
-    <div><button onclick="ShowDialog()" style="float:right;"><i class="fas fa-filter">filter</i></button></div>
-
-    <div id="wrapper" class="dialog col-md-4">
-        <form action="IndexFilter" method="get">
-            <h4 style="margin:0px;padding:0px;">Filtrirajte pretragu</h4>
-            <a id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
-            <hr />
-            @*<div asp-validation-summary="All" class="text-danger"></div>*@
-            <div class="form-group">
-                <label>Kategorija</label> <br />
-                <select id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
-                    <option disabled selected value="0">Odaberite kategoriju </option>
-                </select>
-                <span asp-validation-for="KategorijaID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>Potkategorija</label> <br />
-                <select id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
-                    <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
-                </select>
-                <span asp-validation-for="PotkategorijaID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="MinCijena">Min cijena</label>
-                <input id="MinCijena" value="" asp-for="MinCijena">
-                <span asp-validation-for="MinCijena" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="MaxCijena">Max cijena</label>
-                <input id="MaxCijena" value="" asp-for="MaxCijena">
-                <span asp-validation-for="MaxCijena" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Brend">Brend</label><br />
-                <select id="selectBrend" asp-for="BrendID" asp-items="Model.Brend">
-                    <option disabled selected value="0">Odaberite brend</option>
-                </select>
-                <span asp-validation-for="BrendID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Boja">Boja</label><br />
-                <select id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
-                    <option disabled selected value="0">Odaberite boju</option>
-                </select>
-                <span asp-validation-for="BojaID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Materijal">Materijal</label><br />
-                <select id="selectMaterijal" asp-for="MaterijalID" asp-items="Model.Materijal">
-                    <option disabled selected value="0">Odaberite materijal</option>
-                </select>
-                <span asp-validation-for="MaterijalID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Velicina">Velicina</label><br />
-                <select id="selectVelicina" asp-for="VelicinaID" asp-items="Model.Velicina">
-                    <option disabled selected value="0">Odaberite potkategoriju da bi odabrali veličinu</option>
-                </select>
-                <span asp-validation-for="VelicinaID" class="text-danger"></span>
-            </div>
-            @Html.AntiForgeryToken()
-            <button type="submit" id="daBtn" class="btn btn-outline-primary">Potvrdi</button>
-
-        </form>
-
-    </div>
-}
-
-
-
-
-    <div id="containerArtikala">
-        @if (Model.rows.Count() == 0)
-        {
-            <h1>Nema rezultata</h1>
-        }
-        @foreach (var item in Model.rows)
-        {
-            <div class="artikalCopy">
-                @if (item.Slika.Count == 0)
-                {
-                    <img src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
-                }
-
-                @for (int i = 0; i < item.Slika.Count; i++)
-                {
-                    @if (item.Slika[i] != null && item.Thumbnail[i] == 1)
-                    {
-                        var base64 = Convert.ToBase64String(item.Slika[i]);
-                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                        <img onclick="OtvoriDetaljeArtikla(@item.ID)" class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
-                    }
-                }
-                <div class="textAreaNewest">
-
-                    <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="naziv">@item.NazivArtikla</span> <br />
-
-                    @if (item.Cijena != item.CijenaSaPopustom)
-                    {
-                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
-                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.CijenaSaPopustom KM  </span>
-                    }
-                    else
-                    {
-                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.Cijena KM  </span>
-                    }
-                    <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId"> by @item.ImeProdavaca</a>
-
-                    @if (claimsIdentity == item.ProdavacId)
-                    {
-                        <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
-                            <i class="fa fa-wrench" aria-hidden="true"></i>
-
-                        </a>
-                        <a href="/Artikal/Obrisi?ArtikalID=@item.ID">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        </a>
-                    }
-                    @if (item.jestUListi)
-                    {
-                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
-                            <i class="fa fa-heart" aria-hidden="true" style="color:lightskyblue;">
-                                <span class="tooltiptext">Pogledaj listu želja</span>
-                            </i>
-                        </a>
-                    }
-                    else
-                    {
-                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
-                            <i class="fa fa-heart" aria-hidden="true" style="color:gray;">
-                                <span class="tooltiptext">Dodaj u listu želja</span>
-                            </i>
-
-                        </a>
-                    }
-                </div>
-
-
-            </div>
-        }
-    </div>
-    <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
-
+@*---------------------filter-----------------------*@
     @if (Model.Layout)
     {
+        <div class="container"><button onclick="ShowDialog()" style="float:right;"><i class="fas fa-filter"></i></button></div>
 
-        @if (type == "Index")
-        {
-            <partial name="_PaginationPartial" view-data="ViewData" model="@result" />
-        }
-        else if (type == "IndexFilter")
-        {
-            <partial name="_PaginationPartialFilter" view-data="ViewData" model="@result" />
-        }
-        else
-        {
-            <partial name="_PaginationPartialKateg" view-data="ViewData" model="@result" />
-        }
+        <div id="wrapper" class="dialog col-md-4">
+            <form action="IndexFilter" method="get">
+                <h4 style="margin:0px;padding:0px;">Filtrirajte pretragu</h4>
+                <a id="neBtn" onclick="Prekid()" class="btn btn-outline-danger">x</a>
+                <hr />
+                @*<div asp-validation-summary="All" class="text-danger"></div>*@
+                <div class="form-group">
+                    <label>Kategorija</label> <br />
+                    <select id="selectKategorija" asp-for="KategorijaID" asp-items="Model.Kategorije" onchange="UpdatePotkategorije()">
+                        <option disabled selected value="0">Odaberite kategoriju </option>
+                    </select>
+                    <span asp-validation-for="KategorijaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Potkategorija</label> <br />
+                    <select id="selectPotkategorija" asp-for="PotkategorijaID" asp-items="Model.Potkategorija">
+                        <option disabled selected value="0">Odaberite kategoriju za prikaz potkategorija</option>
+                    </select>
+                    <span asp-validation-for="PotkategorijaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="MinCijena">Min cijena</label>
+                    <input id="MinCijena" value="" asp-for="MinCijena">
+                    <span asp-validation-for="MinCijena" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="MaxCijena">Max cijena</label>
+                    <input id="MaxCijena" value="" asp-for="MaxCijena">
+                    <span asp-validation-for="MaxCijena" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Brend">Brend</label><br />
+                    <select id="selectBrend" asp-for="BrendID" asp-items="Model.Brend">
+                        <option disabled selected value="0">Odaberite brend</option>
+                    </select>
+                    <span asp-validation-for="BrendID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Boja">Boja</label><br />
+                    <select id="selectBoja" asp-for="BojaID" asp-items="Model.Boja">
+                        <option disabled selected value="0">Odaberite boju</option>
+                    </select>
+                    <span asp-validation-for="BojaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Materijal">Materijal</label><br />
+                    <select id="selectMaterijal" asp-for="MaterijalID" asp-items="Model.Materijal">
+                        <option disabled selected value="0">Odaberite materijal</option>
+                    </select>
+                    <span asp-validation-for="MaterijalID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Velicina">Velicina</label><br />
+                    <select id="selectVelicina" asp-for="VelicinaID" asp-items="Model.Velicina">
+                        <option disabled selected value="0">Odaberite potkategoriju da bi odabrali veličinu</option>
+                    </select>
+                    <span asp-validation-for="VelicinaID" class="text-danger"></span>
+                </div>
+                @Html.AntiForgeryToken()
+                <button type="submit" id="daBtn" class="btn btn-outline-primary">Potvrdi</button>
+
+            </form>
+
+        </div>
     }
 
 
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link href="/css/ArtikalIndex.css" rel="stylesheet" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+<div id="containerArtikala">
+    @if (Model.rows.Count() == 0)
+    {
+        <h1>Nema rezultata</h1>
+    }
+    @foreach (var item in Model.rows)
+    {
+        <div class="artikalCopy">
+            @if (item.Slika.Count == 0)
+            {
+                <img onclick="OtvoriDetaljeArtikla(@item.ID)" src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
+            }
 
-    <script>
-        $(document).ready(function () {
-            $("#selectKategorija").change(function () {
-                $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
-                    $("#selectPotkategorija").empty();
-                    $("#selectPotkategorija").append("<option value='" + 0 + "'>" + "Odaberite potkategoriju" + "</option>");
-                    $.each(data, function (i, item) {
-                        $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
-                    });
+            @for (int i = 0; i < item.Slika.Count; i++)
+            {
+                @if (item.Slika[i] != null && item.Thumbnail[i] == 1)
+                {
+                    var base64 = Convert.ToBase64String(item.Slika[i]);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img onclick="OtvoriDetaljeArtikla(@item.ID)" class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
+                }
+            }
+            <div class="textAreaNewest">
+
+                <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="naziv">@item.NazivArtikla</span> <br />
+
+                @if (item.Cijena != item.CijenaSaPopustom)
+                {
+                    <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
+                    <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.CijenaSaPopustom KM  </span>
+                }
+                else
+                {
+                    <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.Cijena KM  </span>
+                }
+                <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId">   by @item.ImeProdavaca</a>
+
+                @if (claimsIdentity == item.ProdavacId)
+                {
+                    <a href="/Artikal/Dodaj?ArtikalID=@item.ID">
+                        <i class="fa fa-wrench" aria-hidden="true"></i>
+
+                    </a>
+                    <a href="/Artikal/Obrisi?ArtikalID=@item.ID">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+
+                    </a>
+                }
+                @if (item.jestUListi)
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:lightskyblue;">
+                            <span class="tooltiptext">Pogledaj listu želja</span>
+                        </i>
+                    </a>
+                }
+                else
+                {
+                    <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
+                        <i class="fa fa-heart" aria-hidden="true" style="color:gray;">
+                            <span class="tooltiptext">Dodaj u listu želja</span>
+                        </i>
+
+                    </a>
+                }
+            </div>
+
+
+        </div>
+    }
+</div>
+<div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
+
+@if (Model.Layout)
+{
+
+    @if (type == "Index")
+    {
+        <partial name="_PaginationPartial" view-data="ViewData" model="@result" />
+    }
+    else if (type == "IndexFilter")
+    {
+        <partial name="_PaginationPartialFilter" view-data="ViewData" model="@result" />
+    }
+    else
+    {
+        <partial name="_PaginationPartialKateg" view-data="ViewData" model="@result" />
+    }
+}
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<link href="/css/ArtikalIndex.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#selectKategorija").change(function () {
+            $.get("/Artikal/UpdatePotkategorije", { KategorijaID: $("#selectKategorija").val() }, function (data) {
+                $("#selectPotkategorija").empty();
+                $("#selectPotkategorija").append("<option value='" + 0 + "'>" + "Odaberite potkategoriju" + "</option>");
+                $.each(data, function (i, item) {
+                    $("#selectPotkategorija").append("<option value='" + item.value + "'>" + item.text + "</option>");
                 });
-            })
-        });
+            });
+        })
+    });
 
-        $(document).ready(function () {
-            $("#selectPotkategorija").change(function () {
-                $.get("/Artikal/UpdateVelicine", { PotkategorijaID: $("#selectPotkategorija").val() }, function (data) {
-                    $("#selectVelicina").empty();
-                    $.each(data, function (i, item) {
-                        $("#selectVelicina").append("<option value='" + item.value + "'>" + item.text + "</option>");
-                    });
+    $(document).ready(function () {
+        $("#selectPotkategorija").change(function () {
+            $.get("/Artikal/UpdateVelicine", { PotkategorijaID: $("#selectPotkategorija").val() }, function (data) {
+                $("#selectVelicina").empty();
+                $.each(data, function (i, item) {
+                    $("#selectVelicina").append("<option value='" + item.value + "'>" + item.text + "</option>");
                 });
-            })
-        });
+            });
+        })
+    });
 
 
 
-        function OtvoriProfilProdavaca(prodavacID) {
-            var url = "/Profil/Index?KorisnikID=" + prodavacID;
-            window.open(url, '_self');
-        }
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
+    }
 
-        function OtvoriDetaljeArtikla(artikalID) {
-            var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
-            window.open(url, '_self');
-        }
-        function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
+    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
 
-        function ShowDialog() {
-            document.getElementById("wrapper").style.display = "flex";
-        }
+    function ShowDialog() {
+        document.getElementById("wrapper").style.display = "flex";
+    }
 
-        function Prekid() {
-            document.getElementById("wrapper").style.display = "none";
-        }
-
-
-        function SubmitFilter() {
-
-            var selectKategorija = document.getElementById("selectKategorija").value;
-            var selectPotkategorija = document.getElementById("selectPotkategorija").value;
-            var minCijena = document.getElementById("MinCijena").value;
-            var maxCijena = document.getElementById("MaxCijena").value;
-            var selectBrend = document.getElementById("selectBrend").value;
-            var selectBoja = document.getElementById("selectBoja").value;
-            var selectMaterijal = document.getElementById("selectMaterijal").value;
-            var selectVelicina = document.getElementById("selectVelicina").value;
-
-            var url = "/IndexFilter?KategorijaID=" + selectKategorija + "&PotkategorijaID=" + selectPotkategorija + "&BrendID=" + selectBrend + "&BojaID=" + selectBoja + "&MaterijalID=" + selectMaterijal + "&VelicinaID=" + selectVelicina + "&MaxCijena=0" + maxCijena + "&MinCijena=0" + minCijena + "&pageNumber = 1" + "&pageSize = 8";
-            console.log(url);
-            $.get(url, function (odg) {
-                window.location = odg;
-            })
-        }
+    function Prekid() {
+        document.getElementById("wrapper").style.display = "none";
+    }
 
 
+    function SubmitFilter() {
 
-    </script>
+        var selectKategorija = document.getElementById("selectKategorija").value;
+        var selectPotkategorija = document.getElementById("selectPotkategorija").value;
+        var minCijena = document.getElementById("MinCijena").value;
+        var maxCijena = document.getElementById("MaxCijena").value;
+        var selectBrend = document.getElementById("selectBrend").value;
+        var selectBoja = document.getElementById("selectBoja").value;
+        var selectMaterijal = document.getElementById("selectMaterijal").value;
+        var selectVelicina = document.getElementById("selectVelicina").value;
+
+        var url = "/IndexFilter?KategorijaID=" + selectKategorija + "&PotkategorijaID=" + selectPotkategorija + "&BrendID=" + selectBrend + "&BojaID=" + selectBoja + "&MaterijalID=" + selectMaterijal + "&VelicinaID=" + selectVelicina + "&MaxCijena=0" + maxCijena + "&MinCijena=0" + minCijena + "&pageNumber = 1" + "&pageSize = 8";
+        console.log(url);
+        $.get(url, function (odg) {
+            window.location = odg;
+        })
+    }
+
+
+
+</script>
 

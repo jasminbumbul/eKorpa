@@ -1,15 +1,30 @@
 ﻿@using eKorpa.ViewModels
 @model DojamDodajVM
 
+    <div class="container">
 
-<form asp-controller="Dojam" asp-action="SnimiDojam">
-    <input asp-for="RatingID" hidden />
-    <label>Dojam:</label>
-    <input asp-for="Dojam" />
-    <br />
-    <label>Ocjena:</label>
-    <input asp-for="Ocjena" min="0" max="5" />
-    <br />
-    <input asp-for="TipKorisnika" hidden />
-    <button type="submit" class="btn btn-outline-primary">Dodaj dojam</button>
-</form>
+        <div class="col-md-4" style="margin-left: auto; margin-right: auto;">
+            <form asp-controller="Dojam" asp-action="SnimiDojam">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <h4>Ostavite dojam</h4>
+                <hr />
+                <input asp-for="RatingID" hidden />
+                <div class="form-group">
+                    <label>Dojam</label>
+                    <input asp-for="Dojam" class="form-control" />
+                    <span asp-validation-for="Dojam" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Ocjena</label>
+                    <input min="1" max="5" asp-for="Ocjena" class="form-control" />
+                    <span asp-validation-for="Ocjena" class="text-danger"></span>
+                </div>
+                <input asp-for="TipKorisnika" hidden />
+
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-dark">Snimi</button>
+            </form>
+        </div>
+
+    </div>

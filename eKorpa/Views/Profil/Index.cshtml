@@ -13,24 +13,28 @@
     <a id="nazad" class="btn btn-danger" href="/Artikal/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </div>
 <div class="container">
-    <img id="profilePic" src="/images/userProfile.jpg" alt="Alternate Text" />
-    <div id="informationSection">
+    <div id="center">
 
-        <p>@Model.Ime  @Model.Prezime</p>
-        <p>@Model.Email</p>
 
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila <i id="postavke" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
-            <a class="nav-link text-dark" href="/Artikal/Dodaj" title="Dodaj novi artikal"><i class="fas fa-plus-circle"></i> Dodaj novi artikal</a>
-            <button class="btn btn-outline-dark" onclick="prikaziBroj()">Prikaži broj telefona</button>
-            <p id="brojTelefona" class="btn btn-outline-dark" style="display:none">@Model.BrojTelefona</p>
-        }
+        <img id="profilePic" src="/images/userProfile.jpg" alt="Alternate Text" />
+        <div id="informationSection">
 
-        <a class="nav-link text-dark" href="/Profil/KupljeniArtikli?KorisnikID=@Model.ID" title="Kupljeni artikli">Kupljeni artikli  <i id="nemaDojmaKupljeni" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i>  </a>
-        <a class="nav-link text-dark" href="/Profil/ProdaniArtikli?KorisnikID=@Model.ID" title="Prodani artikli">Prodani artikli     <i id="nemaDojmaProdani" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
-        <a class="nav-link text-dark" href="/Profil/Dojmovi?KorisnikID=@Model.ID" title="Dojmovi">Dojmovi</a>
+            <p>@Model.Ime  @Model.Prezime</p>
+            <p>@Model.Email</p>
 
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila <i id="postavke" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
+                <a class="nav-link text-dark" href="/Artikal/Dodaj" title="Dodaj novi artikal"><i class="fas fa-plus-circle"></i> Dodaj novi artikal</a>
+                <button class="btn btn-outline-dark" onclick="prikaziBroj()">Prikaži broj telefona</button><br />
+                <p id="brojTelefona" class="btn btn-outline-dark" style="display:none">@Model.BrojTelefona</p>
+            }
+
+            <a class="nav-link text-dark" href="/Profil/KupljeniArtikli?KorisnikID=@Model.ID" title="Kupljeni artikli">Kupljeni artikli  <i id="nemaDojmaKupljeni" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i>  </a>
+            <a class="nav-link text-dark" href="/Profil/ProdaniArtikli?KorisnikID=@Model.ID" title="Prodani artikli">Prodani artikli     <i id="nemaDojmaProdani" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
+            <a class="nav-link text-dark" href="/Profil/Dojmovi?KorisnikID=@Model.ID" title="Dojmovi">Dojmovi</a>
+
+        </div>
     </div>
     @*Napomena: u ajaxDiv se prikazuju korisnikovi postavljeni artikli *@
     <p id="naslovNewProduct">Artikli korisnika</p>

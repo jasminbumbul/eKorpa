@@ -7,42 +7,45 @@
     }
 }
 
-@if (Layout!=null)
-{
-    <button onclick="UcitajDojam('a')">Svi dojmovi</button>
-    <button onclick="UcitajDojam('p')">Prodavač</button>
-    <button onclick="UcitajDojam('k')">Kupac</button>
-    <p>Ime prodavača : @Model.ImeKorisnika</p>
-}
+<div class="container">
 
-<div id="ajaxDiv">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Datum</th>
-                <th>Dojam</th>
-                <th>Ocjena</th>
-            </tr>
-        </thead>
+    @if (Layout != null)
+    {
+        <button onclick="UcitajDojam('a')">Svi dojmovi</button>
+        <button onclick="UcitajDojam('p')">Prodavač</button>
+        <button onclick="UcitajDojam('k')">Kupac</button>
+        <p>Ime prodavača : @Model.ImeKorisnika</p>
+    }
 
-        <tbody>
-            @if (Model.rows != null)
-            {
-                @foreach (var item in Model.rows)
+    <div id="ajaxDiv">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Dojam</th>
+                    <th>Ocjena</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model.rows != null)
                 {
-                    <tr>
-                        <td>@item.Datum</td>
-                        <td>@item.Dojam</td>
-                        <td>@item.Ocjena</td>
-                    </tr>
+                    @foreach (var item in Model.rows)
+                    {
+                        <tr>
+                            <td>@item.Datum</td>
+                            <td>@item.Dojam</td>
+                            <td>@item.Ocjena</td>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
+
+    </div>
 
 </div>
-
 
 
 <script>

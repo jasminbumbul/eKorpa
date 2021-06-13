@@ -1,97 +1,101 @@
 ﻿@using eKorpa.ViewModels
 @using System.Security.Claims
 @model ArtikalIndexVM
-    Prodani artikli :
 
 @{
-    if (Model.Layout == false)
-    {
-        Layout = null;
-    }
     var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
+<div class="container">
 
-<div id="containerArtikala">
-    @if (Model.rows.Count == 0)
-    {
-        <h1>Nema rezultata</h1>
-    }
-    @foreach (var item in Model.rows)
-    {
-<div class="artikalCopy">
-    <div onclick="OtvoriDetaljeArtikla(@item.ID)">
-        @if (item.Slika.Count == 0)
+    <div id="containerArtikala">
+        <p id="naslovNewProduct">Kupljeni artikli</p>
+        @if (Model.rows.Count() == 0)
         {
-            <h1>Nema slike</h1>
+            <h1>Nema rezultata</h1>
         }
+        @foreach (var item in Model.rows)
+        {
+            <div class="artikalCopy">
+                @if (item.Slika.Count == 0)
+                {
+                    <img src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
+                }
 
-        @for (int i = 0; i < item.Slika.Count; i++)
-        {
-            @if (item.Slika[i] != null && item.Thumbnail[i] == 1)
-            {
-                var base64 = Convert.ToBase64String(item.Slika[i]);
-                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                <img src="@imgsrc" alt="Alternate Text" /><br />
-            }
+                @for (int i = 0; i < item.Slika.Count; i++)
+                {
+                    @if (item.Slika[i] != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.Slika[i]);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <img class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
+                    }
+                }
+                <div class="textAreaNewest">
+
+                    <span class="naziv">@item.NazivArtikla</span> <br />
+
+                    @if (item.Cijena != item.CijenaSaPopustom)
+                    {
+                        <span class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
+                        <span class="cijena">@item.CijenaSaPopustom KM  </span>
+                    }
+                    else
+                    {
+                        <span class="cijena">@item.Cijena KM  </span>
+                    }
+                    <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId">   by @item.ImeProdavaca</a>
+                    <br />
+
+                    @if (item.ProdavacOstavioDojam == true)
+                    {
+                        if (claimsIdentity == item.ProdavacId)
+                        {
+                            <a class="dojamProdavacaLink" href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Vaš dojam</a> <br />
+                        }
+                        else
+                        {
+                            <a class="dojamProdavacaLink" href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Dojam prodavača</a> <br />
+                        }
+
+                    }
+                    else
+                    {
+                        if (claimsIdentity == item.ProdavacId)
+                        {
+                            <a class="dojamProdavacaLink" href="/Dojam/OstaviDojam?RejtingID=@item.RatingID&TipKorisnika=prodavac">Ostavi dojam</a>
+                        }
+                        else
+                        {
+                            <p class="dojamProdavaca">Prodavač nije ostavio dojam</p>
+                        }
+                        <br />
+                    }
+
+
+                    @if (item.KupacOstavioDojam == true)
+                    {
+                        <a class="dojamKupcaLink" href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Dojam kupca</a>
+                    }
+                    else
+                    {
+                        <p class="dojamKupca">Kupac nije ostavio dojam</p>
+                    }
+
+                </div>
+            </div>
         }
-        <span class="naziv">@item.NazivArtikla</span><br />
-        <span class="kategorija">@item.Kategorija</span><br />
-        <h4 class="cijena">Cijena  @item.Cijena KM</h4>
-        @if (item.Cijena != item.CijenaSaPopustom)
-        {
-            <h4 class="cijena">Cijena sa popustom @item.CijenaSaPopustom KM</h4>
-        }
-        <span>@item.Brend </span><br />
     </div>
-
-    @if (item.ProdavacOstavioDojam == true)
-    {
-        if (claimsIdentity == item.ProdavacId)
-        {
-            <a href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Vaš dojam</a>
-        }
-        else
-        {
-            <a href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Dojam prodavača</a>
-        }
-
-    }
-    else
-    {
-        if (claimsIdentity == item.ProdavacId)
-        {
-            <a href="/Dojam/OstaviDojam?RejtingID=@item.RatingID&TipKorisnika=prodavac">Ostavi dojam</a>
-        }
-        else
-        {
-            <p>Prodavač nije ostavio dojam</p>
-        }
-    }
-    <br />
-
-    @if (item.KupacOstavioDojam == true)
-    {
-            <a href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Dojam kupca</a>
-    }
-    else
-    {
-            <p>Kupac nije ostavio dojam</p>
-    }
-
-
-    <label>Postavio : </label>
-    <a href="/Profil/Index?KorisnikID=@item.ProdavacId">@item.ImeProdavaca</a><br />
-
 </div>
-    }
-</div>
+
+
+
 <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-@*<link href="/css/ArtikalIndex.css" rel="stylesheet" />*@
+<link href="/css/ArtikalIndex.css" rel="stylesheet" />
 
 
 <script>

@@ -1,26 +1,48 @@
 ﻿@using eKorpa.ViewModels
 @model DojamProdavacaIndexVM
 
-<div>
-    @Model.Ime
-    <br />
-    @if (string.IsNullOrEmpty(Model.Dojam))
-    {
-        <span>Prodavač nije ostavio dojam</span>
-    }
-    else
-    {
-        @Model.Dojam
-    } 
-    <br />
-    @if (Model.Ocjena == 0)
-    {
-        <span>Prodavač nije ostavio ocjenu.</span>
-    }
-    else
-    {
-        @Model.Ocjena
-    }
-    <br />
-    @Model.Datum
-</div>
+    <div class="container">
+
+        <div class="col-md-4" style="margin-left: auto; margin-right: auto;">
+            <h4>Pregled dojma</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label>Ime korisnika:</label>
+                <input disabled asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            @if (string.IsNullOrEmpty(Model.Dojam))
+            {
+                <div class="form-group">
+                    <label>Dojam</label>
+                    <input disabled asp-for="Dojam" value="Prodavač nije ostavio dojam" class="form-control" />
+                    <span asp-validation-for="Dojam" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label>Dojam</label>
+                    <input disabled asp-for="Dojam" class="form-control" />
+                    <span asp-validation-for="Dojam" class="text-danger"></span>
+                </div>
+            }
+            @if (Model.Ocjena == 0)
+            {
+                <div class="form-group">
+                    <label>Ocjena</label>
+                    <input disabled asp-for="Ocjena" value="Prodavač nije ostavio ocjenu" class="form-control" />
+                    <span asp-validation-for="Ocjena" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label>Ocjena</label>
+                    <input disabled asp-for="Ocjena" class="form-control" />
+                    <span asp-validation-for="Ocjena" class="text-danger"></span>
+                </div>
+            }
+        </div>
+    </div>
