@@ -1,8 +1,12 @@
 using Data.Helper;
 using eKorpa.Data;
 using eKorpa.EntityModels;
+using eKorpa.Filters;
+using eKorpa.SignalR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -17,6 +21,7 @@ using ReflectionIT.Mvc.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Twilio;
 
@@ -72,8 +77,12 @@ namespace eKorpa
 
             services.AddPaging();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(x=>
+            {
+                //x.Filters.Add<ErrorFilter>();
+            });
             services.AddRazorPages();
+            services.AddSignalR();
 
         }
 
@@ -82,6 +91,19 @@ namespace eKorpa
         {
             if (env.IsDevelopment())
             {
+                app.UseExceptionHandler(appError =>
+                {
+                    appError.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var exceptionHandler = context.Features.Get<IExceptionHandlerPathFeature>();
+                        if (exceptionHandler != null)
+                        {
+                            //int bugId = KretanjePoSistemu.Save(context, exceptionHandler);
+                            await context.Response.WriteAsync($"Kontaktirajte administratora. ");
+                        }
+                    });
+                });
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -106,6 +128,7 @@ namespace eKorpa
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<MyHub>("/myhub");
             });
         }
     }

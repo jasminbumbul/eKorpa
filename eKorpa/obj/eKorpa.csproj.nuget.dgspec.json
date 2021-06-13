@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {}
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj": {
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj",
-        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\obj\\",
+        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj",
+        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -122,24 +122,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj": {
+    "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
+        "projectUniqueName": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
         "projectName": "eKorpa",
-        "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\eKorpa.csproj",
-        "packagesPath": "C:\\Users\\Jasmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\eKorpa\\obj\\",
+        "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\eKorpa.csproj",
+        "packagesPath": "C:\\Users\\Ramki\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\eKorpa\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jasmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ramki\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -153,8 +153,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\Jasmin\\source\\repos\\eKorpa\\Data\\Data.csproj"
+              "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Ramki\\source\\repos\\webapp\\Data\\Data.csproj"
               }
             }
           }
@@ -172,6 +172,10 @@
             "Microsoft.AspNet.Mvc": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNet.SignalR": {
+              "target": "Package",
+              "version": "[2.4.2, )"
             },
             "Microsoft.AspNetCore.Authentication.Facebook": {
               "target": "Package",
@@ -282,7 +286,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

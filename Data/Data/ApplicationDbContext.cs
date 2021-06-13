@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Data.EntityModels;
+using Microsoft.Extensions.Configuration;
 
 namespace eKorpa.Data
 {
@@ -15,7 +16,7 @@ namespace eKorpa.Data
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlServer("server=app.fit.ba,1431;Database=p2040_eKorpa;User Id=P2040; Password=KSCTFQ3!;");
-
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -37,6 +38,7 @@ namespace eKorpa.Data
         public DbSet<Adresa> Adresa{ get; set; }
         public DbSet<Grad> Grad{ get; set; }
         public DbSet<Poruka> Poruka{ get; set; }
+        public DbSet<LogKretanjePoSistemu> LogKretanjePoSistemu { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

@@ -137,6 +137,41 @@ namespace eKorpa.Migrations
                     b.ToTable("ListaZelja");
                 });
 
+            modelBuilder.Entity("Data.EntityModels.LogKretanjePoSistemu", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IpAdresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KorisnikID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PostData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QueryPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Vrijeme")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("exceptionMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isException")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KorisnikID");
+
+                    b.ToTable("LogKretanjePoSistemu");
+                });
+
             modelBuilder.Entity("Data.EntityModels.Materijal", b =>
                 {
                     b.Property<int>("ID")
@@ -666,6 +701,13 @@ namespace eKorpa.Migrations
                     b.HasOne("eKorpa.EntityModels.Korisnik", "Kupac")
                         .WithMany()
                         .HasForeignKey("KupacID");
+                });
+
+            modelBuilder.Entity("Data.EntityModels.LogKretanjePoSistemu", b =>
+                {
+                    b.HasOne("eKorpa.EntityModels.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikID");
                 });
 
             modelBuilder.Entity("Data.EntityModels.Ponuda", b =>
