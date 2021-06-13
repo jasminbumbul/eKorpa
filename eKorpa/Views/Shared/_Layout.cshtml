@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - eKorpa</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://wrd.app.fit.ba/2018-19/fit-messagebox.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -82,6 +83,8 @@
         </footer>*@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="https://wrd.app.fit.ba/2018-19/fit-messagebox.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @RenderSection("Scripts", required: false)
     </div>
@@ -111,6 +114,15 @@
 
 <script>
 
+    var pSuccess = '@TempData["porukaSuccess"]';
+    var pInfo = '@TempData["PorukaInfo"]';
+    var pWarning = '@TempData["PorukaWarning"]';
+    var pError = '@TempData["PorukaError"]';
+
+    porukaSuccess(pSuccess);
+    porukaInfo(pInfo);
+    porukaWarning(pWarning);
+    porukaError(pError);
 
     function BlurLayout() {
         document.getElementById("header").style.filter = "blur(8px)";
@@ -122,8 +134,9 @@
         document.getElementById("footer").style.filter = "none";
     }
 
-    window.onload = function Provjera() {
+    window.onload = Provjera();
 
+    function Provjera() {
         var urlGetID = "/Profil/GetID";
         var oznaka = document.getElementById("oznaka");
         var oznakaPostavke = document.getElementById("postavke");
@@ -185,5 +198,22 @@
             })
         })
     }
+
+    "use strict";
+    var connection = new signalR.HubConnectionBuilder().withUrl("/myhub").build();
+
+    connection.on("prijemPoruke", function (user, message) {
+        porukaWarning("hello " + user + ": " + message);
+        //setTimeout(function () { window.location.reload(); }, 3000);
+        Provjera();
+    });
+
+    connection.start().then(function () {
+        console.info("started signalR hub");
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
 </script>
 

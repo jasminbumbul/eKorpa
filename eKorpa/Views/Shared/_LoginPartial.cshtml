@@ -54,3 +54,65 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 <link href="/css/LoginPartial.css" rel="stylesheet" />
+
+
+<script>
+
+    "use strict";
+    var connection = new signalR.HubConnectionBuilder().withUrl("/myhub").build();
+
+    connection.on("prijemPoruke", function (user, message) {
+        Provjera();
+    });
+
+    connection.start().then(function () {
+        console.info("started signalR hub");
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    function Provjera() {
+        console.log("provjera");
+        var urlGetID = "/Profil/GetID";
+        var oznaka = document.getElementById("oznaka");
+
+
+        $.get(urlGetID, function (odg1) {
+            var url = "/Profil/ProvjeraDojamKupac?KorisnikID=" + odg1;
+            $.get(url, function (odg2) {
+                if (odg2 == false) {
+                    if (oznaka != null) {
+                        oznaka.style.display = "inline";
+                    }
+                    oznaka.style.display = "inline";
+                }
+                else {
+                    if (oznaka != null) {
+                        oznaka.style.display = "none";
+                    }
+                    oznaka.style.display = "none";
+                }
+            })
+        })
+
+        $.get(urlGetID, function (odg1) {
+            var url = "/Profil/ProvjeraDojamProdavac?KorisnikID=" + odg1;
+            $.get(url, function (odg2) {
+                if (odg2 == false) {
+                    if (oznaka != null) {
+                        oznaka.style.display = "inline";
+                    }
+                    oznaka.style.display = "inline";
+                }
+                else {
+                    if (oznaka != null) {
+                        oznaka.style.display = "none";
+                    }
+                    oznaka.style.display = "none";
+                }
+            })
+        })
+    }
+
+</script>

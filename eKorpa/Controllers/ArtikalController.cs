@@ -20,6 +20,9 @@ using PagedList.Mvc;
 using cloudscribe.Pagination.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+using eKorpa.SignalR;
+
 
 namespace eKorpa.Controllers
 {
@@ -27,12 +30,14 @@ namespace eKorpa.Controllers
     public class ArtikalController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();
+        IHubContext<MyHub> _hubContext;
 
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ArtikalController(IWebHostEnvironment hostEnvironment)
+        public ArtikalController(IWebHostEnvironment hostEnvironment, IHubContext<MyHub> hubContext)
         {
             this._hostEnvironment = hostEnvironment;
+            _hubContext = hubContext;
         }
 
         public IActionResult IndexKateg(string Kategorija, int pageNumber = 1, int pageSize = 8)
@@ -500,10 +505,12 @@ namespace eKorpa.Controllers
                 artikal.ProdavacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 artikal.ImeProdavaca = _database.Users.Find(artikal.ProdavacID).Ime + " " + _database.Users.Find(artikal.ProdavacID).Prezime;
                 artikal.DatumObjave = DateTime.Now;
+                TempData["PorukaInfo"] = "Uspješno ste dodali artikl " + artikal.Naziv;
             }
             else
             {
                 artikal = _database.Artikal.Find(noviArtikal.ID);
+                TempData["PorukaInfo"] = "Uspješno ste updateovali artikl " + noviArtikal.NazivArtikla;
             }
             artikal.Naziv = noviArtikal.NazivArtikla;
             artikal.KategorijaID = noviArtikal.KategorijaID;
@@ -587,6 +594,7 @@ namespace eKorpa.Controllers
         {
             Artikal artikal = _database.Artikal.Find(ArtikalID);
             _database.Remove(artikal);
+            TempData["PorukaWarning"] = "Uspješno ste obrisali artikl " + artikal.Naziv;
             List<Slika> slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID).ToList();
             foreach (var item in slikeArtikla)
             {
@@ -623,6 +631,7 @@ namespace eKorpa.Controllers
 
             var korisnik = _database.Users.Where(x => x.Id == kupacID).SingleOrDefault();
 
+
             var adresa = _database.Adresa.Where(x => x.ID == korisnik.AdresaID).SingleOrDefault();
 
             if (adresa.ID == 0 || adresa.MjestoStanovanja.Length < 5 || adresa.PostanskiBroj < 10000 || adresa.PostanskiBroj > 99999)
@@ -640,6 +649,12 @@ namespace eKorpa.Controllers
             {
                 var artikal = _database.Artikal.Where(x => x.ID == item.ArtikalID).SingleOrDefault();
                 artikal.BrojUSkladistu -= item.kolicina;
+                
+                var prodavac = _database.Users.Where(x => x.Id == artikal.ProdavacID).SingleOrDefault();
+
+                string poruka = "Vama je upravo kupljen artikal: " + artikal.Naziv;
+                _hubContext.Clients.Group(prodavac.UserName).SendAsync("prijemPoruke", prodavac.Ime, poruka);
+                //_hubContext.Clients.All.SendAsync("prijemPoruke", korisnik.Ime, poruka);
 
                 _database.Korpa.Remove(item);
                 //oznacavanje artikla kao zavrsenog(kupljen ili prodan)
@@ -662,8 +677,6 @@ namespace eKorpa.Controllers
                 zavrseniArtikal.RejtingID = noviRejting.ID;
                 _database.SaveChanges();
             }
-
-
 
             return "success";
         }

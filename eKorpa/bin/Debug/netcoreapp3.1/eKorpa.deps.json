@@ -26,6 +26,7 @@
         "dependencies": {
           "Data": "1.0.0",
           "Microsoft.AspNet.Mvc": "5.2.7",
+          "Microsoft.AspNet.SignalR": "2.4.2",
           "Microsoft.AspNetCore.Authentication.Facebook": "3.1.8",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.8",
@@ -386,6 +387,7 @@
           "lib/net45/System.Web.Razor.dll": {}
         }
       },
+      "Microsoft.AspNet.SignalR/2.4.2": {},
       "Microsoft.AspNet.WebPages/3.2.7": {
         "dependencies": {
           "Microsoft.AspNet.Razor": "3.2.7",
@@ -4694,6 +4696,13 @@
       "sha512": "sha512-BpWEZ+Ys7g9VAkbAfpG5jr5A1fKcmadCCXv3fYfps5YfTVABJIGV4uc9yvmXKxsNsjL+BzDld2gs+xtgT2gg1g==",
       "path": "microsoft.aspnet.razor/3.2.7",
       "hashPath": "microsoft.aspnet.razor.3.2.7.nupkg.sha512"
+    },
+    "Microsoft.AspNet.SignalR/2.4.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8NAm5wmNP+NkqnKqFKWcj7F2JMaQSsqDq5Nx3LnaMmJgHsHYiCx3hAXzXo+047AcJCtYyAvVRUyjWS4NIpEn2A==",
+      "path": "microsoft.aspnet.signalr/2.4.2",
+      "hashPath": "microsoft.aspnet.signalr.2.4.2.nupkg.sha512"
     },
     "Microsoft.AspNet.WebPages/3.2.7": {
       "type": "package",

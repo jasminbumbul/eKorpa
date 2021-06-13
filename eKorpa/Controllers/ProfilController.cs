@@ -42,6 +42,7 @@ namespace eKorpa.Controllers
             return View(profil);
         }
 
+
         public IActionResult KupljeniArtikli(string KorisnikID)
         {
             var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.KupacID == KorisnikID).ToList();
@@ -84,6 +85,61 @@ namespace eKorpa.Controllers
                     Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
                     NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
                     Slika = _database.Slika.Where(a => a.ID == x.SlikaID).Select(a => a.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
+                    ProdavacId = x.ProdavacID,
+                    RatingID = (int)x.RejtingID,
+                    KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
+                    ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
+                    KupacID = x.KupacID
+                }).ToList()
+            };
+
+            return View(objekat);
+        }
+
+
+        public IActionResult KupljeniArtikli(string KorisnikID)
+        {
+            var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.KupacID == KorisnikID).ToList();
+
+            var objekat = new ArtikalIndexVM
+            {
+                rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
+                {
+                    Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
+                    Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
+                    CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
+                    ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
+                    Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
+                    NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
+                    Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
+                    ProdavacId = x.ProdavacID,
+                    RatingID = (int)x.RejtingID,
+                    KupacOstavioDojam = _database.Rejting.Find(x.RejtingID).KupacOstavioDojam,
+                    ProdavacOstavioDojam = _database.Rejting.Find(x.RejtingID).ProdavacOstavioDojam,
+                    KupacID = x.KupacID
+                }).ToList()
+            };
+
+            return View(objekat);
+        }
+
+        public IActionResult ProdaniArtikli(string KorisnikID)
+        {
+            var kupljeniArtikli = _database.ZavrseniArtikal.Where(x => x.ProdavacID == KorisnikID).ToList();
+
+            var objekat = new ArtikalIndexVM
+            {
+                rows = kupljeniArtikli.Select(x => new ArtikalIndexVM.Row
+                {
+                    Brend = _database.Brend.Find(_database.Artikal.Find(x.ArtikalID).BrendID).Naziv,
+                    Cijena = _database.Artikal.Find(x.Artikal.ID).Cijena,
+                    CijenaSaPopustom = _database.Artikal.Find(x.Artikal.ID).CijenaSaPopustom,
+                    ImeProdavaca = _database.Artikal.Find(x.Artikal.ID).ImeProdavaca,
+                    Kategorija = _database.Kategorija.Find(x.Artikal.KategorijaID).NazivKategorije,
+                    NazivArtikla = _database.Artikal.Find(x.Artikal.ID).Naziv,
+                    Slika = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.SlikaFile).ToList(),
                     Thumbnail = _database.Slika.Where(a => a.ArtikalID == x.ID).Select(a => a.Thumbnail).ToList(),
                     ProdavacId = x.ProdavacID,
                     RatingID = (int)x.RejtingID,
