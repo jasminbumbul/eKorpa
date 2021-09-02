@@ -655,94 +655,93 @@ namespace eKorpa.Controllers
 
             List<Korpa> stavkeUKorpi = _database.Korpa.Where(x => x.KupacID == kupacID).ToList();
 
-            //foreach (var item in stavkeUKorpi)
-            //{
-            //    //Slanje emaila prodavačima od kojih je korisnik kupio artikal.
-            //    var poruka = new MailMessage();
-            //    var artikal = _database.Artikal.Find(item.ArtikalID);
-            //    var prodavac = _database.Users.Find(artikal.ProdavacID);
-            //    var mail = prodavac.Email;
-            //    poruka.To.Add(new MailAddress(mail.ToString()));
-            //    poruka.From = new MailAddress("ekorpa.business@gmail.com");
-            //    poruka.Subject = "Vaš artikal je upravo prodan!";
-            //    poruka.Body += "Pozdrav "+ " " + prodavac.Ime+ ", </br> ";
-            //    poruka.Body += "Uspješno ste prodali sljedeći artikal: </br> ";
+                        foreach (var item in stavkeUKorpi)
+            {
+                //Slanje emaila prodavačima od kojih je korisnik kupio artikal.
+                var poruka = new MailMessage();
+                var artikal = _database.Artikal.Find(item.ArtikalID);
+                var prodavac = _database.Users.Find(artikal.ProdavacID);
+                var mail = prodavac.Email;
+                poruka.To.Add(new MailAddress(mail.ToString()));
+                poruka.From = new MailAddress("ekorpa.business@gmail.com");
+                poruka.Subject = "Vaš artikal je upravo prodan!";
+                poruka.Body += "Pozdrav " + " " + prodavac.Ime + ", </br> ";
+                poruka.Body += "Uspješno ste prodali sljedeći artikal: </br> ";
 
-            //    poruka.Body += "<ul>";
-            //    poruka.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
-            //    poruka.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
-            //    poruka.Body += "<li>Količina : " + item.kolicina + "</li> ";
-            //    poruka.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
-            //    poruka.Body += "<li>Naziv kupca : " + korisnik.Ime+ " "+korisnik.Prezime+ "</li>";
-            //    var opcina = _database.Grad.Find(adresa.OpcinaID);
-            //    poruka.Body += "<li>Adresa : " + adresa.MjestoStanovanja+ " "+ opcina.Naziv + " " + adresa.PostanskiBroj+ "</li>";
-            //    poruka.Body += "<li>Broj telefona : " +korisnik.PhoneNumber+ "</li>";
-            //    poruka.Body += "</ul>";
+                poruka.Body += "<ul>";
+                poruka.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
+                poruka.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
+                poruka.Body += "<li>Količina : " + item.kolicina + "</li> ";
+                poruka.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
+                poruka.Body += "<li>Naziv kupca : " + korisnik.Ime + " " + korisnik.Prezime + "</li>";
+                var opcina = _database.Grad.Find(adresa.OpcinaID);
+                poruka.Body += "<li>Adresa : " + adresa.MjestoStanovanja + " " + opcina.Naziv + " " + adresa.PostanskiBroj + "</li>";
+                poruka.Body += "<li>Broj telefona : " + korisnik.PhoneNumber + "</li>";
+                poruka.Body += "</ul>";
 
-            //    poruka.Body += "<sub> Hvala Vam na korištenju eKorpe. Dužni ste da dostavite artikal kupcu u roku od 7 dana. " +
-            //        "</br>Ukoliko se to ne desi, biti ćete sankcionisani u skladu sa pravilima stranice. </br> Ukoliko zatrebate pomoć, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
-
-
-            //    poruka.IsBodyHtml = true;
-
-            //    using (var smtp = new SmtpClient())
-            //    {
-            //        var credential = new NetworkCredential
-            //        {
-            //            UserName = "ekorpa.business@gmail.com",
-            //            Password = "Mostar2020!"
-            //        };
-            //        smtp.Credentials = credential;
-            //        smtp.Host = "smtp.gmail.com";
-            //        smtp.Port = 587;
-            //        smtp.EnableSsl = true;
-            //        smtp.Send(poruka);
-            //    }
-            //}
+                poruka.Body += "<sub> Hvala Vam na korištenju eKorpe. Dužni ste da dostavite artikal kupcu u roku od 7 dana. " +
+                    "</br>Ukoliko se to ne desi, biti ćete sankcionisani u skladu sa pravilima stranice. </br> Ukoliko zatrebate pomoć, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
 
 
-            ////Slanje emaila kupcu u kojem pisu informacije o kupljenim artiklima
-            //var message = new MailMessage();
-            //var email = korisnik.Email;
-            //message.To.Add(new MailAddress(email.ToString()));
-            //message.From = new MailAddress("ekorpa.business@gmail.com");
-            //message.Subject = "Završetak kupovine";
-            //message.Body = "Uspješno ste kupili sljedeće artikle: </br> ";
+                poruka.IsBodyHtml = true;
 
-            //foreach (var item in stavkeUKorpi)
-            //{
-            //    var artikal = _database.Artikal.Find(item.ArtikalID);
-            //    var prodavac = _database.Users.Find(artikal.ProdavacID);
-            //    message.Body += "<ul>";
-            //    message.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
-            //    message.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
-            //    message.Body += "<li>Količina : " + item.kolicina + "</li> ";
-            //    message.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
-            //    message.Body += "<li>Naziv prodavača : " + prodavac.Ime+" "+prodavac.Prezime + " KM </li>";
-            //    message.Body += "<li>Broj telefona : " + prodavac.PhoneNumber+ " </li>";
-            //    message.Body += "</ul>";
-            //}
-
-            //message.Body += "<sub> Hvala Vam na kupovini. Prodavači su dužni da vam dostave artikle u roku od 7 dana. " +
-            //    "</br>Ukoliko se to ne desi, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "ekorpa.business@gmail.com",
+                        Password = "Mostar2020!"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(poruka);
+                }
+            }
 
 
-            //message.IsBodyHtml = true;
+            //Slanje emaila kupcu u kojem pisu informacije o kupljenim artiklima
+            var message = new MailMessage();
+            var email = korisnik.Email;
+            message.To.Add(new MailAddress(email.ToString()));
+            message.From = new MailAddress("ekorpa.business@gmail.com");
+            message.Subject = "Završetak kupovine";
+            message.Body = "Uspješno ste kupili sljedeće artikle: </br> ";
 
-            //using (var smtp = new SmtpClient())
-            //{
-            //    var credential = new NetworkCredential
-            //    {
-            //        UserName = "ekorpa.business@gmail.com",
-            //        Password = "Mostar2020!"
-            //    };
-            //    smtp.Credentials = credential;
-            //    smtp.Host = "smtp.gmail.com";
-            //    smtp.Port = 587;
-            //    smtp.EnableSsl = true;
-            //    smtp.Send(message);
-            //}
+            foreach (var item in stavkeUKorpi)
+            {
+                var artikal = _database.Artikal.Find(item.ArtikalID);
+                var prodavac = _database.Users.Find(artikal.ProdavacID);
+                message.Body += "<ul>";
+                message.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
+                message.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
+                message.Body += "<li>Količina : " + item.kolicina + "</li> ";
+                message.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
+                message.Body += "<li>Naziv prodavača : " + prodavac.Ime + " " + prodavac.Prezime + " KM </li>";
+                message.Body += "<li>Broj telefona : " + prodavac.PhoneNumber + " </li>";
+                message.Body += "</ul>";
+            }
 
+            message.Body += "<sub> Hvala Vam na kupovini. Prodavači su dužni da vam dostave artikle u roku od 7 dana. " +
+                "</br>Ukoliko se to ne desi, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+
+
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "ekorpa.business@gmail.com",
+                    Password = "Mostar2020!"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+            }
 
             List<Artikal> listaArtikalaUKorpi = new List<Artikal>();
 
