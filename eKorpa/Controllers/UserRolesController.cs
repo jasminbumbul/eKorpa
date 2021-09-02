@@ -7,10 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
+    [Authorize(Roles = "Admin")]
     public class UserRolesController : Controller
     {
         private readonly UserManager<Korisnik> _userManager; 
@@ -62,7 +65,8 @@ namespace eKorpa.Controllers
             }
             return View(model);
         }
-        [HttpPost] 
+        
+        [HttpPost]
         public async Task<IActionResult> Manage(List<ManageUserRolesVM> model, string userId) 
         { 
             var user = await _userManager.FindByIdAsync(userId); 
@@ -83,9 +87,7 @@ namespace eKorpa.Controllers
                 ModelState.AddModelError("", "Cannot add selected roles to user"); 
                 return View(model); 
             }
-            //return RedirectToAction("Index");
-            return Redirect("/Identity/Account/Manage/");
-
+            return RedirectToAction("Index");
         }
         private async Task<List<string>> GetUserRoles(Korisnik user) 
         { 

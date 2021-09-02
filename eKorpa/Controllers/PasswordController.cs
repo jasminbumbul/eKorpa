@@ -8,10 +8,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
+    [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
     public class PasswordController : Controller
     {
         private readonly UserManager<Korisnik> _userManager;

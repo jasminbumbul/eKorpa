@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://wrd.app.fit.ba/2018-19/fit-messagebox.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" href="/favicon.ico">
 </head>
 <body>
     <div id="header">
@@ -25,12 +26,12 @@
                         <partial name="_LoginPartial" />
                         <ul class="navbar-nav flex-grow-1" style="display:flex;justify-content:right">
                             @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>*@
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>*@
 
                             <li class="nav-item">
 
@@ -56,7 +57,10 @@
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Muškarci">Muškarci</a></li>
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Djeca">Djeca</a></li>
                     <li> <a href="/Artikal/IndexKateg?Kategorija=Ostalo">Ostalo</a></li>
-                    <li> <a href="/Ponuda/Index">Ponude</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("KorisnickaSluzba"))
+                    {
+                        <li> <a href="/Administracija">Administracija</a></li>
+                    }
                     <li> <a href="/Kontakt/Index">Kontakt</a></li>
                 </ul>
 
@@ -67,9 +71,9 @@
         </header>
     </div>
 
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     <div class="container">
     </div>
 
@@ -77,10 +81,10 @@
 
 
         @*<footer
-            <div class="container">
-                &copy; 2021 - eKorpa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
+                <div class="container">
+                    &copy; 2021 - eKorpa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>*@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/lib/signalr/dist/browser/signalr.js"></script>

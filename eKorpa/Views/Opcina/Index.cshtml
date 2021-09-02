@@ -1,0 +1,31 @@
+﻿@using eKorpa.ViewModels
+@model OpcinaIndexVM
+
+<div class="container">
+    <h4>Pregled i dodavanje općina</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        <th>ID</th>
+        <th>Naziv</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.opcine)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.naziv</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+    <form asp-action="DodajOpcinu" asp-controller="Opcina">
+        <label>Unesite naziv nove općine:</label>
+        <input asp-for="nazivNoveOpcine" class="form-control" type="text" placeholder="Unesite naziv nove općine" /> <br />
+        <button type="submit" class="btn btn-dark">Dodaj općinu</button>
+    </form>
+</div>

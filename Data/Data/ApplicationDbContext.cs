@@ -11,16 +11,18 @@ namespace eKorpa.Data
 {
     public class ApplicationDbContext : IdentityDbContext<Korisnik>
     {
+
         public ApplicationDbContext()
         {
-        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlServer("server=app.fit.ba,1431;Database=p2040_eKorpa;User Id=P2040; Password=KSCTFQ3!;");
-        
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlServer("Server=app.fit.ba,1431;Database=p2040_eKorpa;Trusted_Connection=False;MultipleActiveResultSets=true;User Id=P2040; Password=KSCTFQ3!;");
 
         public DbSet<Artikal> Artikal { get; set; }
         public DbSet<Kategorija> Kategorija  { get; set; }
@@ -46,7 +48,7 @@ namespace eKorpa.Data
             base.OnModelCreating(modelBuilder);
 
            // modelBuilder.Entity<Korisnik>()
-           // .HasOne<Kupac>(s => s.Kupac)
+           // .HasOne<Kupac>(s => s.)
            // .WithOne(ad => ad.Korisnik)
            // .HasForeignKey<Kupac>(ad => ad.KorisnikID);
 
@@ -54,10 +56,6 @@ namespace eKorpa.Data
            //.HasOne<Prodavac>(s => s.Prodavac)
            //.WithOne(ad => ad.Korisnik)
            //.HasForeignKey<Prodavac>(ad => ad.KorisnikID);
-
-          
-
-
 
         }
     }

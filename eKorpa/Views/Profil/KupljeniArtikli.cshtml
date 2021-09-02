@@ -6,100 +6,103 @@
     var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
-<div id="containerArtikala">
-    <p id="naslovNewProduct">Kupljeni artikli</p>
-    @if (Model.rows.Count() == 0)
-    {
-        <h1>Nema rezultata</h1>
-    }
-    @foreach (var item in Model.rows)
-    {
-        <div class="artikalCopy">
-            @if (item.Slika.Count == 0)
-            {
-                <img src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
-            }
+<div class="container">
 
-            @for (int i = 0; i < item.Slika.Count; i++)
-            {
-                @if (item.Slika[i] != null)
+    <div id="containerArtikala">
+        <p id="naslovNewProduct">Kupljeni artikli</p>
+        @if (Model.rows.Count() == 0)
+        {
+            <h1>Nema rezultata</h1>
+        }
+        @foreach (var item in Model.rows)
+        {
+            <div class="artikalCopy">
+                @if (item.Slika.Count == 0)
                 {
-                    var base64 = Convert.ToBase64String(item.Slika[i]);
-                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                    <img  class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
+                    <img src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
                 }
-            }
-            <div class="textAreaNewest">
 
-                <span class="naziv">@item.NazivArtikla</span> <br />
-
-                @if (item.Cijena != item.CijenaSaPopustom)
+                @for (int i = 0; i < item.Slika.Count; i++)
                 {
-                    <span class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
-                    <span class="cijena">@item.CijenaSaPopustom KM  </span>
-                }
-                else
-                {
-                    <span  class="cijena">@item.Cijena KM  </span>
-                }
-                <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId">   by @item.ImeProdavaca</a>
-                <br />
-
-                @if (item.ProdavacOstavioDojam == true)
-                {
-
-                    <a class="dojamProdavacaLink" href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Dojam prodavača</a> <br />
-
-                }
-                else
-                {
-                    <p class="dojamProdavaca">Prodavač nije ostavio dojam</p>
-                }
-       
-                @if (item.KupacOstavioDojam == true)
-                {
-                    if (claimsIdentity == item.KupacID)
+                    @if (item.Slika[i] != null)
                     {
-                        <a class="dojamKupcaLink" href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Vaš dojam</a>
+                        var base64 = Convert.ToBase64String(item.Slika[i]);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <img class="slikaArtikla" src="@imgsrc" alt="Alternate Text" /><br />
+                    }
+                }
+                <div class="textAreaNewest">
+
+                    <span class="naziv">@item.NazivArtikla</span> <br />
+
+                    @if (item.Cijena != item.CijenaSaPopustom)
+                    {
+                        <span class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
+                        <span class="cijena">@item.CijenaSaPopustom KM  </span>
                     }
                     else
                     {
-                        <a class="dojamKupcaLink" href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Dojam kupca</a>
+                        <span class="cijena">@item.Cijena KM  </span>
                     }
+                    <a id="profilProdavaca" href="/Profil/Index?KorisnikID=@item.ProdavacId">   by @item.ImeProdavaca</a>
+                    <br />
 
-                }
-                else
-                {
-                    if (claimsIdentity == item.KupacID)
+                    @if (item.ProdavacOstavioDojam == true)
                     {
-                        <a class="dojamKupcaLink" href="/Dojam/OstaviDojam?RejtingID=@item.RatingID&TipKorisnika=kupac">Ostavi dojam</a>
+
+                        <a class="dojamProdavacaLink" href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Dojam prodavača</a> <br />
+
                     }
                     else
                     {
-                        <p class="dojamKupca" >Kupac nije ostavio dojam</p>
+                        <p class="dojamProdavaca">Prodavač nije ostavio dojam</p>
                     }
-                }
+
+                    @if (item.KupacOstavioDojam == true)
+                    {
+                        if (claimsIdentity == item.KupacID)
+                        {
+                            <a class="dojamKupcaLink" href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Vaš dojam</a>
+                        }
+                        else
+                        {
+                            <a class="dojamKupcaLink" href="/Dojam/DojamKupca?RejtingID=@item.RatingID">Dojam kupca</a>
+                        }
+
+                    }
+                    else
+                    {
+                        if (claimsIdentity == item.KupacID)
+                        {
+                            <a class="dojamKupcaLink" style="color:red" href="/Dojam/OstaviDojam?RejtingID=@item.RatingID&TipKorisnika=kupac">Ostavi dojam</a>
+                        }
+                        else
+                        {
+                            <p class="dojamKupca">Kupac nije ostavio dojam</p>
+                        }
+                    }
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
-        <div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
+<div id="yith-wcwl-popup-message" style="margin-left: -298px; display: none;"><div id="yith-wcwl-message">Dodali ste artikl na listu želja!</div></div>
 
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-        <link href="/css/ArtikalIndex.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<link href="/css/ArtikalIndex.css" rel="stylesheet" />
 
 
-        <script>
-            function OtvoriProfilProdavaca(prodavacID) {
-                var url = "/Profil/Index?KorisnikID=" + prodavacID;
-                window.open(url, '_self');
-            }
+<script>
+    function OtvoriProfilProdavaca(prodavacID) {
+        var url = "/Profil/Index?KorisnikID=" + prodavacID;
+        window.open(url, '_self');
+    }
 
-            function OtvoriDetaljeArtikla(artikalID) {
-                var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
-                window.open(url, '_self');
-            }
-            function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
-        </script>
+    function OtvoriDetaljeArtikla(artikalID) {
+        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+        window.open(url, '_self');
+    }
+    function klik() { document.getElementById("yith-wcwl-popup-message").style.display = "block"; }
+</script>

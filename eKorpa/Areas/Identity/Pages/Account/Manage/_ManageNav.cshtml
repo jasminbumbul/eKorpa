@@ -14,13 +14,6 @@
         }
         <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Dvostepena autentifikacija</a></li>
         <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Lični podaci</a></li>
-        @if (User.IsInRole("Admin"))
-        {
-            <li class="nav-item"><a href="/RoleManager/" class="nav-link">Role manager</a></li>
-            <li class="nav-item"><a href="/UserRoles/" class="nav-link">Korisničke role</a></li>
-            <li class="nav-item"><a href="/Kategorija/" class="nav-link">Kategorije</a></li>
-            <li class="nav-item"><a href="/Potkategorija/" class="nav-link">Potkategorije</a></li>
-        }
     </ul>
 
 </div>

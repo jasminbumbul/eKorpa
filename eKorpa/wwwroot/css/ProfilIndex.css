@@ -68,14 +68,13 @@ p{
     color: gray;
 }
 
-.cijena, .fa-heart, #profilProdavaca {
+.cijena, #profilProdavaca {
     font-size: 13px;
 }
 
 .cijena, #profilProdavaca {
     font-size: 13px;
     float: left;
-    margin-right: 5px;
 }
 
 #newestProducts .fa-heart {
@@ -88,4 +87,14 @@ p{
     margin-left: auto;
     margin-right: auto;
     width: 61%;
+}
+
+.fa-wrench, .fa-trash {
+    position: relative;
+    bottom: 5px;
+}
+
+.ikonice .fa-heart {
+    position: relative;
+    top: -4px;
 }

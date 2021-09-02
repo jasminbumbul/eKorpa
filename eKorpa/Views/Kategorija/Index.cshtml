@@ -1,8 +1,31 @@
 ﻿@using eKorpa.ViewModels
 @model KategorijaIndexVM 
 
-    <form asp-action="DodajKategoriju" asp-controller="Kategorija">
-        <label>Unesite naziv nove kategorije:</label>
-        <input asp-for="Kategorija"/>
-        <button type="submit" class="btn btn-dark">Dodaj kategoriju</button>
-    </form>
+    <div class="container">
+        <h4>Pregled i dodavanje kategorija</h4>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+            <th>ID</th>
+            <th>Naziv</th>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.kategorije)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.naziv</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+
+        <form asp-action="DodajKategoriju" asp-controller="Kategorija">
+            <label>Unesite naziv nove kategorije:</label>
+            <input asp-for="nazivNoveKategorije" class="form-control" type="text" placeholder="Unesite naziv nove kategorije" /> <br />
+            <button type="submit" class="btn btn-dark">Dodaj kategoriju</button>
+        </form>
+    </div>

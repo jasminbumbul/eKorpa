@@ -1,6 +1,8 @@
 ﻿@using eKorpa.ViewModels
 @using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
+@using eKorpa.EntityModels
+@inject SignInManager<Korisnik> SignInManager
 @model HomeIndexVM
 
 @{
@@ -53,7 +55,7 @@
     <div id="newestProducts">
         @foreach (var item in Model.rows)
         {
-            <div class="newProduct" >
+            <div class="newProduct">
                 @if (item.Slika == null)
                 {
                     <img onclick="OtvoriDetaljeArtikla(@item.ID)" class="slikaArtikla" src="https://www.archgard.com/assets/upload_fallbacks/image_not_found-54bf2d65c203b1e48fea1951497d4f689907afe3037d02a02dcde5775746765c.png" />
@@ -86,7 +88,7 @@
                     }
                     else
                     {
-                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID" >
+                        <a class="srce" href="/ListaZelja/Provjeri?ArtikalID=@item.ID">
                             <i class="fa fa-heart" aria-hidden="true" style="color:gray;">
                                 <span class="tooltiptext">Dodaj u listu želja</span>
                             </i>
@@ -122,46 +124,54 @@
         </div>
         <div class="footerSection">
             <p class="footerNaslov">Vaš račun</p>
-            <a href="/Profil/KupljeniArtikli?KorisnikID=@claimsIdentity">Kupljeni artikli</a><br />
-            <a href="/ListaZelja/Detalji">Lista želja</a><br />
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a href="/Profil/KupljeniArtikli?KorisnikID=@claimsIdentity">Kupljeni artikli</a><br />
+                <a href="/ListaZelja/Detalji">Lista želja</a><br />
+            }
+            else
+            {
+                <a href="/Identity/Account/Login">Prijava</a><br />
+                <a href="/Identity/Account/Register">Registracija</a><br />
+            }
             <a href="/Home/About">O nama</a><br />
             <a href="/Home/Privacy">Privacy policy</a>
         </div>
-    </footer>
-</div>
+        </footer>
+    </div>
 
 
 
-<link href="/css/HomeIndex.css" rel="stylesheet" />
+    <link href="/css/HomeIndex.css" rel="stylesheet" />
 
-<script>
-    function OtvoriInstagram() {
-        window.location = "https://www.instagram.com/";
-    }
+    <script>
+        function OtvoriInstagram() {
+            window.location = "https://www.instagram.com/";
+        }
 
-    function OtvoriZene() {
-        window.location = "/Artikal/IndexKateg?Kategorija=Žene";
-    }
+        function OtvoriZene() {
+            window.location = "/Artikal/IndexKateg?Kategorija=Žene";
+        }
 
-    function OtvoriMuskarci() {
-        window.location = "/Artikal/IndexKateg?Kategorija=Muškarci";
-    }
+        function OtvoriMuskarci() {
+            window.location = "/Artikal/IndexKateg?Kategorija=Muškarci";
+        }
 
-    function OtvoriDjeca() {
-        window.location = "/Artikal/IndexKateg?Kategorija=Djeca";
-    }
+        function OtvoriDjeca() {
+            window.location = "/Artikal/IndexKateg?Kategorija=Djeca";
+        }
 
-    function OtvoriOstalo() {
-        window.location = "/Artikal/IndexKateg?Kategorija=Ostalo";
-    }
-    function OtvoriProfilProdavaca(prodavacID) {
-        var url = "/Profil/Index?KorisnikID=" + prodavacID;
-        window.open(url, '_self');
-    }
+        function OtvoriOstalo() {
+            window.location = "/Artikal/IndexKateg?Kategorija=Ostalo";
+        }
+        function OtvoriProfilProdavaca(prodavacID) {
+            var url = "/Profil/Index?KorisnikID=" + prodavacID;
+            window.open(url, '_self');
+        }
 
-    function OtvoriDetaljeArtikla(artikalID) {
-        var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
-        window.open(url, '_self');
-    }
+        function OtvoriDetaljeArtikla(artikalID) {
+            var url = "/Artikal/Detalji?ArtikalID=" + artikalID;
+            window.open(url, '_self');
+        }
 
-</script>
+    </script>

@@ -19,7 +19,20 @@
         <img id="profilePic" src="/images/userProfile.jpg" alt="Alternate Text" />
         <div id="informationSection">
 
-            <p>@Model.Ime  @Model.Prezime</p>
+            <p>
+                @Model.Ime  @Model.Prezime
+            </p>
+            @if (User.IsInRole("Admin"))
+            {
+                <button class="btn btn-outline-primary">Admin</button>
+            }
+
+            @if (User.IsInRole("KorisnickaSluzba"))
+            {
+                <button class="btn btn-outline-warning">KorisnickaSluzba</button>
+            }
+
+
             <p>@Model.Email</p>
 
             @if (SignInManager.IsSignedIn(User))
@@ -27,7 +40,14 @@
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Postavke korisničkog računa"><i class="fas fa-users-cog"></i>Postavke korisničkog profila <i id="postavke" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i> </a>
                 <a class="nav-link text-dark" href="/Artikal/Dodaj" title="Dodaj novi artikal"><i class="fas fa-plus-circle"></i> Dodaj novi artikal</a>
                 <button class="btn btn-outline-dark" onclick="prikaziBroj()">Prikaži broj telefona</button><br />
-                <p id="brojTelefona" class="btn btn-outline-dark" style="display:none">@Model.BrojTelefona</p>
+                @if (string.IsNullOrWhiteSpace(Model.BrojTelefona))
+                {
+                    <p id="brojTelefona" class="btn btn-outline-dark" style="display:none">Korisnik nije unio broj telefona</p>
+                }
+                else
+                {
+                    <p id="brojTelefona" class="btn btn-outline-dark" style="display:none">@Model.BrojTelefona</p>
+                }
             }
 
             <a class="nav-link text-dark" href="/Profil/KupljeniArtikli?KorisnikID=@Model.ID" title="Kupljeni artikli">Kupljeni artikli  <i id="nemaDojmaKupljeni" class="fas fa-exclamation-circle" style="color:red;font-size:10px;position:absolute;display:none"></i>  </a>
@@ -38,6 +58,7 @@
     </div>
     @*Napomena: u ajaxDiv se prikazuju korisnikovi postavljeni artikli *@
     <p id="naslovNewProduct">Artikli korisnika</p>
+    <hr />
     <div id="ajaxDiv">
 
     </div>

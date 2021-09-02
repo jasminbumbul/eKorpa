@@ -22,7 +22,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using eKorpa.SignalR;
-
+using System.Net.Mail;
+using System.Net;
 
 namespace eKorpa.Controllers
 {
@@ -49,13 +50,13 @@ namespace eKorpa.Controllers
             switch (Kategorija)
             {
                 case "Žene":
-                    var model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Select(a => new ArtikalIndexVM.Row
+                    var model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene" && x.Izbrisan == false).Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca,
+                        ImeProdavaca = _database.Users.Where(y=> y.Id==a.ProdavacID).Select(x=>x.Ime+" "+x.Prezime).SingleOrDefault(),
                         CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -63,20 +64,20 @@ namespace eKorpa.Controllers
                         Brend = a.Brend.Naziv
                     }).Skip(excludeRecords).Take(pageSize);
 
-                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene").Count();
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Žene" && x.Izbrisan == false).Count();
                     objekat.rows = model.AsNoTracking().ToList();
 
                     break;
 
                 case "Muškarci":
 
-                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Select(a => new ArtikalIndexVM.Row
+                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci" && x.Izbrisan == false).Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca,
+                        ImeProdavaca = _database.Users.Where(y=> y.Id==a.ProdavacID).Select(x=>x.Ime+" "+x.Prezime).SingleOrDefault(),
                         CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -84,20 +85,20 @@ namespace eKorpa.Controllers
                         Brend = a.Brend.Naziv
                     }).Skip(excludeRecords).Take(pageSize);
 
-                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci").Count();
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Muškarci" && x.Izbrisan == false).Count();
                     objekat.rows = model.AsNoTracking().ToList();
 
                     break;
 
                 case "Djeca":
 
-                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Select(a => new ArtikalIndexVM.Row
+                    model = _database.Artikal.Where(x => x.Izbrisan == false && (x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe")).Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca,
+                        ImeProdavaca = _database.Users.Where(y => y.Id == a.ProdavacID).Select(x => x.Ime + " " + x.Prezime).SingleOrDefault(),
                         CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -105,20 +106,20 @@ namespace eKorpa.Controllers
                         Brend = a.Brend.Naziv
                     }).Skip(excludeRecords).Take(pageSize);
 
-                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe").Count();
+                    total = _database.Artikal.Where(x => x.Izbrisan == false && (x.Kategorija.NazivKategorije == "Dječaci" || x.Kategorija.NazivKategorije == "Djevojčice" || x.Kategorija.NazivKategorije == "Bebe")).Count();
                     objekat.rows = model.AsNoTracking().ToList();
 
                     break;
 
                 case "Ostalo":
 
-                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo").Select(a => new ArtikalIndexVM.Row
+                    model = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo" && x.Izbrisan == false).Select(a => new ArtikalIndexVM.Row
                     {
                         ID = a.ID,
                         NazivArtikla = a.Naziv,
                         Kategorija = a.Kategorija.NazivKategorije,
                         ProdavacId = a.ProdavacID,
-                        ImeProdavaca = a.ImeProdavaca,
+                        ImeProdavaca = _database.Users.Where(y=> y.Id==a.ProdavacID).Select(x=>x.Ime+" "+x.Prezime).SingleOrDefault(),
                         CijenaSaPopustom = a.CijenaSaPopustom,
                         Cijena = a.Cijena,
                         Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -126,7 +127,7 @@ namespace eKorpa.Controllers
                         Brend = a.Brend.Naziv
                     }).Skip(excludeRecords).Take(pageSize);
 
-                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo").Count();
+                    total = _database.Artikal.Where(x => x.Kategorija.NazivKategorije == "Ostalo" && x.Izbrisan == false).Count();
                     objekat.rows = model.AsNoTracking().ToList();
 
 
@@ -137,13 +138,13 @@ namespace eKorpa.Controllers
             LoadEverythingElse(objekat);
 
             int brojac = 0;
-            if ((float)(total / 8.0)-(int)(total/ 8)>0)
+            if ((float)(total / 8.0) - (int)(total / 8) > 0)
             {
-                 brojac = (total/ 8) + 1;
+                brojac = (total / 8) + 1;
             }
             else
             {
-                 brojac = (total / 8);
+                brojac = (total / 8);
             }
 
             var result = new PagedResult<ArtikalIndexVM.Row>
@@ -153,7 +154,7 @@ namespace eKorpa.Controllers
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };
-          
+
 
             ViewData["result"] = result;
             ViewData["type"] = "IndexKateg";
@@ -170,13 +171,13 @@ namespace eKorpa.Controllers
             int total = 0;
             if (querry == null)
             {
-                var model = _database.Artikal.Select(a => new ArtikalIndexVM.Row
+                var model = _database.Artikal.Where(x => x.Izbrisan == false).Select(a => new ArtikalIndexVM.Row
                 {
                     ID = a.ID,
                     NazivArtikla = a.Naziv,
                     Kategorija = a.Kategorija.NazivKategorije,
                     ProdavacId = a.ProdavacID,
-                    ImeProdavaca = a.ImeProdavaca,
+                    ImeProdavaca = _database.Users.Where(y=> y.Id==a.ProdavacID).Select(x=>x.Ime+" "+x.Prezime).SingleOrDefault(),
                     CijenaSaPopustom = a.CijenaSaPopustom,
                     Cijena = a.Cijena,
                     Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -190,13 +191,13 @@ namespace eKorpa.Controllers
             }
             else
             {
-                var model = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Select(a => new ArtikalIndexVM.Row
+                var model = _database.Artikal.Where(x => x.Izbrisan == false && (x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower()))).Select(a => new ArtikalIndexVM.Row
                 {
                     ID = a.ID,
                     NazivArtikla = a.Naziv,
                     Kategorija = a.Kategorija.NazivKategorije,
                     ProdavacId = a.ProdavacID,
-                    ImeProdavaca = a.ImeProdavaca,
+                    ImeProdavaca = _database.Users.Where(y => y.Id == a.ProdavacID).Select(x => x.Ime + " " + x.Prezime).SingleOrDefault(),
                     CijenaSaPopustom = a.CijenaSaPopustom,
                     Cijena = a.Cijena,
                     Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
@@ -204,7 +205,7 @@ namespace eKorpa.Controllers
                     Brend = a.Brend.Naziv
                 }).Skip(excludeRecords).Take(pageSize);
 
-                total = _database.Artikal.Where(x => x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower())).Count();
+                total = _database.Artikal.Where(x => x.Izbrisan == false && (x.Naziv.ToLower().Contains(querry.ToLower()) || x.Kategorija.NazivKategorije.ToLower().Contains(querry.ToLower()))).Count();
                 objekat.rows = model.AsNoTracking().ToList();
             }
 
@@ -228,7 +229,7 @@ namespace eKorpa.Controllers
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };
-            
+
             ViewData["type"] = "Index";
             ViewData["result"] = result;
 
@@ -241,13 +242,13 @@ namespace eKorpa.Controllers
         {
             ArtikalIndexVM objekat = new ArtikalIndexVM
             {
-                rows = _database.Artikal.Where(x => x.ProdavacID == ProfilID).Select(a => new ArtikalIndexVM.Row
+                rows = _database.Artikal.Where(x => x.Izbrisan == false && x.ProdavacID == ProfilID).Select(a => new ArtikalIndexVM.Row
                 {
                     ID = a.ID,
                     NazivArtikla = a.Naziv,
                     Kategorija = a.Kategorija.NazivKategorije,
                     ProdavacId = a.ProdavacID,
-                    ImeProdavaca = a.ImeProdavaca,
+                    ImeProdavaca = _database.Users.Where(y => y.Id == a.ProdavacID).Select(x => x.Ime + " " + x.Prezime).SingleOrDefault(),
                     Slika = _database.Slika.Where(x => x.ArtikalID == a.ID).Select(x => x.SlikaFile).ToList(),
                     CijenaSaPopustom = a.CijenaSaPopustom,
                     Cijena = a.Cijena,
@@ -269,10 +270,9 @@ namespace eKorpa.Controllers
             return View("Index", objekat);
         }
 
-        //public IActionResult IndexFilter(ArtikalIndexVM filter, int pageNumber = 1, int pageSize = 8)
         public IActionResult IndexFilter(int KategorijaID = 0, int PotkategorijaID = 0, int BrendID = 0, int BojaID = 0, int MaterijalID = 0, int VelicinaID = 0, int MaxCijena = 0, int MinCijena = 0, int pageNumber = 1, int pageSize = 8)
         {
-            var artikli = _database.Artikal.ToList();
+            var artikli = _database.Artikal.Where(x => x.Izbrisan == false).ToList();
             int total = 0;
 
             if (KategorijaID != 0)
@@ -353,11 +353,11 @@ namespace eKorpa.Controllers
                 NazivArtikla = x.Naziv,
                 Kategorija = _database.Kategorija.Where(y => y.ID == x.KategorijaID).Select(y => y.NazivKategorije).SingleOrDefault(),
                 ProdavacId = x.ProdavacID,
-                ImeProdavaca = x.ImeProdavaca,
+                ImeProdavaca = _database.Users.Where(y => y.Id == x.ProdavacID).Select(x => x.Ime + " " + x.Prezime).SingleOrDefault(),
                 CijenaSaPopustom = x.CijenaSaPopustom,
                 Cijena = x.Cijena,
                 Slika = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.SlikaFile).ToList(),
-                Thumbnail = _database.Slika.Where(y => y.ArtikalID == y.ID).Select(y => y.Thumbnail).ToList(),
+                Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.Thumbnail).ToList(),
                 Brend = _database.Brend.Where(y => y.ID == x.BrendID).Select(y => y.Naziv).SingleOrDefault()
             }).Skip(excludeRecords).Take(pageSize);
 
@@ -375,7 +375,6 @@ namespace eKorpa.Controllers
 
             filter.rows = model.ToList();
             LoadEverythingElse(filter);
-            filter.Layout = false;
 
             total = artikli.Count();
             int brojac = 0;
@@ -405,17 +404,18 @@ namespace eKorpa.Controllers
         }
 
         //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult Dodaj(int ArtikalID)
         {
             ArtikalDodajVM noviArtikal;
 
-            if (ArtikalID==0)
+            if (ArtikalID == 0)
             {
                 noviArtikal = new ArtikalDodajVM();
             }
             else
             {
-                noviArtikal= _database.Artikal.Where(y => y.ID == ArtikalID)
+                noviArtikal = _database.Artikal.Where(y => y.ID == ArtikalID)
                     .Select(y => new ArtikalDodajVM
                     {
                         ID = y.ID,
@@ -423,12 +423,13 @@ namespace eKorpa.Controllers
                         PotkategorijaID = y.PotkategorijaID,
                         NazivArtikla = y.Naziv,
                         ProdavacId = y.ProdavacID,
-                        ImeProdavaca = y.ImeProdavaca,
+                        ImeProdavaca = _database.Users.Where(x => x.Id == y.ProdavacID).Select(x => x.Ime + " " + x.Prezime).SingleOrDefault(),
                         Cijena = y.Cijena,
                         Slike = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.SlikaFile).ToList(),
                         SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
+                        Thumbnail = _database.Slika.Where(x => x.ArtikalID == y.ID).Select(x => x.Thumbnail).ToList(),
                         BrojUSkladistu = y.BrojUSkladistu,
-                        VelicinaID= (int)y.VelicinaID
+                        VelicinaID = (int)y.VelicinaID
                     }).SingleOrDefault();
             }
 
@@ -440,6 +441,7 @@ namespace eKorpa.Controllers
 
             return View(noviArtikal);
         }
+
 
         public JsonResult UpdatePotkategorije(int KategorijaID)
         {
@@ -474,7 +476,7 @@ namespace eKorpa.Controllers
         {
 
             ArtikalDetaljiVM noviArtikal = _database.Artikal
-                .Where(x => x.ID == ArtikalID)
+                .Where(x => x.ID == ArtikalID && x.Izbrisan == false)
                 .Select(x => new ArtikalDetaljiVM
                 {
                     ID = x.ID,
@@ -487,14 +489,18 @@ namespace eKorpa.Controllers
                     SlikaID = _database.Slika.Where(y => y.ArtikalID == ArtikalID).Select(x => x.ID).ToList(),
                     Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(x => x.Thumbnail).ToList(),
                     Brend = x.Brend.Naziv,
-                    BrojUSkladistu = x.BrojUSkladistu
+                    BrojUSkladistu = x.BrojUSkladistu,
+                    Boja=x.Boja.Naziv,
+                    Materijal=x.Materijal.Naziv,
+                    Potkategorija=x.Potkategorija.Naziv,
+                    Velicina=x.Velicina.VelicinaOznaka
                 }).Single();
 
             return View(noviArtikal);
         }
 
 
-
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult Snimi(ArtikalDodajVM noviArtikal)
         {
             Artikal artikal;
@@ -567,7 +573,6 @@ namespace eKorpa.Controllers
                     }
                 }
             }
-          
             _database.SaveChanges();
             return Redirect("/Artikal/");
         }
@@ -590,20 +595,23 @@ namespace eKorpa.Controllers
             }
             return uniqueFileName;
         }
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult Obrisi(int ArtikalID)
         {
             Artikal artikal = _database.Artikal.Find(ArtikalID);
-            _database.Remove(artikal);
-            TempData["PorukaWarning"] = "Uspješno ste obrisali artikl " + artikal.Naziv;
-            List<Slika> slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID).ToList();
-            foreach (var item in slikeArtikla)
-            {
-                _database.Remove(item);
-            }
+            artikal.Izbrisan = true;
             _database.SaveChanges();
+            TempData["PorukaWarning"] = "Uspješno ste obrisali artikl " + artikal.Naziv;
+            //List<Slika> slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID).ToList();
+            //foreach (var item in slikeArtikla)
+            //{
+            //    _database.Remove(item);
+            //}
             return Redirect("/Artikal/");
         }
 
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult ObrisiSliku(int SlikaID, int ArtikalID)
         {
             var slika = _database.Slika.Find(SlikaID);
@@ -612,6 +620,8 @@ namespace eKorpa.Controllers
             return Redirect("/Artikal/Dodaj?ArtikalID=" + ArtikalID);
         }
 
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult SetThumbnail(int SlikaID, int ArtikalID)
         {
             var slikeArtikla = _database.Slika.Where(x => x.ArtikalID == ArtikalID);
@@ -625,6 +635,9 @@ namespace eKorpa.Controllers
             return Redirect("/Artikal/Dodaj?ArtikalID=" + ArtikalID);
         }
 
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
+        [HttpGet]
         public string Kupi()
         {
             var kupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -634,7 +647,7 @@ namespace eKorpa.Controllers
 
             var adresa = _database.Adresa.Where(x => x.ID == korisnik.AdresaID).SingleOrDefault();
 
-            if (adresa.ID == 0 || adresa.MjestoStanovanja.Length < 5 || adresa.PostanskiBroj < 10000 || adresa.PostanskiBroj > 99999)
+            if (adresa.ID == 0 || adresa.MjestoStanovanja==null || adresa.MjestoStanovanja.Length < 5 || adresa.OpcinaID==0 || adresa.PostanskiBroj < 10000 || adresa.PostanskiBroj > 99999 || korisnik.Ime == null || korisnik.Prezime == null)
             {
                 //implementirati poruku neuspjeha
                 return "address404";
@@ -642,17 +655,106 @@ namespace eKorpa.Controllers
 
             List<Korpa> stavkeUKorpi = _database.Korpa.Where(x => x.KupacID == kupacID).ToList();
 
+            //foreach (var item in stavkeUKorpi)
+            //{
+            //    //Slanje emaila prodavačima od kojih je korisnik kupio artikal.
+            //    var poruka = new MailMessage();
+            //    var artikal = _database.Artikal.Find(item.ArtikalID);
+            //    var prodavac = _database.Users.Find(artikal.ProdavacID);
+            //    var mail = prodavac.Email;
+            //    poruka.To.Add(new MailAddress(mail.ToString()));
+            //    poruka.From = new MailAddress("ekorpa.business@gmail.com");
+            //    poruka.Subject = "Vaš artikal je upravo prodan!";
+            //    poruka.Body += "Pozdrav "+ " " + prodavac.Ime+ ", </br> ";
+            //    poruka.Body += "Uspješno ste prodali sljedeći artikal: </br> ";
+
+            //    poruka.Body += "<ul>";
+            //    poruka.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
+            //    poruka.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
+            //    poruka.Body += "<li>Količina : " + item.kolicina + "</li> ";
+            //    poruka.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
+            //    poruka.Body += "<li>Naziv kupca : " + korisnik.Ime+ " "+korisnik.Prezime+ "</li>";
+            //    var opcina = _database.Grad.Find(adresa.OpcinaID);
+            //    poruka.Body += "<li>Adresa : " + adresa.MjestoStanovanja+ " "+ opcina.Naziv + " " + adresa.PostanskiBroj+ "</li>";
+            //    poruka.Body += "<li>Broj telefona : " +korisnik.PhoneNumber+ "</li>";
+            //    poruka.Body += "</ul>";
+
+            //    poruka.Body += "<sub> Hvala Vam na korištenju eKorpe. Dužni ste da dostavite artikal kupcu u roku od 7 dana. " +
+            //        "</br>Ukoliko se to ne desi, biti ćete sankcionisani u skladu sa pravilima stranice. </br> Ukoliko zatrebate pomoć, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+
+
+            //    poruka.IsBodyHtml = true;
+
+            //    using (var smtp = new SmtpClient())
+            //    {
+            //        var credential = new NetworkCredential
+            //        {
+            //            UserName = "ekorpa.business@gmail.com",
+            //            Password = "Mostar2020!"
+            //        };
+            //        smtp.Credentials = credential;
+            //        smtp.Host = "smtp.gmail.com";
+            //        smtp.Port = 587;
+            //        smtp.EnableSsl = true;
+            //        smtp.Send(poruka);
+            //    }
+            //}
+
+
+            ////Slanje emaila kupcu u kojem pisu informacije o kupljenim artiklima
+            //var message = new MailMessage();
+            //var email = korisnik.Email;
+            //message.To.Add(new MailAddress(email.ToString()));
+            //message.From = new MailAddress("ekorpa.business@gmail.com");
+            //message.Subject = "Završetak kupovine";
+            //message.Body = "Uspješno ste kupili sljedeće artikle: </br> ";
+
+            //foreach (var item in stavkeUKorpi)
+            //{
+            //    var artikal = _database.Artikal.Find(item.ArtikalID);
+            //    var prodavac = _database.Users.Find(artikal.ProdavacID);
+            //    message.Body += "<ul>";
+            //    message.Body += "<li>Naziv artikla : " + artikal.Naziv + "</li>";
+            //    message.Body += "<li>Cijena artikla : " + artikal.Cijena + " KM </li> ";
+            //    message.Body += "<li>Količina : " + item.kolicina + "</li> ";
+            //    message.Body += "<li>Ukupna cijena : " + item.cijena + " KM </li>";
+            //    message.Body += "<li>Naziv prodavača : " + prodavac.Ime+" "+prodavac.Prezime + " KM </li>";
+            //    message.Body += "<li>Broj telefona : " + prodavac.PhoneNumber+ " </li>";
+            //    message.Body += "</ul>";
+            //}
+
+            //message.Body += "<sub> Hvala Vam na kupovini. Prodavači su dužni da vam dostave artikle u roku od 7 dana. " +
+            //    "</br>Ukoliko se to ne desi, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+
+
+            //message.IsBodyHtml = true;
+
+            //using (var smtp = new SmtpClient())
+            //{
+            //    var credential = new NetworkCredential
+            //    {
+            //        UserName = "ekorpa.business@gmail.com",
+            //        Password = "Mostar2020!"
+            //    };
+            //    smtp.Credentials = credential;
+            //    smtp.Host = "smtp.gmail.com";
+            //    smtp.Port = 587;
+            //    smtp.EnableSsl = true;
+            //    smtp.Send(message);
+            //}
+
+
             List<Artikal> listaArtikalaUKorpi = new List<Artikal>();
 
             //smanjivanje kolicine u skladistu
             foreach (var item in stavkeUKorpi)
             {
-                var artikal = _database.Artikal.Where(x => x.ID == item.ArtikalID).SingleOrDefault();
+                var artikal = _database.Artikal.Where(x => x.ID == item.ArtikalID && x.Izbrisan == false).SingleOrDefault();
                 artikal.BrojUSkladistu -= item.kolicina;
-                
+
                 var prodavac = _database.Users.Where(x => x.Id == artikal.ProdavacID).SingleOrDefault();
 
-                string poruka = "Vama je upravo kupljen artikal: " + artikal.Naziv;
+                string poruka = "Upravo ste prodali artikal: " + artikal.Naziv;
                 _hubContext.Clients.Group(prodavac.UserName).SendAsync("prijemPoruke", prodavac.Ime, poruka);
                 //_hubContext.Clients.All.SendAsync("prijemPoruke", korisnik.Ime, poruka);
 
@@ -668,7 +770,6 @@ namespace eKorpa.Controllers
                     SlikaID = _database.Slika.Where(x => x.ArtikalID == artikal.ID && x.Thumbnail == 1).Select(x => x.ID).SingleOrDefault()
                 };
                 _database.ZavrseniArtikal.Add(zavrseniArtikal);
-                _database.SaveChanges();
                 //kreiranje rejtinga
                 var noviRejting = new Rejting();
 
@@ -678,7 +779,9 @@ namespace eKorpa.Controllers
                 _database.SaveChanges();
             }
 
-            return "success";
+
+
+            return "Ok";
         }
 
         private void LoadEverythingElse(ArtikalIndexVM objekat)

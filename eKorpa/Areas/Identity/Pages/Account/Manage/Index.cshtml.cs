@@ -29,6 +29,7 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+        public bool verifikovanBroj { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -40,35 +41,28 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
         {
             [Phone]
             [Display(Name = "Broj telefona")]
-            public string PhoneNumber { get; set; } 
-            
-            [Display(Name = "Datum rodjenja")]
-            public DateTime DatumRodjenja{ get; set; } 
-            
+            public string PhoneNumber { get; set; }
+
+            [Display(Name = "Datum rođenja")]
+            public DateTime DatumRodjenja { get; set; }
+
             [Display(Name = "Ime")]
             public string Ime { get; set; }
 
             [Display(Name = "Prezime")]
             public string Prezime { get; set; }
 
-
-
-
             [Display(Name = "Opcina stanovanja")]
             public int OpcinaStanovanjaID { get; set; }
             public List<SelectListItem> OpcinaStanovanja { get; set; }
 
 
-
-
-
-            
             [Display(Name = "Mjesto i ulica stanovanja")]
             public string MjestoStanovanja { get; set; }
-            
+
             [Display(Name = "Poštanski broj")]
             public int PostanskiBroj { get; set; }
-            
+
         }
 
         private async Task LoadAsync(Korisnik user)
@@ -76,6 +70,8 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var adresa = _database.Adresa.Find(user.AdresaID);
+
+            verifikovanBroj = user.PhoneNumberConfirmed;
 
             Username = userName;
 
@@ -93,7 +89,7 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
                 }).ToList(),
                 PostanskiBroj = adresa.PostanskiBroj
             };
-            if (adresa.OpcinaID!=null)
+            if (adresa.OpcinaID != null)
             {
                 Input.OpcinaStanovanjaID = (int)adresa.OpcinaID;
             }
@@ -102,7 +98,7 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
-          
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -129,7 +125,7 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            if(Input.PhoneNumber.Length!=12 || Input.PhoneNumber.Substring(0, 5) != "+3876")
+            if (Input.PhoneNumber != null && (Input.PhoneNumber.Length != 12 || Input.PhoneNumber.Substring(0, 5) != "+3876"))
             {
                 StatusMessage = "Broj telefona mora biti u formatu: '+3876XXXXXXX' i dužine 12 karaktera.";
                 return RedirectToPage();
@@ -154,15 +150,18 @@ namespace eKorpa.Areas.Identity.Pages.Account.Manage
 
             user.Ime = Input.Ime;
             user.Prezime = Input.Prezime;
-            user.DatumRodjenja=Input.DatumRodjenja;
-            user.PhoneNumber=Input.PhoneNumber;
+            user.DatumRodjenja = Input.DatumRodjenja;
+            if (Input.PhoneNumber != null)
+            {
+                user.PhoneNumber = Input.PhoneNumber;
+            }
             adresa.MjestoStanovanja = Input.MjestoStanovanja;
             adresa.OpcinaID = Input.OpcinaStanovanjaID;
             adresa.PostanskiBroj = Input.PostanskiBroj;
-            
+
             _database.SaveChanges();
 
-            await _userManager.UpdateAsync(user); 
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

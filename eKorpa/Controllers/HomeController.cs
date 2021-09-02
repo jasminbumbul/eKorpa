@@ -29,12 +29,11 @@ namespace eKorpa.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-
         public IActionResult Index()
         {
             HomeIndexVM objekat = new HomeIndexVM()
             {
-                rows = _database.Artikal.OrderBy(x => x.DatumObjave).Select(a => new HomeIndexVM.Row
+                rows = _database.Artikal.Where(x=> x.Izbrisan==false).OrderBy(x => x.DatumObjave).Select(a => new HomeIndexVM.Row
                 {
                     ID = a.ID,
                     NazivArtikla = a.Naziv,

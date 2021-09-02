@@ -1,10 +1,36 @@
 ﻿@using eKorpa.ViewModels
-@model PotkategorijaIndexVM 
+@model PotkategorijaIndexVM
 
-    <form asp-action="DodajPotkategoriju" asp-controller="Potkategorija">
-        <label>Odaberite kategoriju:</label>
-        <select asp-for="KategorijaID" asp-items="Model.Kategorija" ></select>
-        <label>Unesite naziv nove potkategorije:</label>
-        <input asp-for="Potkategorija"/>
-        <button type="submit" class="btn btn-dark">Dodaj potkategoriju</button>
-    </form>
+<div class="container">
+    <h4>Pregled i dodavanje potkategorija</h4>
+    <hr />
+    <table class="table table-bordered">
+        <th>Naziv kategorije</th>
+
+        <tbody>
+            @foreach (var kat in Model.potkategorije)
+            {
+            <td>@kat.nazivKategorije</td>
+            <th>ID potkategorije</th>
+            <th>Naziv potkategorije</th>
+            @foreach (var potKat in kat.potkategorije)
+            {
+                <tr>
+                    <td></td>
+                    <td>@potKat.ID</td>
+                    <td>@potKat.Naziv</td>
+                </tr>
+            }
+        }
+            </tbody>
+        </table>
+
+
+        <form asp-action="DodajPotkategoriju" asp-controller="Potkategorija">
+            <label>Odaberite kategoriju:</label> <br />
+            <select asp-for="KategorijaID" asp-items="Model.Kategorija" class="form-control"></select>
+            <label>Unesite naziv nove potkategorije:</label> <br />
+            <input asp-for="nazivNovePotkategorije" class="form-control" type="text" placeholder="Unesite naziv nove potkategorije" /> <br />
+            <button type="submit" class="btn btn-dark">Dodaj potkategoriju</button>
+        </form>
+    </div>

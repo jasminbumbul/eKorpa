@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace eKorpa.Controllers
 {
@@ -22,8 +24,6 @@ namespace eKorpa.Controllers
 
             return View();
         }
-
-        //  <a href="/Dojam/DojamProdavaca?RejtingID=@item.RatingID">Dojam prodavača</a>
 
         public IActionResult DojamProdavaca(int RejtingID)
         {
@@ -61,6 +61,7 @@ namespace eKorpa.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult OstaviDojam(int RejtingID, string TipKorisnika)
         {
             var objekat = new DojamDodajVM
@@ -72,6 +73,7 @@ namespace eKorpa.Controllers
             return View("Dodaj",objekat);
         }
 
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public IActionResult SnimiDojam(DojamDodajVM novi)
         {
             var rejting = _database.Rejting.Find(novi.RatingID);
@@ -81,14 +83,14 @@ namespace eKorpa.Controllers
             {
                 rejting.DojamKupca = novi.Dojam;
                 rejting.DatumKupac = DateTime.Now;
-                rejting.OcjenaKupca = novi.Ocjena;
+                rejting.OcjenaKupca = (float)Convert.ToDouble(novi.Ocjena); ;
                 korisnikID = _database.ZavrseniArtikal.Where(x => x.RejtingID == novi.RatingID).SingleOrDefault().KupacID;
                 rejting.KupacOstavioDojam = true;
             }
             else
             {
                 rejting.DojamProdavaca = novi.Dojam;
-                rejting.OcjenaProdavaca = novi.Ocjena;
+                rejting.OcjenaProdavaca = (float)Convert.ToDouble(novi.Ocjena);
                 rejting.DatumProdavac = DateTime.Now;
                 korisnikID = _database.ZavrseniArtikal.Where(x => x.RejtingID == novi.RatingID).SingleOrDefault().ProdavacID;
                 rejting.ProdavacOstavioDojam = true;

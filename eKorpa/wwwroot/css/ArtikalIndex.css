@@ -197,10 +197,10 @@ select {
 }
 
 #profilProdavaca {
+    padding-left: 5px;
     text-decoration: none;
     color: gray;
     float: left;
-    padding-left: 10px;
 }
 
 .cijena, fa-heart, #profilProdavaca {
@@ -235,7 +235,7 @@ section{
     font-size: 15px;
     text-decoration: none !important;
     text-align: center;
-    color: grey;
+    color: cornflowerblue;
 }
 
 .dojamKupca {
@@ -247,6 +247,29 @@ section{
 .dojamKupcaLink {
     font-size: 15px;
     text-decoration: none !important;
-    color: grey;
+    color: cornflowerblue;
     text-align: center
+}
+
+
+.fa-wrench, .fa-trash {
+    float: right;
+}
+
+#MinCijena, #MaxCijena {
+    width: 100%;
+}
+
+#filterForm {
+    width:100%;
+}
+
+.ikonice {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 5px;
+}
+
+.ikonice div{
+    padding: 2px;
 }

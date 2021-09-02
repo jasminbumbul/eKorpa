@@ -12,6 +12,10 @@ namespace eKorpa.ViewModels
         public int ID { get; set; }
         public string NazivArtikla { get; set; }
         public string Kategorija { get; set; }
+        public string Potkategorija { get; set; }
+        public string Velicina { get; set; }
+        public string Boja { get; set; }
+        public string Materijal { get; set; }
         public string Prodavac { get; set; }
         public float Cijena { get; set; }
         public float CijenaSaPopustom { get; set; }

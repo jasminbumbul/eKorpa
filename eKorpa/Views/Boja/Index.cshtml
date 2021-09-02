@@ -1,0 +1,32 @@
+﻿@using eKorpa.ViewModels
+@model BojaIndexVM 
+
+
+<div class="container">
+    <h4>Pregled i dodavanje boja</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        <th>ID</th>
+        <th>Naziv</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.boje)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.naziv</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+    <form asp-action="DodajBoju" asp-controller="Boja">
+        <label>Unesite naziv nove boje:</label> <br />
+        <input asp-for="nazivNoveBoje" class="form-control" type="text" placeholder="Unesite naziv nove boje" /> <br />
+        <button type="submit" class="btn btn-dark">Dodaj boju</button>
+    </form>
+</div>

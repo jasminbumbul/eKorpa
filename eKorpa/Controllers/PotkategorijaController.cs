@@ -6,10 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
+    [Authorize(Roles = "Admin,KorisnickaSluzba")]
     public class PotkategorijaController : Controller
     {
         private ApplicationDbContext _database;
@@ -29,13 +32,21 @@ namespace eKorpa.Controllers
                 }).ToList()
             };
 
+            objekat.potkategorije = _database.Kategorija.Select(x => new PotkategorijaIndexVM.PotkategorijaVM
+            {
+                kategorijaId=x.ID,
+                nazivKategorije=x.NazivKategorije,
+                potkategorije=x.Potkategorija
+            }).ToList();
+
             return View(objekat);
         }
+
         public IActionResult DodajPotkategoriju(PotkategorijaIndexVM novi)
         {
             var novaPotkategorija = new Potkategorija
             {
-                Naziv = novi.Potkategorija
+                Naziv = novi.nazivNovePotkategorije
             };
 
             _database.Add(novaPotkategorija);
@@ -43,7 +54,7 @@ namespace eKorpa.Controllers
 
             var kategorija = _database.Kategorija.Find(novi.KategorijaID);
 
-            if(kategorija.Potkategorija==null)
+            if (kategorija.Potkategorija == null)
             {
                 kategorija.Potkategorija = new List<Potkategorija>();
             }

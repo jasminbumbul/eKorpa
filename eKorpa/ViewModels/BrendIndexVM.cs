@@ -7,6 +7,13 @@ namespace eKorpa.ViewModels
 {
     public class BrendIndexVM
     {
-        public string Naziv { get; set; }
+        public class Brend
+        {
+            public int id { get; set; }
+            public string naziv { get; set; }
+        }
+
+        public List<Brend> brendovi { get; set; }
+        public string nazivNovogBrenda { get; set; }
     }
 }

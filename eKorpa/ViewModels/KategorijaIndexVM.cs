@@ -7,6 +7,13 @@ namespace eKorpa.ViewModels
 {
     public class KategorijaIndexVM
     {
-        public string Kategorija { get; set; }
+        public class Kategorija
+        {
+            public int id { get; set; }
+            public string naziv { get; set; }
+        }
+
+        public List<Kategorija> kategorije { get; set; }
+        public string nazivNoveKategorije { get; set; }
     }
 }

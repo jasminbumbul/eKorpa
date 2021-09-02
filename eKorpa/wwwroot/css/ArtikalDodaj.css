@@ -71,7 +71,7 @@ img {
     width: 50px;
 }
 
-.btn-info {
+.btn-success, .btn-warning {
     margin-bottom: 10px;
     margin-top: 10px;
     width: 50px;
@@ -95,7 +95,11 @@ img {
     z-index: 1;
 }
 
-.btn-info:hover .tooltiptext {
+.btn-success:hover .tooltiptext {
+    visibility: visible;
+    transition: ease 0.5s;
+}
+.btn-warning:hover .tooltiptext {
     visibility: visible;
     transition: ease 0.5s;
 }

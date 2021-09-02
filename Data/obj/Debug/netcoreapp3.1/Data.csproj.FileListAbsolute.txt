@@ -22,3 +22,15 @@ C:\Users\Ramki\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.dll
 C:\Users\Ramki\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.pdb
 C:\Users\Ramki\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache
 C:\Users\Ramki\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
+C:\Users\Jasmin\source\repos\webapp\Data\bin\Debug\netcoreapp3.1\Data.deps.json
+C:\Users\Jasmin\source\repos\webapp\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
+C:\Users\Jasmin\source\repos\webapp\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
+C:\Users\Jasmin\source\repos\webapp\Data\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\Jasmin\source\repos\webapp\Data\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.dll
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.pdb
+C:\Users\Jasmin\source\repos\webapp\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache

@@ -1,0 +1,36 @@
+﻿@using eKorpa.ViewModels
+@model KorisniciIndexVM
+
+<div class="container">
+    <h4>Pregled registrovanih korisnika</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        <th>ID</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Email verifikovan</th>
+        <th>Broj telefona</th>
+        <th>Broj verifikovan</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.rows)
+            {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.ime</td>
+                <td>@item.prezime</td>
+                <td>@item.username</td>
+                <td>@item.email</td>
+                <td>@item.emailVerified</td>
+                <td>@item.brojTelefona</td>
+                <td>@item.phoneVerified</td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

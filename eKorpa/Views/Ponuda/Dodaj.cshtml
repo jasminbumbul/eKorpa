@@ -1,4 +1,4 @@
-﻿@using eKorpa.ViewModels
+﻿@*@using eKorpa.ViewModels
 @model PonudaDodajVM
 
 <div id="ponudaDodajForma" class="col-md-4">
@@ -6,6 +6,7 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <h4>Dodavanje nove ponude</h4>
         <hr />
+        <input hidden disabled asp-for="ID" class="form-control" />
         <div class="form-group">
             <label>Opis ponude</label>
             <input asp-for="Opis" class="form-control" />
@@ -79,4 +80,4 @@
         width: 100%;
         height: 35px;
     }
-</style>
+</style>*@

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Protocols;
 using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eKorpa.Controllers
 {
@@ -32,6 +33,7 @@ namespace eKorpa.Controllers
         //    return TwiML(messagingResponse);
         //}
 
+        [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
         public ActionResult SendSMS()
         {
             var accountSid = _iConfig.GetSection("Twilio").GetSection("AccountSid").Value;

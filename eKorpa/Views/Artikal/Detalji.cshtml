@@ -1,57 +1,74 @@
-﻿
+﻿@using System.Security.Claims
 @model eKorpa.ViewModels.ArtikalDetaljiVM
 
-<div id="formaDetaljiArtikla">
-    <div class="slike">
-        @if (Model.Slike != null)
-        {
-            @for (int i = 0; i < Model.Slike.Count; i++)
+@{
+    var claimsIdentity = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
+<div class="container">
+
+    <div id="formaDetaljiArtikla">
+        <div class="slike">
+            @if (Model.Slike != null)
             {
-                @if (Model.Slike[i] != null && Model.Thumbnail[i] == 1)
+                @for (int i = 0; i < Model.Slike.Count; i++)
                 {
-                    var base64 = Convert.ToBase64String(Model.Slike[i]);
-                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                    <img class="slika" src="@imgsrc" alt="Alternate Text" />
+                    @if (Model.Slike[i] != null && Model.Thumbnail[i] == 1)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Slike[i]);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                        <img class="slika" src="@imgsrc" alt="Alternate Text" />
+                    }
                 }
             }
-        }
-    </div>
-    <div class="detalji">
-        <div class="nazivArtikla"> <h1> @Model.NazivArtikla</h1> </div>
-        <hr />
-        <h4 class="cijena">Cijena  @Model.Cijena KM</h4>
-        @if (Model.Cijena!=Model.CijenaSaPopustom)
-        {
-        <h4 class="cijena">Cijena sa popustom @Model.CijenaSaPopustom KM</h4>
-        }
+        </div>
+       
+
+        <div class="detalji">
+            <div class="nazivArtikla"> <h1> @Model.NazivArtikla</h1> </div>
+            <hr />
+            <h4 class="cijena">Cijena  @Model.Cijena KM</h4>
+            @if (Model.Cijena != Model.CijenaSaPopustom)
+            {
+                <h4 class="cijena">Cijena sa popustom @Model.CijenaSaPopustom KM</h4>
+            }
 
 
-        <h4 > @Model.Brend</h4>
-        <h4 >Broj u skladištu : @Model.BrojUSkladistu</h4>
-
-
-        <h6>Kategorija: @Model.Kategorija</h6>
-        <div class="kolicina">
-            @*<input type="number" value="@Model.kolicina" id="qty" class="qtyy" />
+            <h6>Brend: @Model.Brend</h6>
+            <h6>Broj u skladištu: @Model.BrojUSkladistu</h6>
+            <h6>Kategorija: @Model.Kategorija</h6>
+            <h6>Potkategorija: @Model.Potkategorija</h6>
+            <h6>Velicina: @Model.Velicina</h6>
+            <h6>Materijal: @Model.Materijal</h6>
+            <h6>Boja: @Model.Boja</h6>
+            <div class="kolicina">
+                @*<input type="number" value="@Model.kolicina" id="qty" class="qtyy" />
             <button id="sendKolicina" onclick="RenderUrl()" class="btn btn-default">Dodaj u korpu</button>
             <a type="" href="/Korpa/Dodaj?ArtikalID=@Model.ID&kolicina=" class="btn btn-info">Dodaj u korpu</a>*@
 
-            <form class="kolicina" asp-action="Dodaj" asp-controller="Korpa">
-                <input type="text" name="ArtikalID" hidden value="@Model.ID" />
-                <input type="number" min="1" value="1" max="@Model.BrojUSkladistu" name="kolicina" id="qty" class="qtyy" />
-                <button type="submit" class="btn btn-dark">Dodaj u korpu</button>
-            </form>
+                <form class="kolicina" asp-action="Dodaj" asp-controller="Korpa">
+                    <input type="text" name="ArtikalID" hidden value="@Model.ID" />
+                    <input type="number" min="1" value="1" max="@Model.BrojUSkladistu" name="kolicina" id="qty" class="qtyy" />
+
+                    @if (claimsIdentity == Model.Prodavac)
+                    {
+                        <button type="submit" disabled class="btn btn-dark">Dodaj u korpu</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-dark">Dodaj u korpu</button>
+                    }
+                </form>
+            </div>
+            @*<div class="prodavac">Prodavac: @Model.Prodavac</div>*@
+            <a href="/Profil/Index?KorisnikID=@Model.Prodavac" style="margin-top:10px" class="btn btn-warning">Posjeti profil prodavača</a><br />
         </div>
-        @*<div class="prodavac">Prodavac: @Model.Prodavac</div>*@
-        <a href="/Profil/Index?KorisnikID=@Model.Prodavac" class="btn btn-warning">Posjeti profil prodavača</a><br />
+
+
     </div>
-
-
 </div>
 <link href="/css/ArtikalDetalji.css" rel="stylesheet" />
 
 
 <script src="~/js/site.js"></script>
 
-@*<a href="/Artikal/Index">Artikli</a>
-    <a href="/Korpa/Detalji" class="btn btn-secondary">Korpa</a>*@

@@ -1,34 +1,34 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@using eKorpa.ViewModels
+﻿@using eKorpa.ViewModels
 
 @model ListaZeljaDetaljiVM
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Naziv proizvoda</th>
-            <th scope="col">Kategorija</th>
-            <th scope="col">Stanje na zalihama</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.rows)
-        {
-        <tr>
-            <td>@item.NazivArtikla</td>
-            <td>@item.Kategorija</td>
-            <td>@item.StanjeZaliha</td>
-            <td>
-                <a href="">Dodaj u korpu</a>
-            </td>
-            <td>
-                <a href="/ListaZelja/Obrisi?ListaZeljaID=@item.ID">obrisi</a>
-            </td>
-        </tr>
-        }
-</tbody>
-</table>
-<a class="button" href="/Artikal/Index">Artikli</a>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Naziv proizvoda</th>
+                <th scope="col">Kategorija</th>
+                <th scope="col">Stanje na zalihama</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.rows)
+            {
+                <tr>
+                    <td>@item.NazivArtikla</td>
+                    <td>@item.Kategorija</td>
+                    <td>@item.StanjeZaliha</td>
+                    <td>
+                        <a href="">Dodaj u korpu</a>
+                    </td>
+                    <td>
+                        <a href="/ListaZelja/Obrisi?ListaZeljaID=@item.ID">obrisi</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="button" href="/Artikal/Index">Artikli</a>
+</div>

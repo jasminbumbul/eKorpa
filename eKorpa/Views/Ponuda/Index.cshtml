@@ -11,6 +11,7 @@
         <th>Potkategorija</th>
         <th>Velicina popusta</th>
         <th>Aktivna (DA/NE)</th>
+        <th>Uredi</th>
         </thead>
 
         <tbody>
@@ -32,14 +33,15 @@
                             <a href="/Ponuda/AktivirajPonudu?PonudaID=@item.ID" class="btn btn-danger">Neaktivna</a>
                         }
                     </td>
+                    <td> <a href="/Ponuda/Dodaj?PonudaID=@item.ID" class="btn btn-warning">Uredi</a></td>
                 </tr>
             }
         </tbody>
 
     </table>
     @if (User.IsInRole("Admin"))
-    { 
-      <a href="/Ponuda/Dodaj">Dodaj ponudu</a>
+    {
+        <a href="/Ponuda/Dodaj">Dodaj ponudu</a>
     }
-    </div>
+</div>
 

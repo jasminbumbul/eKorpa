@@ -1,8 +1,31 @@
 ﻿@using eKorpa.ViewModels
-@model BrendIndexVM 
+@model BrendIndexVM
+
+<div class="container">
+    <h4>Pregled i dodavanje brendova</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        <th>ID</th>
+        <th>Naziv</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.brendovi)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.naziv</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
 
     <form asp-action="DodajBrend" asp-controller="Brend">
         <label>Unesite naziv novog brenda:</label>
-        <input asp-for="Naziv"/>
+        <input asp-for="nazivNovogBrenda" class="form-control" type="text" placeholder="Unesite naziv novog brenda" /> <br />
         <button type="submit" class="btn btn-dark">Dodaj brend</button>
     </form>
+</div>

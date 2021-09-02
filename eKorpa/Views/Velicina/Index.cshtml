@@ -1,0 +1,47 @@
+﻿@using eKorpa.ViewModels
+@model VelicinaIndexVM
+
+<div class="container">
+    <h4>Pregled i dodavanje velicina</h4>
+    <hr />
+    <table class="table table-bordered">
+        <th>Naziv potkategorije</th>
+
+        <tbody>
+            @foreach (var vel in Model.velicine)
+            {
+                @if (vel.velicine.Count() == 0)
+                {
+                    <tr>
+                <td>@vel.nazivPotkategorije</td>
+                    </tr>
+
+            }
+            else
+            {
+
+                <td>@vel.nazivPotkategorije</td>
+                <th>ID potkategorije</th>
+                <th>Naziv potkategorije</th>
+                @foreach (var vel2 in vel.velicine)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@vel2.ID</td>
+                        <td>@vel2.VelicinaOznaka</td>
+                    </tr>
+                }
+            }
+            }
+            </tbody>
+        </table>
+
+
+        <form asp-action="DodajVelicinu" asp-controller="Velicina">
+            <label>Odaberite potkategoriju:</label> <br />
+            <select asp-for="potkategorijaId" asp-items="Model.potkategorija" class="form-control"></select>
+            <label>Unesite naziv nove velicine:</label> <br />
+            <input asp-for="nazivNoveVelicine" class="form-control" type="text" placeholder="Unesite naziv nove veličine" /> <br />
+            <button type="submit" class="btn btn-dark">Dodaj veličinu</button>
+        </form>
+    </div>

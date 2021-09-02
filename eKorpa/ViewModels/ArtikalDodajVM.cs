@@ -21,6 +21,7 @@ namespace eKorpa.ViewModels
         public List<SelectListItem> Potkategorija{ get; set; }
         public List<byte[]> Slike { get; set; }
         public List<int> SlikaID { get; set; }
+        public List<int> Thumbnail { get; set; }
         public List<IFormFile> Slika { get; set; }
         public float Cijena { get; set; }
         public int BrendID { get; set; }

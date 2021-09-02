@@ -11,13 +11,13 @@
                 <input asp-for="RatingID" hidden />
                 <div class="form-group">
                     <label>Dojam</label>
-                    <input asp-for="Dojam" class="form-control" />
+                    <input required asp-for="Dojam" class="form-control" />
                     <span asp-validation-for="Dojam" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label>Ocjena</label>
-                    <input min="1" max="5" asp-for="Ocjena" class="form-control" />
+                    <input asp-for="Ocjena" required min="1" max="5" type="number" class="form-control" />
                     <span asp-validation-for="Ocjena" class="text-danger"></span>
                 </div>
                 <input asp-for="TipKorisnika" hidden />

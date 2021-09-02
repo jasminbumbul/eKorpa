@@ -1,0 +1,31 @@
+﻿@using eKorpa.ViewModels
+@model MaterijalIndexVM
+
+<div class="container">
+    <h4>Pregled i dodavanje materijala</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+        <th>ID</th>
+        <th>Naziv</th>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.materijali)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.naziv</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+    <form asp-action="DodajMaterijal" asp-controller="Materijal">
+        <label>Unesite naziv novog materijala:</label>
+        <input asp-for="nazivNovogMaterijala" class="form-control" type="text" placeholder="Unesite naziv novog materijala" /> <br />
+        <button type="submit" class="btn btn-dark">Dodaj materijal</button>
+    </form>
+</div>

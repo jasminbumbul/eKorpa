@@ -30,5 +30,6 @@ namespace eKorpa.EntityModels
         public int? VelicinaID { get; set; }
         public Velicina Velicina { get; set; }
         public DateTime DatumObjave { get; set; }
+        public bool Izbrisan { get; set; }
     }
 }

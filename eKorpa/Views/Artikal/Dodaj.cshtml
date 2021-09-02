@@ -39,9 +39,10 @@
             <span asp-validation-for="Brend" class="text-danger"></span>
 
             <label for="BrojUSkladistu">Broj u skladistu</label>
-            <input required min="1" asp-for="BrojUSkladistu">
+            <input required min="1" style="width:100%;height: 35px;" asp-for="BrojUSkladistu">
             <span asp-validation-for="BrojUSkladistu" class="text-danger"></span>
 
+            <br />
             <br />
 
             <label for="Boja">Boja</label>
@@ -80,10 +81,22 @@
                                 <div class="slika">
                                     <img src="@imgsrc" alt="Alternate Text" /><br />
                                     <div class="ikonice">
-                                        <a class="btn btn-info" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
-                                            <i class="fa fa-tasks" aria-hidden="true"></i>
-                                            <span class="tooltiptext">Postavi kao thumbnail</span>
-                                        </a>
+                                        @if (Model.Thumbnail[i] == 1)
+                                        {
+                                            <a class="btn btn-success" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                                <i class="fa fa-tasks" aria-hidden="true"></i>
+                                                <span class="tooltiptext">Ova slika je thumbnail</span>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-warning" href="/Artikal/SetThumbnail?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
+                                                <i class="fa fa-tasks" aria-hidden="true"></i>
+                                                <span class="tooltiptext">Postavi kao thumbnail</span>
+                                            </a>
+                                        }
+
                                         <a class="btn btn-danger" href="/Artikal/ObrisiSliku?SlikaID=@Model.SlikaID[i]&ArtikalID=@Model.ID">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                             <span class="tooltiptext">Obriši sliku</span>

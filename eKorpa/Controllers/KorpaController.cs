@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Data.EntityModels;
 using eKorpa.Data;
 using eKorpa.EntityModels;
+using Microsoft.AspNetCore.Authorization;
 using eKorpa.ViewModels;
 
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
+    [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
     public class KorpaController : Controller
     {
         ApplicationDbContext _database = new ApplicationDbContext();
@@ -28,8 +30,8 @@ namespace eKorpa.Controllers
                     Kategorija = _database.Artikal.Where(z => z.ID == x.ArtikalID).Select(p => p.Kategorija.NazivKategorije).Single(),
                     Kolicina = x.kolicina,
                     Cijena = x.cijena,
-                    Slika = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.SlikaFile).ToList(),
-                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ID).Select(y => y.Thumbnail).ToList()
+                    Slika = _database.Slika.Where(y => y.ArtikalID == x.ArtikalID && y.Thumbnail==1).Select(y => y.SlikaFile).ToList(),
+                    Thumbnail = _database.Slika.Where(y => y.ArtikalID == x.ArtikalID).Select(y => y.Thumbnail).ToList()
                 }).ToList()
             };
             
@@ -41,7 +43,11 @@ namespace eKorpa.Controllers
             
             Korpa korpa, temp = null;
             bool flag = false;
-            foreach(var item in _database.Korpa)
+
+            var kupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var itemiUKorpi = _database.Korpa.Where(x => x.KupacID == kupacID).ToList();
+
+            foreach (var item in itemiUKorpi)
             {
                 if (item.ArtikalID == ArtikalID)
                 {
@@ -62,6 +68,7 @@ namespace eKorpa.Controllers
                 korpa.KupacID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 korpa.kolicina += kolicina;
                 korpa.cijena = korpa.kolicina * artikal.Cijena;
+                korpa.Artikal = _database.Artikal.Find(ArtikalID);
                 _database.Korpa.Add(korpa);
             }
             _database.SaveChanges();
