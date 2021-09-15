@@ -1,11 +1,16 @@
 using Data.Helper;
 using eKorpa.Data;
 using eKorpa.EntityModels;
+using eKorpa.Filters;
+using eKorpa.SignalR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,13 +21,16 @@ using ReflectionIT.Mvc.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Twilio;
 
-namespace WebApplication3
+namespace eKorpa
 {
+
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,17 +39,21 @@ namespace WebApplication3
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseSqlServer(
-                       Configuration.GetConnectionString("DefaultConnection")));
+                 options.UseSqlServer(
+                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<Korisnik, IdentityRole>(opt =>
             {
                 opt.User.RequireUniqueEmail = true;
                 opt.SignIn.RequireConfirmedEmail = true;
                 opt.SignIn.RequireConfirmedAccount = true;
-            } ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+            }
+
+                ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+
             services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(2));
 
             services.AddMailKit(config => config.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>()));
@@ -63,7 +75,7 @@ namespace WebApplication3
 
             services.Configure<TwilioVerifySettings>(Configuration.GetSection("Twilio"));
 
-            //services.AddPaging();
+            services.AddPaging();
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
@@ -72,11 +84,8 @@ namespace WebApplication3
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();
-            //Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
-            services.AddCors(options => options.AddDefaultPolicy(
-              builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-                  ));
+   
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +93,19 @@ namespace WebApplication3
         {
             if (env.IsDevelopment())
             {
+                app.UseExceptionHandler(appError =>
+                {
+                    appError.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var exceptionHandler = context.Features.Get<IExceptionHandlerPathFeature>();
+                        if (exceptionHandler != null)
+                        {
+                            //int bugId = KretanjePoSistemu.Save(context, exceptionHandler);
+                            await context.Response.WriteAsync($"Kontaktirajte administratora. ");
+                        }
+                    });
+                });
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -93,19 +115,14 @@ namespace WebApplication3
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-            app.UseHttpsRedirection();
+          
+            app.UseStatusCodePages();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseCors();
 
             app.UseAuthentication();
@@ -117,7 +134,12 @@ namespace WebApplication3
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<MyHub>("/myhub");
             });
+
+
+
+
         }
     }
 }

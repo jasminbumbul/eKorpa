@@ -1,6 +1,7 @@
 ﻿using Data.EntityModels;
 using eKorpa.Data;
 using eKorpa.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,6 @@ namespace eKorpa.Controllers
             return NotFound();
         }
 
-        [HttpPost]
         public IActionResult SnimiPonudu([FromBody] PonudaDodajVM ponudaFilter) 
         { 
             if(ponudaFilter == null)
@@ -94,7 +94,6 @@ namespace eKorpa.Controllers
             return Ok(novaPonuda);
         }
 
-        [HttpPut]
         public IActionResult UrediPonudu([FromBody] PonudaDodajVM novi)
         {
             if (novi == null)
