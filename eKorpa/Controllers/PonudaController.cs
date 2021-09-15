@@ -129,7 +129,7 @@ namespace eKorpa.Controllers
             ponuda.IsAktivna = false;
             _database.SaveChanges();
 
-            var objekat = _database.Artikal.Where(x => x.KategorijaID == ponuda.KategorijaID && x.PotkategorijaID == ponuda.PotkategorijaID);
+            var objekat = _database.Artikal.Where(x => x.KategorijaID == ponuda.KategorijaID && x.PotkategorijaID == ponuda.PotkategorijaID).ToList();
             foreach (var item in objekat)
             {
                 item.CijenaSaPopustom = item.Cijena;
@@ -144,7 +144,7 @@ namespace eKorpa.Controllers
             ponuda.IsAktivna = true;
             _database.SaveChanges();
 
-            var objekat = _database.Artikal.Where(x => x.KategorijaID == ponuda.KategorijaID && x.PotkategorijaID == ponuda.PotkategorijaID);
+            var objekat = _database.Artikal.Where(x => x.KategorijaID == ponuda.KategorijaID && x.PotkategorijaID == ponuda.PotkategorijaID).ToList();
             foreach (var item in objekat)
             {
                 item.CijenaSaPopustom = item.Cijena - (item.Cijena * (ponuda.ProcenatSnizenja / 100));

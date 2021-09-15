@@ -53,5 +53,18 @@ namespace eKorpa.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Izbrisi(int opcinaId)
+        {
+            var objekat = _database.Grad.Find(opcinaId);
+
+            if (objekat != null)
+            {
+                _database.Remove(objekat);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -13,12 +13,14 @@
             <td>@kat.nazivKategorije</td>
             <th>ID potkategorije</th>
             <th>Naziv potkategorije</th>
+            <th>Akcija</th>
             @foreach (var potKat in kat.potkategorije)
             {
                 <tr>
                     <td></td>
                     <td>@potKat.ID</td>
                     <td>@potKat.Naziv</td>
+                    <td><a href="/Potkategorija/Izbrisi?potkategorijaId=@potKat.ID" class="btn btn-danger">Izbriši</a></td>
                 </tr>
             }
         }

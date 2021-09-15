@@ -1,7 +1,7 @@
 ﻿@using eKorpa.ViewModels
 @model KorisniciIndexVM
 
-<div class="container">
+<div class="container2">
     <h4>Pregled registrovanih korisnika</h4>
     <hr />
     <table class="table table-bordered">
@@ -14,6 +14,7 @@
         <th>Email verifikovan</th>
         <th>Broj telefona</th>
         <th>Broj verifikovan</th>
+        <th>Akcija</th>
         </thead>
 
         <tbody>
@@ -28,9 +29,18 @@
                 <td>@item.emailVerified</td>
                 <td>@item.brojTelefona</td>
                 <td>@item.phoneVerified</td>
+                <td><a href="/Korisnici/Delete?KorisnikID=@item.id" class="btn btn-danger">Izbriši</a></td>
             </tr>
             }
         </tbody>
 
     </table>
 </div>
+
+<style>
+    .container2{
+        max-width:1500px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+</style>

@@ -64,5 +64,19 @@ namespace eKorpa.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult Izbrisi(int velicinaId)
+        {
+            var velicina = _database.Velicina.Find(velicinaId);
+
+            if(velicina!=null)
+            {
+                _database.Remove(velicina);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

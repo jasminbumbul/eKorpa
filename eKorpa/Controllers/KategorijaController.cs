@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
-    [Authorize(Roles = "Admin,KorisnickaSluzba")]
     public class KategorijaController : Controller
     {
         private ApplicationDbContext _database;
@@ -22,6 +21,8 @@ namespace eKorpa.Controllers
         {
             _database = context;
         }
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba")]
         public IActionResult Index()
         {
             var objekat = new KategorijaIndexVM
@@ -34,6 +35,8 @@ namespace eKorpa.Controllers
             };
             return View(objekat);
         }
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba")]
         public IActionResult DodajKategoriju(KategorijaIndexVM novaKategorija)
         {
             if (novaKategorija == null)
@@ -54,6 +57,21 @@ namespace eKorpa.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Admin,KorisnickaSluzba")]
+        public IActionResult Izbrisi(int kategorijaId)
+        {
+            var objekat = _database.Kategorija.Find(kategorijaId);
+
+            if (objekat != null)
+            {
+                _database.Remove(objekat);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult GetKategorije()
         {

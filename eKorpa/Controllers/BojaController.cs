@@ -54,5 +54,18 @@ namespace eKorpa.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Izbrisi(int bojaId)
+        {
+            var boja = _database.Boja.Find(bojaId);
+
+            if (boja != null)
+            {
+                _database.Remove(boja);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

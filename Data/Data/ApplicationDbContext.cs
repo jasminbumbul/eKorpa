@@ -22,7 +22,9 @@ namespace eKorpa.Data
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=app.fit.ba,1431;Database=p2040_eKorpa;Trusted_Connection=False;MultipleActiveResultSets=true;User Id=P2040; Password=KSCTFQ3!;");
+        //=> options.UseSqlServer("Server=.;Database=p2040_eKorpa;Trusted_Connection=True;MultipleActiveResultSets=true;");
+        => options.UseSqlServer("Server=app.fit.ba,1431;Database=p2040_eKorpa;Trusted_Connection=False;MultipleActiveResultSets=true;User Id=P2040; Password=KSCTFQ3!;");
+
 
         public DbSet<Artikal> Artikal { get; set; }
         public DbSet<Kategorija> Kategorija  { get; set; }

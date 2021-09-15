@@ -680,7 +680,7 @@ namespace eKorpa.Controllers
                 poruka.Body += "</ul>";
 
                 poruka.Body += "<sub> Hvala Vam na korištenju eKorpe. Dužni ste da dostavite artikal kupcu u roku od 7 dana. " +
-                    "</br>Ukoliko se to ne desi, biti ćete sankcionisani u skladu sa pravilima stranice. </br> Ukoliko zatrebate pomoć, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+                    "</br>Ukoliko se to ne desi, biti ćete sankcionisani u skladu sa pravilima stranice. </br> Ukoliko zatrebate pomoć, molimo Vas da <a href='api.p2040.app.fit.ba/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
 
 
                 poruka.IsBodyHtml = true;
@@ -724,7 +724,7 @@ namespace eKorpa.Controllers
             }
 
             message.Body += "<sub> Hvala Vam na kupovini. Prodavači su dužni da vam dostave artikle u roku od 7 dana. " +
-                "</br>Ukoliko se to ne desi, molimo Vas da <a href='/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
+                "</br>Ukoliko se to ne desi, molimo Vas da <a href='api.p2040.app.fit.ba/Kontakt/Index'>kontaktirate korisničku službu.</a></sub>";
 
 
             message.IsBodyHtml = true;

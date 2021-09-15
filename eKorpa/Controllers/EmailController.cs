@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
-    [Authorize(Roles = "Admin,KorisnickaSluzba,Kupac/Prodavac")]
     public class EmailController : Controller
     {
         private readonly UserManager<Korisnik> _userManager;

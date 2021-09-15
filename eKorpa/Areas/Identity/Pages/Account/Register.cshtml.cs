@@ -127,8 +127,8 @@ namespace eKorpa.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     //adding the default role to a new user (Kupac/Prodavac)
-
-                    foreach (var item in _database.Roles)
+                    var roles = _database.Roles.ToList();
+                    foreach (var item in roles)
                     {
                         if(item.Name=="Kupac/Prodavac")
                         {
@@ -166,8 +166,8 @@ namespace eKorpa.Areas.Identity.Pages.Account
                         smtp.Port = 587;
                         smtp.EnableSsl = true;
                         await smtp.SendMailAsync(message);
-                        return Redirect("/Email/EmailVerification");
                     }
+                    return Redirect("/Email/EmailVerification");
                 }
                 foreach (var error in result.Errors)
                 {

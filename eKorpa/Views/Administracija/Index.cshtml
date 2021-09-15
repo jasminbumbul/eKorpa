@@ -1,13 +1,19 @@
-﻿<div class="container">
-    <a href="/Korisnici" class="adminItem">
-        Korisnici
-    </a>
-    <a href="/RoleManager" class="adminItem">
-        RoleManager
-    </a>
-    <a href="/UserRoles" class="adminItem">
-        UserRoles
-    </a>
+﻿@using System.Security.Claims
+
+
+<div class="container">
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/Korisnici" class="adminItem">
+            Korisnici
+        </a>
+        <a href="/RoleManager" class="adminItem">
+            RoleManager
+        </a>
+        <a href="/UserRoles" class="adminItem">
+            UserRoles
+        </a>
+    }
     <a href="/Kategorija" class="adminItem">
         Kategorija
     </a>

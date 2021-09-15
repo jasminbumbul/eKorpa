@@ -8,15 +8,17 @@
             <thead>
             <th>ID</th>
             <th>Naziv</th>
+            <th>Akcija</th>
             </thead>
 
             <tbody>
                 @foreach (var item in Model.kategorije)
                 {
-                    <tr>
-                        <td>@item.id</td>
-                        <td>@item.naziv</td>
-                    </tr>
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.naziv</td>
+                    <td><a href="/Kategorija/Izbrisi?kategorijaId=@item.id" class="btn btn-danger">Izbriši</a></td>
+                </tr>
                 }
             </tbody>
 

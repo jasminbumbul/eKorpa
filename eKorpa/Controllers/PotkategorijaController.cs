@@ -64,5 +64,20 @@ namespace eKorpa.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Izbrisi(int potkategorijaId)
+        {
+            var potkategorija = _database.Potkategorija.Find(potkategorijaId);
+
+            if (potkategorija != null)
+            {
+                _database.Remove(potkategorija);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

@@ -9,6 +9,7 @@
         <thead>
         <th>ID</th>
         <th>Naziv</th>
+        <th>Akcija</th>
         </thead>
 
         <tbody>
@@ -17,6 +18,7 @@
                 <tr>
                     <td>@item.id</td>
                     <td>@item.naziv</td>
+                    <td><a href="/Boja/Izbrisi?bojaId=@item.id" class="btn btn-danger">Izbriši</a></td>
                 </tr>
             }
         </tbody>

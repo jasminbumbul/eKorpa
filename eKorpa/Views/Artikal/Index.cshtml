@@ -123,7 +123,7 @@
 
                     @if (item.Cijena != item.CijenaSaPopustom)
                     {
-                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena" style="text-decoration: line-through">@item.Cijena KM</span>
+                        <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena" style="text-decoration: line-through;padding-right:2px">@item.Cijena KM</span>
                         <span onclick="OtvoriDetaljeArtikla(@item.ID)" class="cijena">@item.CijenaSaPopustom KM  </span>
                     }
                     else
@@ -134,7 +134,7 @@
 
                     <div class="ikonice">
 
-                        @if (claimsIdentity == item.ProdavacId)
+                        @if (claimsIdentity == item.ProdavacId || User.IsInRole("Admin") || User.IsInRole("KorisnickaSluzba"))
                         {
                             <div>
 

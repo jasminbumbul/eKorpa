@@ -14,19 +14,20 @@ namespace eKorpa.Controllers
 {
     [AutoValidateAntiforgeryToken]
     [Authorize(Roles = "Admin,KorisnickaSluzba")]
-    public class BrendController : Controller
+
+    public class MaterijalController : Controller
     {
         private ApplicationDbContext _database;
 
-        public BrendController(ApplicationDbContext context)
+        public MaterijalController(ApplicationDbContext context)
         {
             _database = context;
         }
         public IActionResult Index()
         {
-            var objekat = new BrendIndexVM
+            var objekat = new MaterijalIndexVM
             {
-                brendovi = _database.Brend.Select(x => new BrendIndexVM.Brend
+                materijali = _database.Materijal.Select(x => new MaterijalIndexVM.Materijal
                 {
                     id = x.ID,
                     naziv = x.Naziv
@@ -34,23 +35,36 @@ namespace eKorpa.Controllers
             };
             return View(objekat);
         }
-        public IActionResult DodajBrend(BrendIndexVM noviBrend)
+        public IActionResult DodajMaterijal(MaterijalIndexVM noviMaterijal)
         {
-            if (noviBrend == null)
+            if (noviMaterijal.nazivNovogMaterijala == null)
             {
-                return BadRequest("Brend je nula");
+                return BadRequest("Materijal je nula");
             }
-            if (noviBrend.nazivNovogBrenda.Length < 3)
+            if (noviMaterijal.nazivNovogMaterijala.Length < 3)
             {
-                return BadRequest("Nepravilan naziv brenda");
+                return BadRequest("Nepravilan naziv materijala");
             }
-            var brend = new Brend
+            var materijal = new Materijal
             {
-                Naziv = noviBrend.nazivNovogBrenda
+                Naziv=noviMaterijal.nazivNovogMaterijala
             };
 
-            _database.Add(brend);
+            _database.Add(materijal);
             _database.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Izbrisi(int materijalId)
+        {
+            var objekat = _database.Materijal.Find(materijalId);
+
+            if (objekat != null)
+            {
+                _database.Remove(objekat);
+                _database.SaveChanges();
+            }
 
             return RedirectToAction("Index");
         }

@@ -42,5 +42,26 @@ namespace eKorpa.Controllers
             return View(objekat);
         }
 
+        public IActionResult Delete(string KorisnikID)
+        {
+            var korisnik = _database.Users.Find(KorisnikID);
+            if (korisnik != null)
+            {
+                var artikliKorisnika = _database.Artikal.Where(x => x.ProdavacID == korisnik.Id).ToList();
+
+                foreach (var item in artikliKorisnika)
+                {
+                    item.Izbrisan = true;
+                }
+                _database.SaveChanges();
+
+
+                _database.Remove(korisnik);
+                _database.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -13,22 +13,24 @@
                 @if (vel.velicine.Count() == 0)
                 {
                     <tr>
-                <td>@vel.nazivPotkategorije</td>
+                        <td>@vel.nazivPotkategorije</td>
                     </tr>
 
-            }
-            else
-            {
+                }
+                else
+                {
 
                 <td>@vel.nazivPotkategorije</td>
                 <th>ID potkategorije</th>
                 <th>Naziv potkategorije</th>
+                <th>Akcija</th>
                 @foreach (var vel2 in vel.velicine)
                 {
                     <tr>
                         <td></td>
                         <td>@vel2.ID</td>
                         <td>@vel2.VelicinaOznaka</td>
+                        <td><a class="btn btn-danger" href="/Velicina/Izbrisi?velicinaId=@vel2.ID">Izbriši</a></td>
                     </tr>
                 }
             }
