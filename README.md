@@ -9,7 +9,7 @@ One of the tasks was to also create a part of the app using Angular.
 
 "eKorpa" is an webApp that provides sales services for clothing. 
 Users can search for different types of brands, types of clothing , sort by price and etc.
-Also, users can create and account and sell an item online or buy an item. 
+Also, users can create accounts and sell or buy an item online. 
 The purchasing part is done through paying cash on delivery.
 
 Employees also have accounts, but their accounts are designed for administrative purposes, solving users problems and etc.
