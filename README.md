@@ -21,6 +21,7 @@ Jasmin Bumbul [jasmin.bumbul@edu.fit.ba] &
 Ramiz Mašić [ramiz.masic@edu.fit.ba]
 
 The current version of the app, can be visited by clicking [on this link](https://api.p2040.app.fit.ba/).
+
 The Angular frontend of the app, can be visited by clicking [on this link](https://p2040.app.fit.ba/).
 
 # App screenshots
